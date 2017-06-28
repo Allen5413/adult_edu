@@ -12,7 +12,7 @@
           <select name="feeState">
             <option value="">全部</option>
             <option value="0" <c:if test="${param.feeState eq '0'}">selected="selected" </c:if> >未缴费</option>
-            <option value="1" <c:if test="${param.feeState eq '1'}">selected="selected" </c:if>>已缴费</option>
+            <option value="2" <c:if test="${param.feeState eq '2'}">selected="selected" </c:if>>已缴费</option>
           </select>
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="itg">授权到期时间：</span>
@@ -57,12 +57,12 @@
             <c:forEach var="center" items="${pageInfo.pageResults}">
               <tr>
                 <td>${center.phone}</td>
-                <td>${center.cerateTime}</td>
+                <td>${center.createTime}</td>
                 <td>${center.name}</td>
                 <td>${center.code}</td>
                 <td>${center.authorizeDate}</td>
-                <td>${feeState}</td>
-                <td>${state}</td>
+                <td>${center.feeStateStr}</td>
+                <td>${center.stateStr}</td>
                 <td>
                   <a class="btn-opr" href="#">手机去绑定</a>
                 </td>

@@ -40,7 +40,7 @@
           </tr>
           <tr>
             <td class="tag-b">学习中心介绍：</td>
-            <td><textarea class="textarea-intro" name="remark" rows="5" cols="50" >${reqParams}</textarea></td>
+            <td><textarea class="textarea-intro" name="remark" rows="5" cols="50" ></textarea></td>
           </tr>
           <tr>
             <td class="tag-b"></td>
@@ -72,6 +72,6 @@
       return false;
     }
     $("#authorizeDate").val($("#date").val()+" 23:59:59");
-    app.add("${pageContext.request.contextPath}/addCenter/add.html", $("#form").serialize(), "${pageContext.request.contextPath}/pageCenter/page.html", ${reqParams});
+    app.add("${pageContext.request.contextPath}/addCenter/add.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageCenter/page.html", ${reqParams});
   }
 </script>

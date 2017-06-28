@@ -1,4 +1,4 @@
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <tr>
   <td class="td-foot" colspan="99">
     <div class="com-pages">

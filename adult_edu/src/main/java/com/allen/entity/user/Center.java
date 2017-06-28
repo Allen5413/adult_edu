@@ -1,9 +1,6 @@
 package com.allen.entity.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -35,6 +32,11 @@ public class Center {
     private Date createTime = new Date();       //创建时间
     private String operator;                    //操作人
     private Date operateTime = new Date();      //操作时间
+
+    @Transient
+    private String feeStateStr;
+    @Transient
+    private String stateStr;
 
     public Long getId() {
         return id;
@@ -130,5 +132,27 @@ public class Center {
 
     public void setCerator(String cerator) {
         this.cerator = cerator;
+    }
+
+    public String getFeeStateStr() {
+        switch (this.getFeeState()){
+            case FEESTATE_NOT:
+                return "未缴费";
+            case FEESTATE_YES:
+                return "已缴费";
+            default:
+                return "未知";
+        }
+    }
+
+    public String getStateStr() {
+        switch (this.getState()){
+            case STATE_NOT:
+                return "停用";
+            case STATE_YES:
+                return "启用";
+            default:
+                return "未知";
+        }
     }
 }

@@ -73,7 +73,7 @@ App.prototype.clickResources = function(url, params, obj){
     $.ajax({
         cache: true,
         type: "POST",
-        params: params,
+        data: params,
         url: url,
         async: false,
         success: function (data) {
@@ -422,11 +422,7 @@ App.prototype.add = function(url, params, url2, params2){
         async: false,
         success: function(data) {
             if(data.state == 0){
-                if(callBack){
-                    callBack(data.data);
-                }else{
-                    app.clickResources(url2)
-                }
+                app.clickResources(url2, params2);
             }else{
                 app.msg(data.msg, 1);
             }
