@@ -122,6 +122,7 @@ body{background: #ececec;}
 .pos-rev-cell .search-view .inline-input{display: inline-block; height: 28px; overflow: hidden;}
 .pos-rev-cell .search-view .input-txt-200{width: 200px; height: 24px; border: solid #e5e5e5 1px; outline: none;}
 .pos-rev-cell .search-view .btn-1{display: inline-block; height: 28px; border-radius: 3px; padding: 0 10px; background-color: #4AA6FC; color: #fff; line-height: 30px;}
+.search-view li .itg{display: inline-block; font-size: 14px; position: relative; top: -7px;}
 .container-view{padding: 20px 20px 0; font-size: 14px;}
 
 .mod-com-view{background: #fff; border: solid #e5e5e5 1px; min-height: 400px; margin-bottom: 20px;}
@@ -200,6 +201,7 @@ body{background: #ececec;}
 .nav-rt-list .on.n-icon-05:before{background-image: url(../img/n-ico-05-s.png);}
 .nav-rt-list .on.n-icon-06:before{background-image: url(../img/n-ico-06-s.png);}
 .nav-rt-list .on.n-icon-07:before{background-image: url(../img/n-ico-07-s.png);}
+.nav-rt-list .n-icon{background-position: 15px 5px !important; background-repeat: no-repeat !important; padding:0 0 0 38px !important;}
 
 
 .logon-view{width: 400px; margin: 20vh auto 0; box-shadow: 2px 2px 6px #A1A1A1; background: #fff; border: solid #e0e0e0 1px; border-radius: 3px;}
@@ -215,3 +217,12 @@ body{background: #ececec;}
 .input-item-list .bar-but a{margin: 0 30px;}
 .reg-btn-1,.reg-btn-2{display: inline-block; padding: 7px 25px; border-radius: 3px; color: #fff !important; background: #008CD3;}
 .reg-btn-2{background: #acacac;}
+
+.info-table-input{margin:20px 15px; border-top: solid #f0f0f0 1px; border-right: solid #f0f0f0 1px;}
+.info-table-input th{background: #D7EAFD; padding: 8px; font-size: 14px; border-bottom: solid #f0f0f0 1px; border-left: solid #f0f0f0 1px;}
+.info-table-input td{padding: 8px; background: #fff; border-bottom: solid #f0f0f0 1px; border-left: solid #f0f0f0 1px; vertical-align: middle;}
+.info-table-input td.tag-b{background: #D7EAFD; width: 120px;}
+.info-table-input .in-table{}
+.info-table-input .textarea-intro{border: solid #d5d5d5 1px; resize: none; width: 100%;}
+.set-table-info .textarea-intro{border: solid #d5d5d5 1px; resize: none; width: 540px;}
+

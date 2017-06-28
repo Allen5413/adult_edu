@@ -1,5 +1,4 @@
-var vaild = new Vaildate();
-
+var vaildApp = new Vaildate();
 function Vaildate(){}
 
 /**
@@ -127,6 +126,20 @@ Vaildate.prototype.vaildLuhm = function(bankno){
         return true;
     }
     else{
+        return false;
+    }
+}
+
+/**
+ * 验证手机号
+ * @param number
+ * @min
+ * @max
+ */
+Vaildate.prototype.vaildPhone = function(phone){
+    if(!isNaN(phone) && "" != phone && 11 == phone.length){
+        return true;
+    }else{
         return false;
     }
 }

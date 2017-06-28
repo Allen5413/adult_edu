@@ -1,30 +1,55 @@
-(function($) {
-  'use strict';
-  $(function() {
-    $('#admin-fullscreen').on('click', function() {
-      $.AMUI.fullscreen.toggle();
-    });
+$(document).ready(function(){
+    function barnumFixed(id){
+        var obj = document.getElementById(id);
+        var _getHeight = obj.offsetTop;
 
-    var getWindowHeight = $(window).height(),
-      myappLoginBg = $('.myapp-login-bg');
-    myappLoginBg.css('min-height',getWindowHeight + 'px');
+        window.onscroll = function(){
+            changePos(id,_getHeight);
+        }
+    }
+    function changePos(id,height){
+        var obj = document.getElementById(id);
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        if(scrollTop < 1){
+            obj.style.position = 'relative';
+        }else{
+            obj.style.position = 'fixed';
+        }
+    }
+    window.onload = function(){
+        barnumFixed('tit-top-fixed');
+    }
+
+    //子元素滚动不影响父元素 js
+    $.fn.scrollUnique = function() {
+        return $(this).each(function() {
+            var eventType = 'mousewheel';
+            // 火狐是DOMMouseScroll事件
+            if (document.mozHidden !== undefined) {
+                eventType = 'DOMMouseScroll';
+            }
+            $(this).on(eventType, function(event) {
+                // 一些数据
+                var scrollTop = this.scrollTop,
+                    scrollHeight = this.scrollHeight,
+                    height = this.clientHeight;
+
+                var delta = (event.originalEvent.wheelDelta) ? event.originalEvent.wheelDelta : -(event.originalEvent.detail || 0);
+
+                if ((delta > 0 && scrollTop <= delta) || (delta < 0 && scrollHeight - height - scrollTop <= -1 * delta)) {
+                    // IE浏览器下滚动会跨越边界直接影响父级滚动，因此，临界时候手动边界滚动定位
+                    this.scrollTop = delta > 0? 0: scrollHeight;
+                    // 向上滚 || 向下滚
+                    event.preventDefault();
+                }
+            });
+        });
+    };
+    $(".nav-rt-list").scrollUnique();
 
     //加载弹出框样式
     layer.config({skin: 'layer-ext-moon', extend:'skin/moon/style.css'});
-
-    //初始化单选复选框样式
-    $("input[type='checkbox'], input[type='radio']").uCheck();
-
-    //解决内容页面不能选中文字问题
-    //谷歌
-    $(".am-tabs-bd").css("-webkit-user-select", "auto");
-    $(".am-tabs-bd").css("-webkit-user-drag", "auto");
-    //ie
-    $(".am-tabs-bd").css("-ms-user-select", "auto");
-    $(".am-tabs-bd").css(" -ms-touch-select", "auto");
-
-  });
-})(jQuery);
+})
 
 var app = new App();
 function App(){
@@ -33,12 +58,28 @@ function App(){
 }
 
 App.prototype.clickMenu = function(id){
-	var cla = $("#"+id).attr("class");
-	if("am-icon-angle-right am-fr am-margin-right" == cla){
-		$("#"+id).attr("class", "am-icon-angle-down am-fr am-margin-right");
-	}else{
-		$("#"+id).attr("class", "am-icon-angle-right am-fr am-margin-right");
-	}
+    if($("#resources_"+id).is(":hidden")){
+        $("#resources_"+id).show();
+    }else{
+        $("#resources_"+id).hide();
+    }
+}
+
+App.prototype.clickResources = function(url, params, obj){
+    if("undefined" != typeof (obj) && null != obj) {
+        $("[name=resources_a]").attr("class", "");
+        $(obj).addClass("on");
+    }
+    $.ajax({
+        cache: true,
+        type: "POST",
+        params: params,
+        url: url,
+        async: false,
+        success: function (data) {
+            $("#contentPage").html(data);
+        }
+    });
 }
 
 /**
@@ -339,233 +380,28 @@ App.prototype.getWindowSize = function() {
 }
 
 /**
- * 添加选项卡
- * @param url
+ * 点击查询按钮  btnObj为undefined，说明是从点击页码跳转来的，否则是点击查询按钮来的
  * @param obj
- * @param name
- */
-App.prototype.addTab = function(url, name, index, index2, isServiceLoad){
-    var isAdd = true;
-    $("#tab").find("li").each(function(){
-        if($(this).attr("lang") == index+"_"+index2){
-            $(this).addClass("am-active");
-            isAdd = false;
-        }else{
-            $(this).removeClass("am-active");
-        }
-    });
-    if(isAdd) {
-        var addTab = "<li class='am-active' lang='" + index+"_"+index2 + "'><a lang='"+url+"' href='#contentPage' onclick='app.clickTab(this)' style='float: left'>" + name + "</a></li>";
-        $("#tab").append(addTab);
-    }
-    app.openTab(url, isServiceLoad);
-}
-
-/**
- * 点击选项卡
- * @param obj
- */
-App.prototype.clickTab = function(obj){
-    $("#tab").find("li").each(function(){
-        $(this).removeClass("am-active");
-    });
-    $(obj).parent().addClass("am-active");
-    var url = $(obj).attr("lang");
-    var falg;
-    if(0 <= url.indexOf("?")) {
-        falg = url.substring(0, url.indexOf("?")).replace("/", "").replace("/", "").replace(".html", "");
-    }else{
-        falg = url.replace("/", "").replace("/", "").replace(".html", "");
-    }
-    var html = app.pageHtmlJSON[falg];
-    $("#contentPage").html(html);
-}
-
-/**
- * 关闭选项卡
- */
-App.prototype.removeTab = function(){
-    var isFind = false;
-    $("#tab").find("li").each(function(){
-        if($(this).attr("class") == "am-active" && $(this).attr("lang") != "0" && !isFind){
-            var url;
-            if(typeof($(this).next("li").html()) == "undefined"){
-                $(this).prev("li").addClass("am-active");
-                url = $(this).prev("li").find("a").attr("lang");
-            }else{
-                $(this).next("li").addClass("am-active");
-                url = $(this).next("li").find("a").attr("lang");
-            }
-
-            var falg;
-            if(0 <= url.indexOf("?")) {
-                falg = url.substring(0, url.indexOf("?")).replace("/", "").replace("/", "").replace(".html", "");
-            }else{
-                falg = url.replace("/", "").replace("/", "").replace(".html", "");
-            }
-            var html = app.pageHtmlJSON[falg];
-            $("#contentPage").html(html);
-
-            $(this).remove();
-            isFind = true;
-        }
-    });
-}
-
-/**
- * 打开一个tab
  * @param url
- * @param index
  */
-App.prototype.openTab = function(url, isServiceLoad){
-    var falg;
-    if(0 <= url.indexOf("?")) {
-        falg = url.substring(0, url.indexOf("?")).replace("/", "").replace("/", "").replace(".html", "");
-    }else{
-        falg = url.replace("/", "").replace("/", "").replace(".html", "");
-    }
-    var html = this.pageHtmlJSON[falg];
-    /**
-     * 如果该url有之前保留的html代码，就加载之前存的，否则重新请求
-     */
-    if(typeof (html) == "undefined" || isServiceLoad == 0){
+App.prototype.searchFormPage = function(obj, url){
+    //$("#rows").val($("#rows_txt").val());
+    if(url != "") {
+        var params = {};
+        if(null != obj){
+            params = obj.serialize();
+        }
         $.ajax({
             cache: true,
             type: "POST",
             url: url,
             async: false,
+            data: params,
             success: function (data) {
                 $("#contentPage").html(data);
-                app.pageHtmlJSON[falg] = data;
             }
         });
-    }else{
-        $("#contentPage").html(html);
     }
-}
-
-/**
- * 点击查询按钮  btnObj为undefined，说明是从点击页码跳转来的，否则是点击查询按钮来的
- * @param obj
- * @param url
- */
-App.prototype.searchFormPage = function(obj, url, btnObj){
-    $("#rows").val($("#rows_txt").val());
-    if(typeof (btnObj) != "undefined") {
-        $("#currentPage").val(1);
-    }
-    if(url != "") {
-        if(typeof (btnObj) != "undefined") {
-            $(btnObj).button('loading');
-        }
-        setTimeout(function(){
-            var falg = url.replace("/", "").replace("/", "").replace(".html", "");
-            var params = {};
-            if(null != obj){
-                params = obj.serialize();
-            }
-            $.ajax({
-                cache: true,
-                type: "POST",
-                url: url,
-                async: false,
-                data: params,
-                success: function (data) {
-                    $("#contentPage").html(data);
-                    app.pageHtmlJSON[falg] = data
-                }
-            });
-        }, 100);
-    }
-}
-
-/**
- * ajax查询数据，组装成表格
- * @param obj
- * @param url
- * @param btnObj
- * @param tableId
- * @param tdNum
- * @param isCheckBox
- */
-App.prototype.searchForm = function(obj, url, btnObj, tableId, tdNum, isCheckBox){
-    if(url != "") {
-        $(btnObj).button('loading');
-        setTimeout(function(){
-            var params = {};
-            if(null != obj){
-                params = obj.serialize();
-            }
-            $.ajax({
-                cache: true,
-                type: "POST",
-                url: url,
-                async: false,
-                data: params,
-                success: function (data) {
-                    var table = $("#"+tableId);
-                    if(typeof (data.jsonData) == "undefined" || 0 == data.jsonData.length){
-                        var tr = $("<tr></tr>");
-                        var td = $("<td colspan=\"99\" align=\"center\" style=\"color: red;\">没有找到相关数据</td>");
-                        tr.append(td);
-                        table.append(tr);
-                    }else{
-                        for(var i=0; i<data.jsonData.length; i++){
-                            var json = data.jsonData[i];
-                            var tr = $("<tr></tr>");
-                            for(var j=0; j<tdNum; j++){
-                                var td;
-                                if(j == 0) {
-                                    if (isCheckBox) {
-                                        td = $("<td>" +
-                                        "<label class=\"am-checkbox am-secondary\" style=\"margin-top:5px; margin-left:24px;\">" +
-                                            "<input type=\"checkbox\" name=\"cb\" value=\"${json.toStuFie},${json.stuCode},${json.stuName}\" onclick=\"changeColor(this)\" data-am-ucheck>" +
-                                        "</label></td>");
-                                    } else {
-                                        td = $("<td>"+(i+1)+"</td>");
-                                    }
-                                }else{
-                                    td = $("<td>"+json[j]+"</td>");
-                                }
-                                tr.append(td);
-                            }
-                            table.append(tr);
-                        }
-                    }
-                }
-            });
-        }, 100);
-    }
-}
-
-/**
- * 选择省中心，联动学习中心
- * @param provSel
- * @param spotSelId
- * @param contextPath
- */
-App.prototype.selectProv = function(provSel, spotSelId, contextPath){
-    app.changeSelect(provSel);
-    var provCode = $(provSel).val();
-    $.ajax({
-        cache: true,
-        type: "POST",
-        url:contextPath+"/findSpotByProvCode/doFindSpotByProvCode.htm",
-        data:{"provCode":provCode},
-        async: false,
-        success: function(result) {
-            $("#"+spotSelId+" option").remove();
-            $("#"+spotSelId).append("<option value=''></option>");
-            $("#"+spotSelId).append("<option value='null'>全部</option>");
-            if(typeof(result.spotArray) != "undefined"){
-                for(var i=0; i<result.spotArray.length; i++){
-                    var spot = result.spotArray[i];
-                    $("#"+spotSelId).append("<option value='"+spot.code+"'>["+spot.code+"]"+spot.name+"</option>");
-                }
-            }
-        }
-    });
-
 }
 
 /**
@@ -577,7 +413,7 @@ App.prototype.selectProv = function(provSel, spotSelId, contextPath){
  * @param width
  * @param height
  */
-App.prototype.add = function(url, params, index,callBack){
+App.prototype.add = function(url, params, url2, params2){
     $.ajax({
         cache: true,
         type: "POST",
@@ -586,14 +422,10 @@ App.prototype.add = function(url, params, index,callBack){
         async: false,
         success: function(data) {
             if(data.state == 0){
-                app.msg('提交成功', 0);
-                if(typeof(index) != "undefined") {
-                    layer.close(index);
-                }
                 if(callBack){
                     callBack(data.data);
                 }else{
-                    $("#searchBtn").click();
+                    app.clickResources(url2)
                 }
             }else{
                 app.msg(data.msg, 1);
@@ -785,16 +617,4 @@ App.prototype.operator = function(confirmStr, url, params, btnObj){
             });
         }, 100);
     });
-}
-
-/**
- * 由于AMAEI UI的select没有选择为空值的情况，所以模拟选中全部的时候，值为空
- * @param confirmStr
- * @param url
- * @param btnObj
- */
-App.prototype.changeSelect = function(obj){
-    if("null" == $(obj).find("option:selected").val()){
-        $(obj).find("option").removeAttr("selected");
-    }
 }
