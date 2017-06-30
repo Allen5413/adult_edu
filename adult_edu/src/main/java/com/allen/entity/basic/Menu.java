@@ -19,6 +19,7 @@ public class Menu {
     private String operator;
     private Date operateTime = new Date();
     private int sno=0;//排序号
+    private String icon;
 
     public long getId() {
         return id;
@@ -82,5 +83,13 @@ public class Menu {
 
     public void setSno(int sno) {
         this.sno = sno;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

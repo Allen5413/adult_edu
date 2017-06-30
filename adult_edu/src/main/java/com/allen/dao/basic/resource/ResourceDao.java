@@ -15,6 +15,6 @@ public interface ResourceDao extends CrudRepository<Resource, Long> {
      * @param userId
      * @return
      */
-    @Query("select r from Resource r, UserGroupResource ugr, UserGroupUser ugu where r.id = ugr.resourceId and ugr.userGroupId = ugu.userGroupId and ugu.userId = ?1 order by r.sno")
+    @Query("select r from Resource r, UserGroupResource ugr, UserGroupUser ugu where r.id = ugr.resourceId and ugr.userGroupId = ugu.userGroupId and ugu.userId = ?1 order by r.menuId, r.sno")
     public List<Resource> findByUserId(long userId);
 }

@@ -52,6 +52,33 @@ public class UserUtil {
         }
     }
 
+    /**
+     * 获取登录用户的类型
+     * @param request
+     * @return
+     */
+    public static Integer getLoginUserForType(HttpServletRequest request){
+        return (Integer) request.getSession().getAttribute("type");
+    }
+
+    /**
+     * 获取登录用户的中心id
+     * @param request
+     * @return
+     */
+    public static Long getLoginUserForCenterId(HttpServletRequest request){
+        return (Long) request.getSession().getAttribute("centerId");
+    }
+
+    /**
+     * 获取登录用户的操作后是否需要中心管理员审核
+     * @param request
+     * @return
+     */
+    public static Integer getLoginUserForIsOperateAudit(HttpServletRequest request){
+        return (Integer) request.getSession().getAttribute("isOperateAudit");
+    }
+
 
     /**
      * 得到登录用户的所属菜单资源信息

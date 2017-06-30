@@ -46,10 +46,9 @@ $(document).ready(function(){
         });
     };
     $(".nav-rt-list").scrollUnique();
-
     //加载弹出框样式
     layer.config({skin: 'layer-ext-moon', extend:'skin/moon/style.css'});
-})
+});
 
 var app = new App();
 function App(){
@@ -69,6 +68,9 @@ App.prototype.clickResources = function(url, params, obj){
     if("undefined" != typeof (obj) && null != obj) {
         $("[name=resources_a]").attr("class", "");
         $(obj).addClass("on");
+    }
+    if("undefined" != typeof (params)) {
+        params = {};
     }
     $.ajax({
         cache: true,
@@ -114,7 +116,7 @@ App.prototype.msg = function(msg, flag){
 
 App.prototype.confirm = function(content, fun){
     layer.confirm(content, {icon: 3, title:'提示'}, function(index){
-        fun();
+        fun(index);
     });
 }
 
@@ -559,30 +561,22 @@ App.prototype.edit = function(url, params, index){
  * @param url
  * @param btnObj
  */
-App.prototype.del = function(confirmStr, url, params, btnObj){
+App.prototype.del = function(confirmStr, url, params){
     app.confirm(confirmStr, function(){
-        if(typeof (btnObj) != "undefined") {
-            $(btnObj).button('loading');
-        }
-        setTimeout(function(){
-            $.ajax({
-                url:url,
-                method : 'POST',
-                async:false,
-                data:params,
-                success:function(data){
-                    if(data.state == 0){
-                        app.msg("删除成功！", 0);
-                        $("#searchBtn").click();
-                    }else {
-                        app.msg(data.msg, 1);
-                        if(typeof (btnObj) != "undefined") {
-                            $(btnObj).button('reset');
-                        }
-                    }
+        $.ajax({
+            url:url,
+            method : 'POST',
+            async:false,
+            data:params,
+            success:function(data){
+                if(data.state == 0){
+                    app.msg("删除成功！", 0);
+                    $("#searchBtn").click();
+                }else {
+                    app.msg(data.msg, 1);
                 }
-            });
-        }, 100);
+            }
+        });
     });
 }
 
@@ -592,25 +586,21 @@ App.prototype.del = function(confirmStr, url, params, btnObj){
  * @param url
  * @param btnObj
  */
-App.prototype.operator = function(confirmStr, url, params, btnObj){
+App.prototype.operator = function(confirmStr, url, params){
     app.confirm(confirmStr, function(){
-        $(btnObj).button('loading');
-        setTimeout(function(){
-            $.ajax({
-                url:url,
-                method : 'POST',
-                async:false,
-                data:params,
-                success:function(data){
-                    if(data.state == 0){
-                        app.msg("操作成功！", 0);
-                        $("#searchBtn").click();
-                    }else {
-                        app.msg(data.msg, 1);
-                        $(btnObj).button('reset');
-                    }
+        $.ajax({
+            url:url,
+            method : 'POST',
+            async:false,
+            data:params,
+            success:function(data){
+                if(data.state == 0){
+                    app.msg("操作成功！", 0);
+                    $("#searchBtn").click();
+                }else {
+                    app.msg(data.msg, 1);
                 }
-            });
-        }, 100);
+            }
+        });
     });
 }

@@ -23,6 +23,7 @@ public class Center {
     private Long id;                            //主键
     private String code;
     private String name;
+    private String linkman;
     private String phone;
     private Timestamp authorizeDate;
     private int feeState;
@@ -154,5 +155,13 @@ public class Center {
             default:
                 return "未知";
         }
+    }
+
+    public String getLinkman() {
+        return linkman;
+    }
+
+    public void setLinkman(String linkman) {
+        this.linkman = linkman;
     }
 }

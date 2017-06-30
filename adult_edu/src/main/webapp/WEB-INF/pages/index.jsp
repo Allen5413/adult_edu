@@ -19,7 +19,7 @@
           <ul>
             <li><a href="#">联系我们</a></li>
             <li><a href="#">返回个人中心</a></li>
-            <li><a href="#">退出登录</a></li>
+            <li><a href="${pageContext.request.contextPath}/logout.html">退出登录</a></li>
           </ul>
         </div>
       </li>
@@ -29,10 +29,10 @@
 <div id="main_page" class="section-view">
   <div class="nav-view">
     <div class="title">目录</div>
-    <ul class="nav-rt-list">
+    <ul id="nav_1" class="nav-rt-list">
       <c:forEach var="menu" items="${sessionScope.menuMap}" varStatus="status">
         <li>
-          <a class="n-icon" style="background-image:url(${pageContext.request.contextPath}img/menu/n-ico-01.png);" href="#" onclick="app.clickMenu(${status.index})">${menu.key}</a>
+          <a class="n-icon" style="background-image:url(${pageContext.request.contextPath}img/menu/${fn:substring(menu.key, fn:indexOf(menu.key, '_')+1, fn:length(menu.key))});" href="#" onclick="app.clickMenu(${status.index})">${fn:substring(menu.key, 0, fn:indexOf(menu.key, '_'))}</a>
           <ul id="resources_${status.index}" class="eve-two-list">
             <c:forEach var="resource" items="${menu.value}" varStatus="status2">
               <li><a href="#" onclick="app.clickResources('${resource.url}', {}, this)">${resource.name}</a></li>
@@ -61,3 +61,7 @@
 </div>
 </body>
 </html>
+<script>
+  var oNav = document.getElementById('nav_1');
+  oNav.style.height = document.documentElement.clientHeight - 100 + 'px';
+</script>

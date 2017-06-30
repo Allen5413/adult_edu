@@ -86,6 +86,7 @@ body{background: #ececec;}
 	position: fixed;
 	left: 0;
 	z-index: 100;
+	height: 100%;
 }
 .section-view .nav-view .title{
 	background: #F2F3F4;
@@ -97,10 +98,8 @@ body{background: #ececec;}
 .section-view .nav-view .nav-rt-list{
 	overflow-y: auto;
 	overflow-x: hidden;
-	height: 100vh;
-	box-sizing: border-box;
-	padding-bottom: 100px;
 	width: 177px;
+	position: absolute;
 }
 .section-view .nav-view .nav-rt-list li a{display: block; padding: 0 15px; line-height: 30px;}
 .section-view .nav-view .nav-rt-list li a:hover{background: #F3F4F4;}
@@ -225,4 +224,3 @@ body{background: #ececec;}
 .info-table-input .in-table{}
 .info-table-input .textarea-intro{border: solid #d5d5d5 1px; resize: none; width: 100%;}
 .set-table-info .textarea-intro{border: solid #d5d5d5 1px; resize: none; width: 540px;}
-

@@ -17,6 +17,10 @@
             <td><input type="text" id="name" name="name" class="input-txt-220" /></td>
           </tr>
           <tr>
+            <td class="tag-b">负责人：</td>
+            <td><input type="text" id="linkman" name="linkman" class="input-txt-220" /></td>
+          </tr>
+          <tr>
             <td class="tag-b">手机号码：</td>
             <td><input type="text" id="phone" name="phone" class="input-txt-220" /></td>
           </tr>
@@ -61,6 +65,10 @@
     }
     if($("#name").val() == ""){
       app.alert("请输入名称！", 1);
+      return false;
+    }
+    if($("#linkman").val() == ""){
+      app.alert("请输入负责人！", 1);
       return false;
     }
     if(isNaN($("#phone").val()) || 11 != $("#phone").val().length){

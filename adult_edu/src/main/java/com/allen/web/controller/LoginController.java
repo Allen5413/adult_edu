@@ -63,6 +63,8 @@ public class LoginController {
         request.getSession().setAttribute("loginName", user.getLoginName());
         request.getSession().setAttribute("name", user.getName());
         request.getSession().setAttribute("type", user.getType());
+        request.getSession().setAttribute("centerId", user.getCenterId());
+        request.getSession().setAttribute("isOperateAudit", user.getIsOperateAudit());
         //得到用户拥有的菜单资源权限
         Map<String, List<Resource>> menuMap = this.getUserMenu(user.getId());
         request.getSession().setAttribute("menuMap", menuMap);
@@ -70,14 +72,14 @@ public class LoginController {
     }
 
     protected Map<String, List<Resource>> getUserMenu(long userId)throws Exception{
-        Map<String, List<Resource>> menuResourceMap = new HashMap<String, List<Resource>>();
+        Map<String, List<Resource>> menuResourceMap = new LinkedHashMap<String, List<Resource>>();
         //获取用户所关联的资源
         List<Resource> resourceList = findResourceByUserIdService.find(userId);
         if(null != resourceList && 0 < resourceList.size()) {
             for(Resource resource : resourceList) {
                 //得到菜单
                 Menu menu = findMenuByIdService.find(resource.getMenuId());
-                List<Resource> resourceList2 = menuResourceMap.get(menu.getName());
+                List<Resource> resourceList2 = menuResourceMap.get(menu.getName()+"_"+menu.getIcon());
                 if (null == resourceList2) {
                     resourceList2 = new ArrayList<Resource>();
                 }
@@ -90,7 +92,7 @@ public class LoginController {
                 }
                 if(!isExists){
                     resourceList2.add(resource);
-                    menuResourceMap.put(menu.getName(), resourceList2);
+                    menuResourceMap.put(menu.getName()+"_"+menu.getIcon(), resourceList2);
                 }
             }
         }

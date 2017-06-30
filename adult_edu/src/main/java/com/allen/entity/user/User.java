@@ -22,6 +22,9 @@ public class User {
     public static final int TYPE_DISTRIBUTOR = 3;
     public static final int TYPE_STUDENT = 4;
 
+    public static final int ISOPERATEAUDIT_NOT = 0;
+    public static final int ISOPERATEAUDIT_YES = 1;
+
     @Id
     @GeneratedValue
     private Long id;                            //主键
@@ -31,6 +34,8 @@ public class User {
     private String phone;                       //手机
     private Integer state;                      //用户状态
     private Integer type;                       //用户类型[0：超级管理员(至善用户，分配中心账号)；1：中心管理员；2：中心子账户；3：分销商；4：学生]
+    private Long centerId;
+    private int isOperateAudit;                 //操作后是否需要中心管理员审核
     private String creator;                     //创建人
     private Date createTime = new Date();       //创建时间
     private String operator;                    //操作人
@@ -122,5 +127,21 @@ public class User {
 
     public void setOperateTime(Date operateTime) {
         this.operateTime = operateTime;
+    }
+
+    public Long getCenterId() {
+        return centerId;
+    }
+
+    public void setCenterId(Long centerId) {
+        this.centerId = centerId;
+    }
+
+    public int getIsOperateAudit() {
+        return isOperateAudit;
+    }
+
+    public void setIsOperateAudit(int isOperateAudit) {
+        this.isOperateAudit = isOperateAudit;
     }
 }

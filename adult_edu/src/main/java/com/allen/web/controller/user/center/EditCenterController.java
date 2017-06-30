@@ -3,6 +3,8 @@ package com.allen.web.controller.user.center;
 import com.alibaba.fastjson.JSONObject;
 import com.allen.entity.user.Center;
 import com.allen.service.user.center.AddCenterService;
+import com.allen.service.user.center.EditCenterService;
+import com.allen.service.user.center.FindCenterByIdService;
 import com.allen.util.UserUtil;
 import com.allen.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,34 +19,36 @@ import javax.servlet.http.HttpServletRequest;
  * Created by Allen on 2017/6/28.
  */
 @Controller
-@RequestMapping(value = "/addCenter")
-public class AddCenterController extends BaseController {
+@RequestMapping(value = "/editCenter")
+public class EditCenterController extends BaseController {
 
     @Autowired
-    private AddCenterService addCenterService;
+    private FindCenterByIdService findCenterByIdService;
+    @Autowired
+    private EditCenterService editCenterService;
 
     /**
      * @return
      */
     @RequestMapping(value = "open")
-    public String open(HttpServletRequest request, @RequestParam(value = "reqParams", required = false)String reqParams)throws Exception{
+    public String open(HttpServletRequest request,
+                       @RequestParam(value = "reqParams", required = false)String reqParams,
+                       @RequestParam("id")long id)throws Exception{
+        Center center = findCenterByIdService.find(id);
+        request.setAttribute("center", center);
         request.setAttribute("reqParams", new String(reqParams.getBytes("iso-8859-1"), "gbk"));
-        return "user/center/add";
+        return "user/center/edit";
     }
 
     /**
      * @param request
      * @return
      */
-    @RequestMapping(value = "add")
+    @RequestMapping(value = "editor")
     @ResponseBody
-    public JSONObject add(HttpServletRequest request, Center center) throws Exception {
+    public JSONObject editor(HttpServletRequest request, Center center) throws Exception {
         JSONObject jsonObject = new JSONObject();
-        if(null != center) {
-            center.setCerator(UserUtil.getLoginUserForName(request));
-            center.setOperator(UserUtil.getLoginUserForName(request));
-            addCenterService.add(center);
-        }
+        editCenterService.edit(center, UserUtil.getLoginUserForName(request));
         jsonObject.put("state", 0);
         return jsonObject;
     }

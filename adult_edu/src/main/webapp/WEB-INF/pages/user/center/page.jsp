@@ -3,7 +3,7 @@
 <div id="tit-top-fixed" class="pos-rev-cell">
   <div class="title">用户管理</div>
   <ul class="search-view">
-    <form id="form" name="form" action="${pageContext.request.contextPath}/pageCenter/page.html">
+    <form id="pageForm" name="pageForm" action="${pageContext.request.contextPath}/pageCenter/page.html">
       <input type="hidden" id="rows" name="rows" />
       <input type="hidden" id="currentPage" name="page" value="${pageInfo.currentPage}"/>
       <li>
@@ -24,7 +24,7 @@
         <span class="inline-select">
           <input type="text" class="input-txt-200" id="name" name="name" value="${param.name}" />
         </span>
-        <span class="inline-input"><a class="btn-1" href="#" onclick="app.searchFormPage($('#form'), $('#form').attr('action'))">查 询</a></span>
+        <span class="inline-input"><a id="searchBtn" class="btn-1" href="#" onclick="app.searchFormPage($('#pageForm'), $('#pageForm').attr('action'))">查 询</a></span>
       </li>
     </form>
   </ul>
@@ -46,7 +46,7 @@
             <th>授权到期时间</th>
             <th>缴费状态</th>
             <th>账号状态</th>
-            <th width="110">操作</th>
+            <th width="140">操作</th>
           </tr>
           <c:if test="${empty pageInfo.pageResults}">
             <tr>
@@ -64,7 +64,8 @@
                 <td>${center.feeStateStr}</td>
                 <td>${center.stateStr}</td>
                 <td>
-                  <a class="btn-opr" href="#">手机去绑定</a>
+                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editCenter/open.html?id=${center.id}&reqParams=${reqParams}');">编辑</a>
+                  <a class="btn-opr" href="#" onclick="resetPwd('${center.phone}')">重置密码</a>
                 </td>
               </tr>
             </c:forEach>
@@ -75,3 +76,8 @@
     </div>
   </div>
 </div>
+<script>
+  function resetPwd(loginName){
+    app.operator("您确定要重置密码？", "${pageContext.request.contextPath}/resetPwd.json", {"loginName":loginName});
+  }
+</script>
