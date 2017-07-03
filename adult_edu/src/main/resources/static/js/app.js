@@ -69,7 +69,7 @@ App.prototype.clickResources = function(url, params, obj){
         $("[name=resources_a]").attr("class", "");
         $(obj).addClass("on");
     }
-    if("undefined" != typeof (params)) {
+    if("undefined" == typeof (params)) {
         params = {};
     }
     $.ajax({
@@ -534,7 +534,7 @@ App.prototype.addForFile = function(url, formId, index){
  * @param url
  * @param params
  */
-App.prototype.edit = function(url, params, index){
+App.prototype.edit = function(url, params, url2, params2){
     $.ajax({
         cache: true,
         type: "POST",
@@ -543,11 +543,7 @@ App.prototype.edit = function(url, params, index){
         async: false,
         success: function(data) {
             if(data.state == 0){
-                app.msg('提交成功', 0);
-                if(typeof(index) != "undefined") {
-                    layer.close(index);
-                }
-                $("#searchBtn").click();
+                app.clickResources(url2, params2);
             }else{
                 app.msg(data.msg, 1);
             }

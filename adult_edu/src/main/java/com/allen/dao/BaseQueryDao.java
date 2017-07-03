@@ -526,4 +526,15 @@ public class BaseQueryDao extends JapDynamicQueryDao {
             throw e;
         }
     }
+
+    /**
+     * 执行原生的删除或者修改sql
+     * @param sql
+     * @throws Exception
+     */
+    protected void editAndDelForNativeSql(String sql)throws Exception{
+        if(!StringUtil.isEmpty(sql)) {
+            super.getEntityManager().createNativeQuery(sql).executeUpdate();
+        }
+    }
 }

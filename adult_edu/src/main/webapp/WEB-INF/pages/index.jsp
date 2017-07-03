@@ -35,7 +35,7 @@
           <a class="n-icon" style="background-image:url(${pageContext.request.contextPath}img/menu/${fn:substring(menu.key, fn:indexOf(menu.key, '_')+1, fn:length(menu.key))});" href="#" onclick="app.clickMenu(${status.index})">${fn:substring(menu.key, 0, fn:indexOf(menu.key, '_'))}</a>
           <ul id="resources_${status.index}" class="eve-two-list">
             <c:forEach var="resource" items="${menu.value}" varStatus="status2">
-              <li><a href="#" onclick="app.clickResources('${resource.url}', {}, this)">${resource.name}</a></li>
+              <li><a href="#" name="resources_a" onclick="app.clickResources('${resource.url}', {}, this)">${resource.name}</a></li>
             </c:forEach>
           </ul>
         </li>

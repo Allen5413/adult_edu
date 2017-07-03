@@ -224,3 +224,4 @@ body{background: #ececec;}
 .info-table-input .in-table{}
 .info-table-input .textarea-intro{border: solid #d5d5d5 1px; resize: none; width: 100%;}
 .set-table-info .textarea-intro{border: solid #d5d5d5 1px; resize: none; width: 540px;}
+.view-opr-info{padding: 20px; border-top: solid #c5c5c5 1px; background: #f6f6f6; margin: 40px 0 0;}

@@ -36,6 +36,7 @@ public class DataChange {
     private String changeTableField;                //更改表的字段
     private long creatorId;                         //更改人id
     private Date createTime = new Date();           //更改时间
+    private String editReson;                       //变更原因
 
     public long getId() {
         return id;
@@ -131,5 +132,13 @@ public class DataChange {
 
     public void setCreatorId(long creatorId) {
         this.creatorId = creatorId;
+    }
+
+    public String getEditReson() {
+        return editReson;
+    }
+
+    public void setEditReson(String editReson) {
+        this.editReson = editReson;
     }
 }

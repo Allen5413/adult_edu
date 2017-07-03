@@ -21,7 +21,7 @@ public class DelRecruitTypeServiceImpl implements DelRecruitTypeService {
     private DataChangeDao dataChangeDao;
 
     @Override
-    public void del(long id, long centerId, int isAudit, long operateId) throws Exception {
+    public void del(long id, long centerId, int isAudit, long operateId, String editReson) throws Exception {
         //查询操作是否需要审核
         if(isAudit == User.ISOPERATEAUDIT_NOT) {
             recruitTypeDao.delete(id);
@@ -35,6 +35,7 @@ public class DelRecruitTypeServiceImpl implements DelRecruitTypeService {
             dataChange.setChangeTable("recruit_type");
             dataChange.setChangeTableId(id);
             dataChange.setCreatorId(operateId);
+            dataChange.setEditReson(editReson);
             dataChangeDao.save(dataChange);
         }
     }

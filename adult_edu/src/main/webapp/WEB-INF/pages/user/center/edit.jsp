@@ -83,6 +83,6 @@
       return false;
     }
     $("#authorizeDate").val($("#date").val()+" 23:59:59");
-    app.add("${pageContext.request.contextPath}/editCenter/editor.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageCenter/page.html", ${reqParams});
+    app.edit("${pageContext.request.contextPath}/editCenter/editor.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageCenter/page.html", ${reqParams});
   }
 </script>

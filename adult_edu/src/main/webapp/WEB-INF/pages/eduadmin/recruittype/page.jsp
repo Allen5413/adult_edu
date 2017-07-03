@@ -45,24 +45,54 @@
 </div>
 <script>
   function del(id){
-    app.confirm("您确定要删除该数据", function(index){
-      $.ajax({
-        url:"${pageContext.request.contextPath}/delRecruitType.json",
-        method : 'POST',
-        async:false,
-        data:{"id":id},
-        success:function(data){
-          if(data.state == 0){
-            if(data.msg != "" && "undefined" != typeof(data.msg)){
-              app.msg(data.msg, 0);
-            }
-            layer.close(index);
-            app.clickResources('${pageContext.request.contextPath}/pageRecruitType/page.html');
-          }else {
-            app.msg(data.msg, 1);
-          }
+    var isOperateAudit = "${sessionScope.isOperateAudit}";
+    if(isOperateAudit == "1"){
+      app.openDialog("${pageContext.request.contextPath}/addDataChangeForEditReson/open.html", "变更原因", 480, 200, function(index2){
+        if($("#editReson").val() == ""){
+          app.msg("请输入变更原因！");
+          return false;
         }
+        app.confirm("您确定要删除该数据", function(index){
+          $.ajax({
+            url:"${pageContext.request.contextPath}/delRecruitType.json",
+            method : 'POST',
+            async:false,
+            data:{"id":id, "editReson":$("#editReson").val()},
+            success:function(data){
+              if(data.state == 0){
+                if(data.msg != "" && "undefined" != typeof(data.msg)){
+                  app.msg(data.msg, 0);
+                }
+                layer.close(index);
+                layer.close(index2);
+                app.clickResources('${pageContext.request.contextPath}/pageRecruitType/page.html');
+              }else {
+                app.msg(data.msg, 1);
+              }
+            }
+          });
+        });
       });
-    });
+    }else{
+      app.confirm("您确定要删除该数据", function(index){
+        $.ajax({
+          url:"${pageContext.request.contextPath}/delRecruitType.json",
+          method : 'POST',
+          async:false,
+          data:{"id":id},
+          success:function(data){
+            if(data.state == 0){
+              if(data.msg != "" && "undefined" != typeof(data.msg)){
+                app.msg(data.msg, 0);
+              }
+              layer.close(index);
+              app.clickResources('${pageContext.request.contextPath}/pageRecruitType/page.html');
+            }else {
+              app.msg(data.msg, 1);
+            }
+          }
+        });
+      });
+    }
   }
 </script>
