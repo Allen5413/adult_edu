@@ -557,18 +557,18 @@ App.prototype.edit = function(url, params, url2, params2){
  * @param url
  * @param btnObj
  */
-App.prototype.del = function(confirmStr, url, params){
-    app.confirm(confirmStr, function(){
+App.prototype.del = function(confirmStr, url, params, url2, params2){
+    app.confirm(confirmStr, function(index){
         $.ajax({
-            url:url,
-            method : 'POST',
-            async:false,
-            data:params,
-            success:function(data){
-                if(data.state == 0){
-                    app.msg("删除成功！", 0);
-                    $("#searchBtn").click();
-                }else {
+            url: url,
+            method: 'POST',
+            async: false,
+            data: params,
+            success: function (data) {
+                if (data.state == 0) {
+                    layer.close(index);
+                    app.clickResources(url2, params2);
+                } else {
                     app.msg(data.msg, 1);
                 }
             }
@@ -592,7 +592,6 @@ App.prototype.operator = function(confirmStr, url, params){
             success:function(data){
                 if(data.state == 0){
                     app.msg("操作成功！", 0);
-                    $("#searchBtn").click();
                 }else {
                     app.msg(data.msg, 1);
                 }

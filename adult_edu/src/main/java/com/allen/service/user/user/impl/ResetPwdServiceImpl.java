@@ -19,7 +19,7 @@ public class ResetPwdServiceImpl implements ResetPwdService {
     @Override
     public void edit(String loginName) throws Exception {
         User user = userDao.findByLoginName(loginName);
-        user.setPwd(MD5Util.MD5("123456"));
+        user.setPwd(MD5Util.MD5(user.getPhone().substring(user.getPhone().length()-6, user.getPhone().length())));
         userDao.save(user);
     }
 }

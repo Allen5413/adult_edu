@@ -35,11 +35,11 @@ public class AddCenterServiceImpl implements AddCenterService {
         //添加用户
         User user = new User();
         user.setLoginName(center.getPhone());
-        user.setPwd(MD5Util.MD5("123456"));
+        user.setPwd(MD5Util.MD5(center.getPhone().substring(center.getPhone().length()-6, center.getPhone().length())));
         user.setName(center.getLinkman());
         user.setPhone(center.getPhone());
         user.setType(User.TYPE_CENTER_ADMIN);
-        user.setState(center.getState() == Center.STATE_NOT ? User.STATE_DISABLE : User.STATE_ENABLE);
+        user.setState(User.STATE_ENABLE);
         user.setCenterId(center.getId());
         user.setIsOperateAudit(User.ISOPERATEAUDIT_NOT);
         user.setCreator(center.getCerator());
