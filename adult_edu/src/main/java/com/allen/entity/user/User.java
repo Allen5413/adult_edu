@@ -19,7 +19,7 @@ public class User {
     public static final int TYPE_ZS_ADMIN = 0;
     public static final int TYPE_CENTER_ADMIN = 1;
     public static final int TYPE_CENTER_CHAILD = 2;
-    public static final int TYPE_DISTRIBUTOR = 3;
+    public static final int TYPE_FXS = 3;
     public static final int TYPE_STUDENT = 4;
 
     public static final int ISOPERATEAUDIT_NOT = 0;
@@ -34,7 +34,10 @@ public class User {
     private String phone;                       //手机
     private Integer state;                      //用户状态
     private Integer type;                       //用户类型[0：超级管理员(至善用户，分配中心账号)；1：中心管理员；2：中心子账户；3：分销商；4：学生]
-    private Long centerId;
+    private String code;                        //编码
+    private String address;                     //详细地址
+    private String linkMan;                     //联系人
+    private Long centerId;                      //中心id
     private int isOperateAudit;                 //操作后是否需要中心管理员审核
     private String creator;                     //创建人
     private Date createTime = new Date();       //创建时间
@@ -143,5 +146,29 @@ public class User {
 
     public void setIsOperateAudit(int isOperateAudit) {
         this.isOperateAudit = isOperateAudit;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLinkMan() {
+        return linkMan;
+    }
+
+    public void setLinkMan(String linkMan) {
+        this.linkMan = linkMan;
     }
 }

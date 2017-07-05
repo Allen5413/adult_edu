@@ -40,6 +40,12 @@ public class PageUserController extends BaseController {
         pageInfo = pageUserService.find(pageInfo, params);
         request.setAttribute("pageInfo", pageInfo);
         request.setAttribute("reqParams", super.getParameters(request));
-        return "/user/user/page";
+        if("2".equals(type)){
+            return "/user/user/page";
+        }
+        if("3".equals(type)){
+            return "/user/user/fxsPage";
+        }
+        return "";
     }
 }

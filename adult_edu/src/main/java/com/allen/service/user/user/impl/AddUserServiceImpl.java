@@ -24,17 +24,28 @@ public class AddUserServiceImpl implements AddUserService {
 
     @Override
     @Transactional
-    public void add(User user, long userGroupId) throws Exception {
+    public void add(User user, Long userGroupId) throws Exception {
         User user2 = userDao.findByLoginName(user.getLoginName());
         if(null != user2 && !StringUtil.isEmpty(user2.getLoginName())){
             throw new BusinessException("登录名已存在！");
         }
+        if(user.getType() == User.TYPE_FXS){
+            user2 = userDao.findByCenterIdAndName(user.getCenterId(), user.getName());
+            if(null != user2 && !StringUtil.isEmpty(user2.getLoginName())){
+                throw new BusinessException("分销商名称已存在！");
+            }
+            user2 = userDao.findByCenterIdAndCode(user.getCenterId(), user.getCode());
+            if(null != user2 && !StringUtil.isEmpty(user2.getLoginName())){
+                throw new BusinessException("分销商编号已存在！");
+            }
+        }
         userDao.save(user);
-
-        UserGroupUser userGroupUser = new UserGroupUser();
-        userGroupUser.setUserId(user.getId());
-        userGroupUser.setUserGroupId(userGroupId);
-        userGroupUser.setCreator(user.getCreator());
-        userGroupUserDao.save(userGroupUser);
+        if(null != userGroupId) {
+            UserGroupUser userGroupUser = new UserGroupUser();
+            userGroupUser.setUserId(user.getId());
+            userGroupUser.setUserGroupId(userGroupId);
+            userGroupUser.setCreator(user.getCreator());
+            userGroupUserDao.save(userGroupUser);
+        }
     }
 }

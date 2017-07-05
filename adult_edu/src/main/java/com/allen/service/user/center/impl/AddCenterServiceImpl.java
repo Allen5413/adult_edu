@@ -44,6 +44,6 @@ public class AddCenterServiceImpl implements AddCenterService {
         user.setIsOperateAudit(User.ISOPERATEAUDIT_NOT);
         user.setCreator(center.getCerator());
         user.setOperator(center.getOperator());
-        addUserService.add(user, 2);
+        addUserService.add(user, 2l);
     }
 }
