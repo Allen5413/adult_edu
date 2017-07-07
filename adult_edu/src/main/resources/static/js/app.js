@@ -543,6 +543,9 @@ App.prototype.edit = function(url, params, url2, params2){
         async: false,
         success: function(data) {
             if(data.state == 0){
+                if("undefined" != typeof (data.msg) && "" != data.msg){
+                    app.msg(data.msg, 0);
+                }
                 app.clickResources(url2, params2);
             }else{
                 app.msg(data.msg, 1);

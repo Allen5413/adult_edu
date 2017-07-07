@@ -23,5 +23,8 @@ public class FindDataChangeByIdController extends BaseController{
         if("recruit_type".equals(table)){
             response.sendRedirect("/findRecruitTypeById/open.html?id="+tableId+"&dataChangeId="+id+"&reqParams="+reqParams);
         }
+        if("level".equals(table)){
+            response.sendRedirect("/findLevelById/open.html?id="+tableId+"&dataChangeId="+id+"&reqParams="+reqParams);
+        }
     }
 }
