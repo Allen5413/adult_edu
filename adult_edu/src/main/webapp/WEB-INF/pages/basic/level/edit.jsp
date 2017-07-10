@@ -35,10 +35,12 @@
       app.alert("请输入名称！", 1);
       return false;
     }
-    if($("#editReson").val() == ""){
-      app.alert("请输入变更原因！", 1);
-      return false;
-    }
+    <c:if test="${sessionScope.isOperateAudit == 1}">
+      if($("#editReson").val() == ""){
+        app.alert("请输入变更原因！", 1);
+        return false;
+      }
+    </c:if>
     app.edit("${pageContext.request.contextPath}/editLevel/editor.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageLevel/page.html", ${reqParams});
   }
 </script>

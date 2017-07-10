@@ -4,6 +4,7 @@ import com.allen.dao.datachange.AuditDataChangeDao;
 import com.allen.dao.datachange.DataChangeDao;
 import com.allen.entity.datachange.DataChange;
 import com.allen.service.datachange.AuditDataChangeService;
+import com.allen.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,7 @@ public class AuditDataChangeServiceImpl implements AuditDataChangeService {
                 String sql = "delete from "+dataChange.getChangeTable()+ " where id = "+dataChange.getChangeTableId();
                 auditDataChangeDao.auditPassOperate(sql);
             }
-            if(dataChange.getType() == DataChange.TYPE_EDIT){
+            if(dataChange.getType() == DataChange.TYPE_EDIT && !StringUtil.isEmpty(dataChange.getChangeTableField())){
                 String sql = "update "+dataChange.getChangeTable()+ " set " + dataChange.getChangeTableField()+" where id = "+dataChange.getChangeTableId();
                 auditDataChangeDao.auditPassOperate(sql);
             }

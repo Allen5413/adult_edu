@@ -7,7 +7,6 @@
   <div class="mod-com-view">
     <div class="mod-content">
       <form id="form" name="form">
-        <input type="hidden" id="authorizeDate" name="authorizeDate" />
         <table class="set-table-info">
           <tr>
             <td class="tag-b">高校：</td>

@@ -30,7 +30,9 @@
                 <td>${spec.code}</td>
                 <td>${spec.name}</td>
                 <td>
-                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editCenter/open.html?id=${center.id}&reqParams=${reqParams}');">查看</a>
+                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editSpec/open.html?id=${spec.sId}&reqParams=${reqParams}');">编辑</a>
+                  <a class="btn-opr" href="#" onclick="del(${spec.id})">删除</a>
+                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editCenter/open.html?id=${center.id}&reqParams=${reqParams}');">查看课程</a>
                 </td>
               </tr>
             </c:forEach>
@@ -43,5 +45,57 @@
 <script>
   function resetPwd(loginName){
     app.operator("您确定要重置密码？", "${pageContext.request.contextPath}/resetPwd.json", {"loginName":loginName});
+  }
+
+  function del(id){
+    var isOperateAudit = "${sessionScope.isOperateAudit}";
+    if(isOperateAudit == "1"){
+      app.openDialog("${pageContext.request.contextPath}/addDataChangeForEditReson/open.html", "变更原因", 480, 200, function(index2){
+        if($("#editReson").val() == ""){
+          app.msg("请输入变更原因！");
+          return false;
+        }
+        app.confirm("您确定要删除该数据", function(index){
+          $.ajax({
+            url:"${pageContext.request.contextPath}/delSchoolTypeLevelSpecById.json",
+            method : 'POST',
+            async:false,
+            data:{"id":id, "editReson":$("#editReson").val()},
+            success:function(data){
+              if(data.state == 0){
+                if(data.msg != "" && "undefined" != typeof(data.msg)){
+                  app.msg(data.msg, 0);
+                }
+                layer.close(index);
+                layer.close(index2);
+                app.clickResources('${pageContext.request.contextPath}/findSpecBySchoolIdAndTypeIdAndLevelId/find.html?schoolId=${param.sId}&typeId=${param.rtId}&levelId=${param.lId}');
+              }else {
+                app.msg(data.msg, 1);
+              }
+            }
+          });
+        });
+      });
+    }else{
+      app.confirm("您确定要删除该数据", function(index){
+        $.ajax({
+          url:"${pageContext.request.contextPath}/delSchoolTypeLevelSpecById.json",
+          method : 'POST',
+          async:false,
+          data:{"id":id},
+          success:function(data){
+            if(data.state == 0){
+              if(data.msg != "" && "undefined" != typeof(data.msg)){
+                app.msg(data.msg, 0);
+              }
+              layer.close(index);
+              app.clickResources('${pageContext.request.contextPath}/findSpecBySchoolIdAndTypeIdAndLevelId/find.html?schoolId=${param.sId}&typeId=${param.rtId}&levelId=${param.lId}');
+            }else {
+              app.msg(data.msg, 1);
+            }
+          }
+        });
+      });
+    }
   }
 </script>

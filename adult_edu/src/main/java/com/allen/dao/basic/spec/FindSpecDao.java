@@ -22,7 +22,7 @@ public class FindSpecDao extends BaseQueryDao {
      * @throws Exception
      */
     public List<Map> findBySchoolIdAndTypeIdAndLevelId(long schoolId, long typeId, long levelId)throws Exception{
-        String fileds = "stls.id, s.code, s.name";
+        String fileds = "stls.id, s.id sId, s.code, s.name";
         String[] tables = {"school_type_level_spec stls", "spec s"};
         String defaultWhere = "stls.spec_id = s.id";
         Map<String, Object> paramMap = new HashMap<String, Object>();

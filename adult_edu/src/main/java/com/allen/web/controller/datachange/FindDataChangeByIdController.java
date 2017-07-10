@@ -26,5 +26,14 @@ public class FindDataChangeByIdController extends BaseController{
         if("level".equals(table)){
             response.sendRedirect("/findLevelById/open.html?id="+tableId+"&dataChangeId="+id+"&reqParams="+reqParams);
         }
+        if("spec".equals(table)){
+            response.sendRedirect("/findSpecById/open.html?id="+tableId+"&dataChangeId="+id+"&reqParams="+reqParams);
+        }
+        if("spec".equals(table)){
+            response.sendRedirect("/findSpecById/open.html?id="+tableId+"&dataChangeId="+id+"&reqParams="+reqParams);
+        }
+        if("school_type_level_spec".equals(table)){
+            response.sendRedirect("/findSchoolTypeLevelSpecById/open.html?id="+tableId+"&dataChangeId="+id+"&reqParams="+reqParams);
+        }
     }
 }
