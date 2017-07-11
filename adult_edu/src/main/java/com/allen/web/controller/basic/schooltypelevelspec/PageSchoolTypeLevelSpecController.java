@@ -40,6 +40,8 @@ public class PageSchoolTypeLevelSpecController extends BaseController {
         params.put("schoolId", schoolId);
         params.put("typeId", typeId);
         params.put("levelId", levelId);
+        pageInfo.setCurrentPage(1);
+        pageInfo.setCountOfCurrentPage(9999);
         pageInfo = pageSchoolTypeLevelSpecService.find(pageInfo, params);
         request.setAttribute("pageInfo", pageInfo);
         request.setAttribute("schoolList", findSchoolByCenterIdService.find(UserUtil.getLoginUserForCenterId(request)));

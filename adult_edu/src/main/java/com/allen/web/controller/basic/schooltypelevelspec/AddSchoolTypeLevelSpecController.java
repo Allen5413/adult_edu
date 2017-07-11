@@ -3,9 +3,14 @@ package com.allen.web.controller.basic.schooltypelevelspec;
 import com.alibaba.fastjson.JSONObject;
 import com.allen.entity.basic.SchoolTypeLevelSpec;
 import com.allen.service.basic.level.FindLevelByCenterIdService;
+import com.allen.service.basic.level.FindLevelByIdService;
 import com.allen.service.basic.school.FindSchoolByCenterIdService;
+import com.allen.service.basic.school.FindSchoolByIdService;
 import com.allen.service.basic.schooltypelevelspec.AddSchoolTypeLevelSpecService;
+import com.allen.service.basic.schooltypelevelspec.FindSchoolTypeLevelSpecByIdService;
+import com.allen.service.basic.spec.FindSpecBySchoolIdAndTypeIdAndLevelIdService;
 import com.allen.service.eduadmin.recruittype.FindRecruitTypeByCenterIdService;
+import com.allen.service.eduadmin.recruittype.FindRecruitTypeByIdService;
 import com.allen.util.UserUtil;
 import com.allen.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +36,12 @@ public class AddSchoolTypeLevelSpecController extends BaseController {
     private FindRecruitTypeByCenterIdService findRecruitTypeByCenterIdService;
     @Autowired
     private FindLevelByCenterIdService findLevelByCenterIdService;
+    @Autowired
+    private FindSchoolByIdService findSchoolByIdService;
+    @Autowired
+    private FindRecruitTypeByIdService findRecruitTypeByIdService;
+    @Autowired
+    private FindLevelByIdService findLevelByIdService;
 
     /**
      * @return
@@ -42,6 +53,19 @@ public class AddSchoolTypeLevelSpecController extends BaseController {
         request.setAttribute("typeList", findRecruitTypeByCenterIdService.find(UserUtil.getLoginUserForCenterId(request)));
         request.setAttribute("levelList", findLevelByCenterIdService.find(UserUtil.getLoginUserForCenterId(request)));
         return "basic/schooltypelevelspec/add";
+    }
+
+    /**
+     * @return
+     */
+    @RequestMapping(value = "openFromDetail")
+    public String open(HttpServletRequest request, @RequestParam(value = "reqParams", required = false)String reqParams,
+                       long schoolId, long typeId, long levelId)throws Exception{
+        request.setAttribute("reqParams", new String(reqParams.getBytes("iso-8859-1"), "gbk"));
+        request.setAttribute("school", findSchoolByIdService.find(schoolId));
+        request.setAttribute("type", findRecruitTypeByIdService.find(typeId));
+        request.setAttribute("level", findLevelByIdService.find(levelId));
+        return "basic/schooltypelevelspec/addFromDetail";
     }
 
     /**

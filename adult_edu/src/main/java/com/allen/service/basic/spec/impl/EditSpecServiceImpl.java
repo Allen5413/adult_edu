@@ -39,7 +39,7 @@ public class EditSpecServiceImpl implements EditSpecService {
         if(isOperateAudit == User.ISOPERATEAUDIT_NOT) {
             spec2.setCode(spec.getCode());
             spec2.setName(spec.getName());
-            specDao.save(spec);
+            specDao.save(spec2);
         }else {
             String changeContent = "";
             String changeField = "";
