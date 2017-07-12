@@ -110,7 +110,7 @@ App.prototype.msg = function(msg, flag){
         layer.msg(msg, {icon: 6});
     }else{
         //失败的提示
-        layer.msg(msg, {icon: 5});
+        layer.alert(msg, {icon: 5});
     }
 }
 

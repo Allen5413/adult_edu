@@ -6,54 +6,69 @@
 <div class="container-view">
   <div class="mod-com-view">
     <div class="mod-content">
-      <form id="form" name="form">
-        <table class="set-table-info">
-          <tr>
-            <td class="tag-b">高校：</td>
-            <td>
-              <select name="schoolId">
-                <c:forEach var="school" items="${schoolList}">
-                  <option value="${school.id}">${school.name}</option>
-                </c:forEach>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="tag-b">招生类型：</td>
-            <td>
-              <select name="recruitTypeId">
-                <c:forEach var="type" items="${typeList}">
-                  <option value="${type.id}">${type.name}</option>
-                </c:forEach>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="tag-b">层次：</td>
-            <td>
-              <select name="levelId">
-                <c:forEach var="level" items="${levelList}">
-                  <option value="${level.id}">${level.name}</option>
-                </c:forEach>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="tag-b">专业编号：</td>
-            <td><input type="text" id="specCode" name="specCode" class="input-txt-220" /></td>
-          </tr>
-          <tr>
-            <td class="tag-b">专业名称：</td>
-            <td><input type="text" id="specName" name="specName" class="input-txt-220" /></td>
-          </tr>
-          <tr>
-            <td class="tag-b"></td>
-            <td>
-              <a class="btn-com" href="#" onclick="add()">保存提交</a>
-            </td>
-          </tr>
-        </table>
-      </form>
+      <table class="set-table-info">
+        <form id="form" name="form">
+        <tr>
+          <td class="tag-b">高校：</td>
+          <td>
+            <select id="schoolId" name="schoolId">
+              <c:forEach var="school" items="${schoolList}">
+                <option value="${school.id}">${school.name}</option>
+              </c:forEach>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="tag-b">招生类型：</td>
+          <td>
+            <select id="typeId" name="recruitTypeId">
+              <c:forEach var="type" items="${typeList}">
+                <option value="${type.id}">${type.name}</option>
+              </c:forEach>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="tag-b">层次：</td>
+          <td>
+            <select id="levelId" name="levelId">
+              <c:forEach var="level" items="${levelList}">
+                <option value="${level.id}">${level.name}</option>
+              </c:forEach>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="tag-b">专业编号：</td>
+          <td><input type="text" id="specCode" name="specCode" class="input-txt-220" /></td>
+        </tr>
+        <tr>
+          <td class="tag-b">专业名称：</td>
+          <td><input type="text" id="specName" name="specName" class="input-txt-220" /></td>
+        </tr>
+        </form>
+        <tr>
+          <td class="tag-b"></td>
+          <td>
+            <table>
+              <tr>
+                <td>
+                  <a class="btn-com" href="#" onclick="add()">保存提交</a>
+                </td>
+                <td>
+                  <form id="importForm" name="importForm" action="${pageContext.request.contextPath}/importSchoolTypeLevelSpec.json" enctype="multipart/form-data" method="post">
+                    <input type="hidden" id="schoolId2" name="schoolId"/>
+                    <input type="hidden" id="typeId2" name="typeId"/>
+                    <input type="hidden" id="levelId2" name="levelId"/>
+                    <a class="btn-com" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />导入专业表</a>
+                  </form>
+                </td>
+                <td><a class="btn-com" href="${pageContext.request.contextPath}/template/spec.xlsx">导入专业表模板下载</a></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
@@ -68,5 +83,26 @@
       return false;
     }
     app.add("${pageContext.request.contextPath}/addSchoolTypeLevelSpec/add.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageSchoolTypeLevelSpec/page.html", ${reqParams});
+  }
+
+  function addImport(){
+    $("#schoolId2").val($("#schoolId").val());
+    $("#typeId2").val($("#typeId").val());
+    $("#levelId2").val($("#levelId").val());
+    $("#importForm").ajaxSubmit({
+      url : "${pageContext.request.contextPath}/importSchoolTypeLevelSpec.json",
+      dataType : 'json',
+      success : function(data){
+        if(0 == data.state) {
+          layer.confirm("上传成功，是否要进入专业列表页面上传相应的课程？", {icon: 3, title:'提示'}, function(index){
+            app.clickResources("${pageContext.request.contextPath}/findSpecBySchoolIdAndTypeIdAndLevelId/find.html?schoolId="+$("#schoolId").val()+"&typeId="+$("#typeId").val()+"&levelId="+$("#levelId").val());
+            layer.close(index);
+          });
+        }
+        if(1 == data.state) {
+          app.msg(data.msg, 1);
+        }
+      }
+    });
   }
 </script>
