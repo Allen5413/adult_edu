@@ -36,7 +36,20 @@
           <tr>
             <td class="tag-b"></td>
             <td>
-              <a class="btn-com" href="#" onclick="add()">保存提交</a>
+              <table>
+                  <td>
+                    <a class="btn-com-upload" href="#" onclick="add()">保存提交</a>
+                  </td>
+                  <td>
+                    <form></form>
+                    <form id="importForm" name="importForm" action="${pageContext.request.contextPath}/importStlsc.json" enctype="multipart/form-data" method="post">
+                      <input type="hidden" name="stlsId" value="${param.stlsId}"/>
+                      <a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />导入课程表</a>
+                    </form>
+                  </td>
+                  <td><a class="btn-com-upload" href="${pageContext.request.contextPath}/template/course.xlsx">导入课程表模板下载</a></td>
+                </tr>
+              </table>
             </td>
           </tr>
         </table>
@@ -55,5 +68,22 @@
       return false;
     }
     app.add("${pageContext.request.contextPath}/addSchoolTypeLevelSpecCourse/add.json", $("#form").serialize(), "${pageContext.request.contextPath}/findCourseBySTLSId/find.html", ${reqParams});
+  }
+
+  function addImport(){
+    $("#importForm").ajaxSubmit({
+      url : "${pageContext.request.contextPath}/importStlsc.json",
+      dataType : 'json',
+      success : function(data){
+        if(0 == data.state) {
+          app.msg("导入成功", 0);
+          app.clickResources("${pageContext.request.contextPath}/findCourseBySTLSId/find.html", ${reqParams});
+        }
+        if(1 == data.state) {
+          app.msg(data.msg, 1);
+          app.clickResources('${pageContext.request.contextPath}/addSchoolTypeLevelSpecCourse/open.html?reqParams=${reqParams}&stlsId=${param.stlsId}');
+        }
+      }
+    });
   }
 </script>

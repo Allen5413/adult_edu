@@ -156,17 +156,18 @@ body{background: #ececec;}
 .select-200{display: block; width: 200px; height: 32px; border: solid #e0e0e0 1px;}
 .btn-com{display: inline-block; height: 28px; font-weight: normal; font-size: 14px; border-radius: 3px; padding: 3px 15px; background-color: #4AA6FC; color: #fff; line-height: 30px;}
 
-.btn-com-upload{display: inline-block; position: relative; padding: 3px 15px; border-radius: 4px; line-height: 1.5em; font-size: 14px; color: #fff; background: #4AA6FC;}
+.btn-com-upload{display: inline-block; position: relative; padding: 3px 15px; overflow: hidden; border-radius: 4px; line-height: 1.5em; font-size: 14px; color: #fff; background: #4AA6FC;}
 .uploadfile{
 	position:absolute;
 	z-index:100;
-	margin-left:-180px;
+	margin-left:-30px;
 	font-size:30px;
 	opacity:0;
 	filter:alpha(opacity=0);
 	margin-top:-5px;
 	cursor:pointer;
 	color:#333333 !important;
+	width: 140px;
 }
 
 .td-foot{background: #fff !important;}

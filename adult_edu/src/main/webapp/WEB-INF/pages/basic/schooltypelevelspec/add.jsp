@@ -53,17 +53,17 @@
             <table>
               <tr>
                 <td>
-                  <a class="btn-com" href="#" onclick="add()">保存提交</a>
+                  <a class="btn-com-upload" href="#" onclick="add()">保存提交</a>
                 </td>
                 <td>
                   <form id="importForm" name="importForm" action="${pageContext.request.contextPath}/importSchoolTypeLevelSpec.json" enctype="multipart/form-data" method="post">
                     <input type="hidden" id="schoolId2" name="schoolId"/>
                     <input type="hidden" id="typeId2" name="typeId"/>
                     <input type="hidden" id="levelId2" name="levelId"/>
-                    <a class="btn-com" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />导入专业表</a>
+                    <a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />导入专业表</a>
                   </form>
                 </td>
-                <td><a class="btn-com" href="${pageContext.request.contextPath}/template/spec.xlsx">导入专业表模板下载</a></td>
+                <td><a class="btn-com-upload" href="${pageContext.request.contextPath}/template/spec.xlsx">导入专业表模板下载</a></td>
               </tr>
             </table>
           </td>
@@ -94,13 +94,19 @@
       dataType : 'json',
       success : function(data){
         if(0 == data.state) {
-          layer.confirm("上传成功，是否要进入专业列表页面上传相应的课程？", {icon: 3, title:'提示'}, function(index){
-            app.clickResources("${pageContext.request.contextPath}/findSpecBySchoolIdAndTypeIdAndLevelId/find.html?schoolId="+$("#schoolId").val()+"&typeId="+$("#typeId").val()+"&levelId="+$("#levelId").val());
-            layer.close(index);
-          });
+          layer.confirm("上传成功，是否要进入专业列表页面上传相应的课程？", {icon: 3, title:'提示'},
+            function(index){
+              app.clickResources("${pageContext.request.contextPath}/findSpecBySchoolIdAndTypeIdAndLevelId/find.html?schoolId="+$("#schoolId").val()+"&typeId="+$("#typeId").val()+"&levelId="+$("#levelId").val());
+              layer.close(index);
+            },
+            function(){
+              app.clickResources("${pageContext.request.contextPath}/pageSchoolTypeLevelSpec/page.html", ${reqParams});
+            }
+          );
         }
         if(1 == data.state) {
           app.msg(data.msg, 1);
+          app.clickResources('${pageContext.request.contextPath}/addSchoolTypeLevelSpec/open.html?reqParams=${reqParams}');
         }
       }
     });

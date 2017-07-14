@@ -16,7 +16,7 @@
             <th>序号</th>
             <th>专业编码</th>
             <th>专业名称</th>
-            <th width="140">操作</th>
+            <th width="180">操作</th>
           </tr>
           <c:if test="${empty specList}">
             <tr>
