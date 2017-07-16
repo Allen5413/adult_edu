@@ -2,6 +2,7 @@ package com.allen.web.controller.eduadmin.teachplan;
 
 import com.allen.dao.PageInfo;
 import com.allen.service.basic.school.FindSchoolByCenterIdService;
+import com.allen.service.eduadmin.recruittype.FindRecruitTypeByCenterIdService;
 import com.allen.service.eduadmin.teachplan.PageTeachPlanService;
 import com.allen.util.UserUtil;
 import com.allen.web.controller.BaseController;
@@ -25,6 +26,8 @@ public class PageTeachPlanController extends BaseController {
     private PageTeachPlanService pageTeachPlanService;
     @Autowired
     private FindSchoolByCenterIdService findSchoolByCenterIdService;
+    @Autowired
+    private FindRecruitTypeByCenterIdService findRecruitTypeByCenterIdService;
 
     @RequestMapping(value = "page")
     public String find(HttpServletRequest request,
@@ -48,6 +51,7 @@ public class PageTeachPlanController extends BaseController {
         pageInfo = pageTeachPlanService.find(pageInfo, params, sortMap);
         request.setAttribute("pageInfo", pageInfo);
         request.setAttribute("schoolList", findSchoolByCenterIdService.find(UserUtil.getLoginUserForCenterId(request)));
+        request.setAttribute("typeList", findRecruitTypeByCenterIdService.find(UserUtil.getLoginUserForCenterId(request)));
         request.setAttribute("reqParams", super.getParameters(request));
         return "/eduadmin/teachplan/page";
     }

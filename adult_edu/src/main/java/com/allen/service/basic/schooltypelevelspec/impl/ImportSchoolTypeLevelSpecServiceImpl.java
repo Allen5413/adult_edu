@@ -96,6 +96,9 @@ public class ImportSchoolTypeLevelSpecServiceImpl implements ImportSchoolTypeLev
             if (sheet == null) {
                 continue;
             }
+            if(sheet.getLastRowNum() < 2){
+                msg += "上传文件里面没有数据";
+            }
             // 循环行Row
             for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
                 JSONObject json = new JSONObject();

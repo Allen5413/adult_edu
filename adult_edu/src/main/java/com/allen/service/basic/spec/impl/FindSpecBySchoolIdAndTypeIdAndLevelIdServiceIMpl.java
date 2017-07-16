@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by Allen on 2017/7/7.
  */
 @Service
-public class FindSpecBySchoolIdAndTypeIdAndLevelIdServiceIMpl implements FindSpecBySchoolIdAndTypeIdAndLevelIdService {
+public class FindSpecBySchoolIdAndTypeIdAndLevelIdServiceImpl implements FindSpecBySchoolIdAndTypeIdAndLevelIdService {
 
     @Autowired
     private FindSpecDao findSpecDao;

@@ -31,6 +31,11 @@ public class AuditDataChangeServiceImpl implements AuditDataChangeService {
             if(dataChange.getType() == DataChange.TYPE_DEL){
                 String sql = "delete from "+dataChange.getChangeTable()+ " where id = "+dataChange.getChangeTableId();
                 auditDataChangeDao.auditPassOperate(sql);
+                if("teach_plan".equals(dataChange.getChangeTable())){
+                    sql = "delete from teach_plan_course where teach_plan_id = "+dataChange.getChangeTableId();
+                    auditDataChangeDao.auditPassOperate(sql);
+                }
+
             }
             if(dataChange.getType() == DataChange.TYPE_EDIT && !StringUtil.isEmpty(dataChange.getChangeTableField())){
                 String sql = "update "+dataChange.getChangeTable()+ " set " + dataChange.getChangeTableField()+" where id = "+dataChange.getChangeTableId();

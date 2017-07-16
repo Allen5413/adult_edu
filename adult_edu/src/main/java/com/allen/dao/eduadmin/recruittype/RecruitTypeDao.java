@@ -1,6 +1,7 @@
 package com.allen.dao.eduadmin.recruittype;
 
 import com.allen.entity.eduadmin.RecruitType;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -11,4 +12,13 @@ import java.util.List;
 public interface RecruitTypeDao extends CrudRepository<RecruitType, Long> {
     public List<RecruitType> findByCenterId(long centerId)throws Exception;
     public RecruitType findByCenterIdAndName(long centerId, String name)throws Exception;
+
+    /**
+     * 查询一个学校下的招生类型
+     * @param schoolId
+     * @return
+     * @throws Exception
+     */
+    @Query("select DISTINCT rt from RecruitType rt, SchoolTypeLevelSpec stls where rt.id = stls.recruitTypeId and stls.schoolId = ?1 order by rt.id")
+    public List<RecruitType> findBySchoolId(long schoolId)throws Exception;
 }

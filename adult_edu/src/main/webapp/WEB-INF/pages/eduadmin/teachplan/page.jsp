@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="tit-top-fixed" class="pos-rev-cell">
   <div class="title">教学计划管理</div>
@@ -7,30 +9,33 @@
       <input type="hidden" id="rows" name="rows" />
       <input type="hidden" id="currentPage" name="page" value="${pageInfo.currentPage}"/>
       <li>
+        <span class="itg">招生类型：</span>
+        <span class="inline-select">
+          <select name="typeId">
+            <option value="">全部</option>
+            <c:forEach var="type" items="${typeList}">
+              <option value="${type.id}" <c:if test="${param.typeId == type.id}">selected="selected" </c:if> >${type.name}</option>
+            </c:forEach>
+          </select>
+        </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="itg">高校：</span>
         <span class="inline-select">
-          <select name="schoolId">
+          <select name="schoolId" onchange="findLevel(this);findSpec(this);">
             <option value="">全部</option>
             <c:forEach var="school" items="${schoolList}">
               <option value="${school.id}" <c:if test="${param.schoolId == school.id}">selected="selected" </c:if> >${school.name}</option>
             </c:forEach>
           </select>
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="itg">招生类型：</span>
-        <span class="inline-select">
-          <select name="typeId">
-            <option value="">全部</option>
-          </select>
-        </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="itg">层次：</span>
         <span class="inline-select">
-          <select name="levelId">
+          <select id="levelId" name="levelId">
             <option value="">全部</option>
           </select>
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="itg">专业：</span>
         <span class="inline-select">
-          <select name="specId">
+          <select id="specId" name="specId">
             <option value="">全部</option>
           </select>
         </span><p />
@@ -53,10 +58,10 @@
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="itg">开课季：</span>
         <span class="inline-select">
-          <select name="createId">
+          <select name="term">
             <option value="">全部</option>
-            <option value="0" <c:if test="${param.year == 0}">selected="selected" </c:if>>春季</option>
-            <option value="1" <c:if test="${param.year == 1}">selected="selected" </c:if>>秋季</option>
+            <option value="0" <c:if test="${param.term eq '0'}">selected="selected" </c:if>>春季</option>
+            <option value="1" <c:if test="${param.term eq '1'}">selected="selected" </c:if>>秋季</option>
           </select>
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="inline-input"><a id="searchBtn" class="btn-1" href="#" onclick="app.searchFormPage($('#pageForm'), $('#pageForm').attr('action'))">查 询</a></span>
@@ -68,7 +73,7 @@
   <div class="mod-com-view">
     <div class="title-tabs">
       <a href="#">教学计划列表</a>
-      <a class="btn-com f-r" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/addRecruitType/open.html');">添加教学计划</a>
+      <a class="btn-com f-r" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/addTeachPlan/open.html?reqParams=${reqParams}');">添加教学计划</a>
     </div>
     <div class="mod-content">
       <div class="data-table-list">
@@ -93,14 +98,14 @@
               <tr>
                 <td>${status.index+1}</td>
                 <td>${teachPlan.sName}</td>
-                <td>${teachPlan.tName}</td>
-                <td>${teachPlan.lNmae}</td>
+                <td>${teachPlan.rtName}</td>
+                <td>${teachPlan.lName}</td>
                 <td>${teachPlan.spName}</td>
                 <td>${teachPlan.year}年<c:if test="${teachPlan.term == 0}">春季</c:if><c:if test="${teachPlan.term == 1}">秋季</c:if></td>
-                <td>${teachPlan.begin_data} 到 ${teachPlan.end_data}</td>
+                <td>${fn:substring(teachPlan.begin_date, 0, 11)} 到 ${fn:substring(teachPlan.end_date, 0, 11)}</td>
                 <td>
-                  <a class="btn-opr" href="#" onclick="del(${recruitType.id});">查看</a>
-                  <a class="btn-opr" href="#" onclick="del(${recruitType.id});">删除</a>
+                  <a class="btn-opr" href="#" onclick="searchCourse(${teachPlan.id});">查看课程</a>
+                  <a class="btn-opr" href="#" onclick="del(${teachPlan.id});">删除</a>
                 </td>
               </tr>
             </c:forEach>
@@ -112,6 +117,58 @@
   </div>
 </div>
 <script>
+  function findLevel(obj){
+    $("#levelId option").remove();
+    if("" != $(obj).val()){
+      $.ajax({
+        url:"${pageContext.request.contextPath}/findLevelBySchoolIdFromStls.json",
+        method : 'POST',
+        async:false,
+        data:{"schoolId":$(obj).val()},
+        success:function(data){
+          if(data.state == 0){
+            var levelObj = $("#levelId");
+            levelObj.append($("<option value=''>全部</option>"));
+            for(var i=0; i<data.levelList.length; i++){
+              var level = data.levelList[i];
+              levelObj.append($("<option value='"+level.id+"'>"+level.name+"</option>"));
+            }
+          }else {
+            app.msg(data.msg, 1);
+          }
+        }
+      });
+    }
+  }
+
+  function findSpec(obj){
+    $("#specId option").remove();
+    if("" != $(obj).val()){
+      $.ajax({
+        url:"${pageContext.request.contextPath}/findSpecBySchoolIdFromStls.json",
+        method : 'POST',
+        async:false,
+        data:{"schoolId":$(obj).val()},
+        success:function(data){
+          if(data.state == 0){
+            var levelObj = $("#specId");
+            levelObj.append($("<option value=''>全部</option>"));
+            for(var i=0; i<data.specList.length; i++){
+              var spec = data.specList[i];
+              levelObj.append($("<option value='"+spec.id+"'>["+spec.code+"]"+spec.name+"</option>"));
+            }
+          }else {
+            app.msg(data.msg, 1);
+          }
+        }
+      });
+    }
+  }
+
+  function searchCourse(id){
+    app.openOneBtnDialog('${pageContext.request.contextPath}/findTeachPlanCourseByTeachPlanId/find.html?teachPlanId='+id, '查看课程', 1200, 0.8);
+  }
+
   function del(id){
     var isOperateAudit = "${sessionScope.isOperateAudit}";
     if(isOperateAudit == "1"){
@@ -122,7 +179,7 @@
         }
         app.confirm("您确定要删除该数据", function(index){
           $.ajax({
-            url:"${pageContext.request.contextPath}/delRecruitType.json",
+            url:"${pageContext.request.contextPath}/delTeachPlan.json",
             method : 'POST',
             async:false,
             data:{"id":id, "editReson":$("#editReson").val()},
@@ -133,7 +190,7 @@
                 }
                 layer.close(index);
                 layer.close(index2);
-                app.clickResources('${pageContext.request.contextPath}/pageRecruitType/page.html');
+                app.clickResources('${pageContext.request.contextPath}/pageTeachPlan/page.html');
               }else {
                 app.msg(data.msg, 1);
               }
@@ -144,7 +201,7 @@
     }else{
       app.confirm("您确定要删除该数据", function(index){
         $.ajax({
-          url:"${pageContext.request.contextPath}/delRecruitType.json",
+          url:"${pageContext.request.contextPath}/delTeachPlan.json",
           method : 'POST',
           async:false,
           data:{"id":id},
@@ -154,7 +211,7 @@
                 app.msg(data.msg, 0);
               }
               layer.close(index);
-              app.clickResources('${pageContext.request.contextPath}/pageRecruitType/page.html');
+              app.clickResources('${pageContext.request.contextPath}/pageTeachPlan/page.html');
             }else {
               app.msg(data.msg, 1);
             }
