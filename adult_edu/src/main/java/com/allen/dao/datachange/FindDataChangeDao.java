@@ -23,7 +23,7 @@ public class FindDataChangeDao extends BaseQueryDao {
         String beginDate = paramsMap.get("beginDate");
         String endDate = paramsMap.get("endDate");
 
-        String fileds = "dc.id, u.name, u.phone, s.code, s.name studentName, dc.create_time createTime, dc.change_content changeContent, dc.change_table changeTable, dc.change_table_id changeTableId, dc.change_table_field changeTableField, dc.state";
+        String fileds = "dc.id, u.name, u.phone, s.code, s.name studentName, dc.create_time createTime, dc.change_content changeContent, dc.change_table changeTable, dc.change_table_id changeTableId, dc.change_table_field changeTableField, dc.state, dc.type";
         String sql = "from data_change dc INNER JOIN user u on dc.creator_id = u.id ";
         sql += "LEFT JOIN student s on dc.student_id = s.id ";
         sql += "where dc.center_id = ? ";

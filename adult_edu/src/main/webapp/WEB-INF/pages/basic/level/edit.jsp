@@ -14,10 +14,12 @@
             <td class="tag-b">层次名称：</td>
             <td><input type="text" id="name" name="name" value="${level.name}" class="input-txt-220" /></td>
           </tr>
-          <tr>
-            <td class="tag-b">变更原因：</td>
-            <td><input type="text" id="editReson" name="editReson" class="input-txt-220" /></td>
-          </tr>
+          <c:if test="${sessionScope.isOperateAudit == 1}">
+            <tr>
+              <td class="tag-b">变更原因：</td>
+              <td><input type="text" id="editReson" name="editReson" class="input-txt-220" /></td>
+            </tr>
+          </c:if>
           <tr>
             <td class="tag-b"></td>
             <td>

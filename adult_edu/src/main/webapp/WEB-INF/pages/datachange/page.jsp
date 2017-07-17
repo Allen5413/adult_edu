@@ -81,7 +81,9 @@
                   <c:if test="${dataChange.state == 2}">已通过</c:if>
                 </td>
                 <td>
-                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/findDataChangeById/open.html?id=${dataChange.id}&table=${dataChange.changeTable}&tableId=${dataChange.changeTableId}&reqParams=${reqParams}');">查看</a>
+                  <c:if test="${dataChange.state < 2 || dataChange.type < 2}">
+                    <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/findDataChangeById/open.html?id=${dataChange.id}&table=${dataChange.changeTable}&tableId=${dataChange.changeTableId}&reqParams=${reqParams}');">查看</a>
+                  </c:if>
                 </td>
               </tr>
             </c:forEach>
