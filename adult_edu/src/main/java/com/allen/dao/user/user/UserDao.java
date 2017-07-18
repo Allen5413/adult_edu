@@ -22,4 +22,7 @@ public interface UserDao extends CrudRepository<User, Long> {
 
     @Query("select u from User u, UserGroupUser ugu where u.id = ugu.userId and u.state = 1 and u.centerId = ?1 and ugu.userGroupId = ?2")
     public List<User> findByCenterIdAndUgId(long centerId, long ugId)throws Exception;
+
+    @Query("select u from User u where u.type between 1 and 2 and u.centerId = ?1 order by u.type")
+    public List<User> findByCenterIdForCenterMan(long centerId)throws Exception;
 }

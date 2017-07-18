@@ -27,6 +27,11 @@ public class StringUtil {
         return df.format(intHao);
     }
 
+    public static String substringAfterLast(String str, String flag){
+        int num = str.lastIndexOf(flag);
+        return str.substring(num+1, str.length());
+    }
+
     public static void main(String[] args) {
         System.out.println(StringUtil.haoAddOne_2("313"));
     }

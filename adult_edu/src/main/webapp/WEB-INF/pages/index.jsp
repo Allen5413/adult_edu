@@ -14,11 +14,15 @@
   <div class="user-navs">
     <ul>
       <li> </li>
-      <li><a href="#">您好！${sessionScope.name}</a>
+      <li class="uh-name">
+        <span class="uhead">
+          <c:if test="${empty center.logo}"><img src="img/zs_uhead.jpg" /></c:if>
+          <c:if test="${!empty center.logo}"><img src="${pageContext.request.contextPath}${center.logo}" /></c:if>
+        </span>
+        <a href="#">您好！${sessionScope.name}</a>
         <div class="navs-drop">
           <ul>
-            <li><a href="#">联系我们</a></li>
-            <li><a href="#">返回个人中心</a></li>
+            <li><a href="#" onclick="app.clickResources('${pageContext.request.contextPath}/findCneterById/open.html')">个人中心</a></li>
             <li><a href="${pageContext.request.contextPath}/logout.html">退出登录</a></li>
           </ul>
         </div>

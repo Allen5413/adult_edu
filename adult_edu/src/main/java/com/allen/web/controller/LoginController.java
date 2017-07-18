@@ -4,10 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.allen.base.exception.BusinessException;
 import com.allen.entity.basic.Menu;
 import com.allen.entity.basic.Resource;
+import com.allen.entity.user.Center;
 import com.allen.entity.user.User;
 import com.allen.service.basic.menu.FindMenuByIdService;
 import com.allen.service.basic.resource.FindResourceByUserIdService;
+import com.allen.service.user.center.FindCenterByIdService;
 import com.allen.service.user.user.LoginService;
+import com.allen.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +33,8 @@ public class LoginController {
     private FindResourceByUserIdService findResourceByUserIdService;
     @Autowired
     private FindMenuByIdService findMenuByIdService;
+    @Autowired
+    private FindCenterByIdService findCenterByIdService;
 
     @RequestMapping("/")
     public String login(){
@@ -53,8 +58,10 @@ public class LoginController {
     }
 
     @RequestMapping("/openIndex")
-    public String index(HttpServletRequest request){
+    public String index(HttpServletRequest request)throws Exception{
         //获取当前年月日星期
+        Center center = findCenterByIdService.find(UserUtil.getLoginUserForCenterId(request));
+        request.setAttribute("center", center);
         return "/index";
     }
 

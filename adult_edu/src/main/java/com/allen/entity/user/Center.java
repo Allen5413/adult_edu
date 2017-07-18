@@ -23,8 +23,12 @@ public class Center {
     private Long id;                            //主键
     private String code;
     private String name;
+    private String logo;
+    private String banner;
     private String linkman;
     private String phone;
+    private String email;
+    private String address;
     private Timestamp authorizeDate;
     private int feeState;
     private int state;
@@ -135,6 +139,22 @@ public class Center {
         this.cerator = cerator;
     }
 
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
+    }
+
     public String getFeeStateStr() {
         switch (this.getFeeState()){
             case FEESTATE_NOT:
@@ -163,5 +183,21 @@ public class Center {
 
     public void setLinkman(String linkman) {
         this.linkman = linkman;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
