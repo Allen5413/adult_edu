@@ -34,8 +34,8 @@
             </td>
             <td class="tag-b">专业：</td>
             <td>
-              <select id="specId" name="specId" class="select-140">
-                <option>请选择</option>
+              <select id="specId" name="specId" class="select-140" onchange="selectSpec(this)">
+                <option value="">请选择</option>
               </select><span style="color: #ff0000">*</span>
             </td>
           </tr>
@@ -47,7 +47,7 @@
               </select><span style="color: #ff0000">*</span>
             </td>
             <td class="tag-b" >姓名：</td>
-            <td><input type="text" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
+            <td><input type="text" id="name" name="name" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
           </tr>
           <tr>
             <td class="tag-b" >性别：</td>
@@ -56,13 +56,13 @@
               <input type="radio" name="sex" value="1">&nbsp;&nbsp;女
             </td>
             <td class="tag-b">身份证号：</td>
-            <td><input type="text" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
+            <td><input type="text" id="idCard" name="idCard" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
           </tr>
           <tr>
             <td class="tag-b" >手机：</td>
-            <td><input type="text" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
+            <td><input type="text" id="phone" name="phone" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
             <td class="tag-b">QQ：</td>
-            <td><input type="text" class="input-txt-200" /></td>
+            <td><input type="text" id="qq" name="qq" class="input-txt-200" /></td>
           </tr>
           <tr>
             <td class="tag-b">学习方式：</td>
@@ -76,7 +76,7 @@
               </select>
             </td>
             <td class="tag-b" >家庭住址：</td>
-            <td><input type="text" name="address" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
+            <td><input type="text" id="address" name="address" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
 
           </tr>
           <tr>
@@ -182,36 +182,33 @@
             <td colspan="4"><textarea name="reward" class="textarea-intro"></textarea></td>
           </tr>
           <tr>
-            <td class="tag-b" >照片上传：</td>
-            <td colspan="4">
-              <p>
-                <label><input type="radio"> 照片 </label>
-                <label><input type="radio"> 身份证正面</label>
-                <label><input type="radio"> 身份证反面</label>
-                <label><input type="radio"> 学历证书 </label>
-                <label><input type="radio"> 学信网认证</label>
-                <label><input type="radio"> 异地生证明</label>
-              </p>
-            </td>
+            <td class="tag-b" >上传照片：</td>
+            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a><span style="color: #ff0000">*</span></td>
           </tr>
           <tr>
-            <td class="tag-b" >照片详情：</td>
-            <td  style="vertical-align: top;">
-              <p>身份证照片：</p>
-              <img src="../img/pic_2.jpg" />
-              <p>身份证照片：</p>
-              <img src="../img/pic_2.jpg" />
-            </td>
-            <td  style="vertical-align: top;">
-              <p>学历证书：</p>
-              <img src="../img/pic_2.jpg" />
-            </td>
+            <td class="tag-b" >上传身份证正面：</td>
+            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a><span style="color: #ff0000">*</span></td>
+          </tr>
+          <tr>
+            <td class="tag-b" >上传身份证背面：</td>
+            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a><span style="color: #ff0000">*</span></td>
+          </tr>
+          <tr>
+            <td class="tag-b" >上传学历证书：</td>
+            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a><span style="color: #ff0000">*</span></td>
+          </tr>
+          <tr>
+            <td class="tag-b" >上传学信网认证：</td>
+            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a></td>
+          </tr>
+          <tr>
+            <td class="tag-b" >上传异地生证明：</td>
+            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a></td>
           </tr>
           <tr>
             <td class="tag-b" ></td>
             <td colspan="4">
-              <a class="btn-com" href="#">上一步</a>
-              <a class="btn-com" href="#">提 交</a>
+              <a class="btn-com" href="#" onclick="add()">保存提交</a>
             </td>
           </tr>
         </table>
@@ -224,9 +221,10 @@
     $("#recruitTypeId option").remove();
     $("#levelId option").remove();
     $("#specId option").remove();
+    $("#teachPlanId option").remove();
     if($(obj).val() != ""){
       $.ajax({
-        url:"${pageContext.request.contextPath}/findRecruitTypeBySchoolId.json",
+        url:"${pageContext.request.contextPath}/findRecruitTypeBySchoolIdForTP.json",
         method : 'POST',
         async:false,
         data:{"schoolId":$(obj).val()},
@@ -240,6 +238,7 @@
             }
             $("#levelId").append($("<option value=''>请选择</option>"));
             $("#specId").append($("<option value=''>请选择</option>"));
+            $("#teachPlanId").append($("<option value=''>请选择</option>"));
           }else {
             app.msg(data.msg, 1);
           }
@@ -251,9 +250,10 @@
   function selectType(obj){
     $("#levelId option").remove();
     $("#specId option").remove();
+    $("#teachPlanId option").remove();
     if($(obj).val() != ""){
       $.ajax({
-        url:"${pageContext.request.contextPath}/findLevelBySchoolIdAndTypeId.json",
+        url:"${pageContext.request.contextPath}/findLevelBySchoolIdAndTypeIdForTP.json",
         method : 'POST',
         async:false,
         data:{"schoolId":$("#schoolId").val(), "typeId":$(obj).val()},
@@ -266,6 +266,7 @@
               levelObj.append($("<option value='" + level.id + "'>" + level.name + "</option>"));
             }
             $("#specId").append($("<option value=''>请选择</option>"));
+            $("#teachPlanId").append($("<option value=''>请选择</option>"));
           }else {
             app.msg(data.msg, 1);
           }
@@ -276,9 +277,10 @@
 
   function selectLevel(obj){
     $("#specId option").remove();
+    $("#teachPlanId option").remove();
     if($(obj).val() != ""){
       $.ajax({
-        url:"${pageContext.request.contextPath}/findSpecBySchoolIdAndTypeIdAndLevelId/findForJSON.json",
+        url:"${pageContext.request.contextPath}/findSpecBySchoolIdAndTypeIdAndLevelIdForTP.json",
         method : 'POST',
         async:false,
         data:{"schoolId":$("#schoolId").val(), "typeId":$("#recruitTypeId").val(), "levelId":$(obj).val()},
@@ -290,6 +292,7 @@
               var spec = data.specList[i];
               specObj.append($("<option value='" + spec.id + "'>["+spec.code+"]" + spec.name + "</option>"));
             }
+            $("#teachPlanId").append($("<option value=''>请选择</option>"));
           }else {
             app.msg(data.msg, 1);
           }
@@ -298,28 +301,87 @@
     }
   }
 
-  function saveCenter(){
-    if($("#code").val() == ""){
-      app.alert("请输入编号！", 1);
+  function selectSpec(obj){
+    $("#teachPlanId option").remove();
+    if($(obj).val() != ""){
+      $.ajax({
+        url:"${pageContext.request.contextPath}/findTeachPlanBySchoolIdAndTypeIdAndLevelIdAndSpecId.json",
+        method : 'POST',
+        async:false,
+        data:{"schoolId":$("#schoolId").val(), "typeId":$("#recruitTypeId").val(), "levelId":$("#levelId").val(), "specId":$(obj).val()},
+        success:function(data){
+          if(data.state == 0){
+            var tpObj = $("#teachPlanId");
+            tpObj.append($("<option value=''>请选择</option>"));
+            for(var i=0; i<data.tpList.length; i++){
+              var tp = data.tpList[i];
+              tpObj.append($("<option value='" + tp.id + "'>"+tp.year+(tp.term == 0 ? "春季":"秋季") + "</option>"));
+            }
+          }else {
+            app.msg(data.msg, 1);
+          }
+        }
+      });
+    }
+  }
+
+  function add(){
+    if($("#schoolId").val() == ""){
+      app.alert("请选择学校！", 1);
       return false;
     }
-    if($("#name").val() == ""){
-      app.alert("请输入名称！", 1);
+    if($("#recruitTypeId").val() == ""){
+      app.alert("请选择报考类型！", 1);
       return false;
     }
-    if($("#linkman").val() == ""){
-      app.alert("请输入负责人！", 1);
+    if($("#levelId").val() == ""){
+      app.alert("请选择层次！", 1);
+      return false;
+    }
+    if($("#specId").val() == ""){
+      app.alert("请选择专业！", 1);
+      return false;
+    }
+    if($("#teachPlanId").val() == ""){
+      app.alert("请选择批次！", 1);
+      return false;
+    }
+    if($("#name").val().trim() == ""){
+      app.alert("请输入姓名！", 1);
+      return false;
+    }
+    if($("#idCard").val().trim() == ""){
+      app.alert("请输入身份证号！", 1);
       return false;
     }
     if(isNaN($("#phone").val()) || 11 != $("#phone").val().length){
       app.alert("请输入正确的手机号码！", 1);
       return false;
     }
-    if($("#date").val() == ""){
-      app.alert("请选择授权到期时间！", 1);
+    if($("#address").val().trim() == ""){
+      app.alert("请输入家庭地址！", 1);
       return false;
     }
-    $("#authorizeDate").val($("#date").val()+" 23:59:59");
+    if($("#sourceRemark").val().trim() == ""){
+      app.alert("请输入生源备注！", 1);
+      return false;
+    }
+    if($("#photoUrl").val().trim() == ""){
+      app.alert("请上传照片！", 1);
+      return false;
+    }
+    if($("#idCardFrontUrl").val().trim() == ""){
+      app.alert("请上传身份证正面！", 1);
+      return false;
+    }
+    if($("#idCardBackUrl").val().trim() == ""){
+      app.alert("请上传身份证背面！", 1);
+      return false;
+    }
+    if($("#diplomaUrl").val().trim() == ""){
+      app.alert("请上传学历证书！", 1);
+      return false;
+    }
     app.add("${pageContext.request.contextPath}/addCenter/add.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageCenter/page.html", ${reqParams});
   }
 </script>

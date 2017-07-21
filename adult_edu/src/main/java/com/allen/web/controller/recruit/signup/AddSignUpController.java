@@ -2,7 +2,7 @@ package com.allen.web.controller.recruit.signup;
 
 import com.alibaba.fastjson.JSONObject;
 import com.allen.entity.recruit.SignUp;
-import com.allen.service.basic.school.FindSchoolByCenterIdService;
+import com.allen.service.basic.school.FindSchoolByCenterIdForTeachPlanService;
 import com.allen.service.recruit.signup.AddSignUpService;
 import com.allen.util.UserUtil;
 import com.allen.web.controller.BaseController;
@@ -23,14 +23,14 @@ public class AddSignUpController extends BaseController {
     @Autowired
     private AddSignUpService addSignUpService;
     @Autowired
-    private FindSchoolByCenterIdService findSchoolByCenterIdService;
+    private FindSchoolByCenterIdForTeachPlanService findSchoolByCenterIdForTeachPlanService;
 
     /**
      * @return
      */
     @RequestMapping(value = "open")
     public String open(HttpServletRequest request)throws Exception{
-        request.setAttribute("schoolList", findSchoolByCenterIdService.find(UserUtil.getLoginUserForCenterId(request)));
+        request.setAttribute("schoolList", findSchoolByCenterIdForTeachPlanService.find(UserUtil.getLoginUserForCenterId(request)));
         return "recruit/signup/add";
     }
 

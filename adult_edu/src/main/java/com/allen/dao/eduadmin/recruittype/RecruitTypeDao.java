@@ -21,4 +21,13 @@ public interface RecruitTypeDao extends CrudRepository<RecruitType, Long> {
      */
     @Query("select DISTINCT rt from RecruitType rt, SchoolTypeLevelSpec stls where rt.id = stls.recruitTypeId and stls.schoolId = ?1 order by rt.id")
     public List<RecruitType> findBySchoolId(long schoolId)throws Exception;
+
+    /**
+     * 查询一个学校下设置了教学计划的招生类型
+     * @param schoolId
+     * @return
+     * @throws Exception
+     */
+    @Query("select DISTINCT rt from RecruitType rt, TeachPlan tp where rt.id = tp.typeId and NOW() BETWEEN tp.beginDate and tp.endDate and tp.schoolId = ?1 order by rt.id")
+    public List<RecruitType> findBySchoolIdForTeachPlan(long schoolId)throws Exception;
 }
