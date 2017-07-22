@@ -10,22 +10,22 @@ import java.util.Map;
  */
 @ConfigurationProperties(prefix = "edu", locations = "classpath:config.properties")
 public class ConfigProp {
-    public Map<String, String> centerLogo = new HashMap<String, String>();
-    public Map<String, String> centerBanner = new HashMap<String, String>();
+    public Map<String, String> center = new HashMap<String, String>();
+    public Map<String, String> signUp = new HashMap<String, String>();
 
-    public Map<String, String> getCenterLogo() {
-        return centerLogo;
+    public Map<String, String> getCenter() {
+        return center;
     }
 
-    public void setCenterLogo(Map<String, String> centerLogo) {
-        this.centerLogo = centerLogo;
+    public void setCenter(Map<String, String> center) {
+        this.center = center;
     }
 
-    public Map<String, String> getCenterBanner() {
-        return centerBanner;
+    public Map<String, String> getSignUp() {
+        return signUp;
     }
 
-    public void setCenterBanner(Map<String, String> centerBanner) {
-        this.centerBanner = centerBanner;
+    public void setSignUp(Map<String, String> signUp) {
+        this.signUp = signUp;
     }
 }

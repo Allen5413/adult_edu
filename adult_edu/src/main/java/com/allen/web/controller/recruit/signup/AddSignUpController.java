@@ -1,9 +1,13 @@
 package com.allen.web.controller.recruit.signup;
 
 import com.alibaba.fastjson.JSONObject;
+import com.allen.base.config.ConfigProp;
+import com.allen.base.exception.BusinessException;
 import com.allen.entity.recruit.SignUp;
 import com.allen.service.basic.school.FindSchoolByCenterIdForTeachPlanService;
 import com.allen.service.recruit.signup.AddSignUpService;
+import com.allen.util.StringUtil;
+import com.allen.util.UpLoadFileUtil;
 import com.allen.util.UserUtil;
 import com.allen.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +50,7 @@ public class AddSignUpController extends BaseController {
             signUp.setCenterId(UserUtil.getLoginUserForCenterId(request));
             signUp.setCerator(UserUtil.getLoginUserForName(request));
             signUp.setOperator(UserUtil.getLoginUserForName(request));
-            addSignUpService.add(signUp);
+            addSignUpService.add(request, signUp);
         }
         jsonObject.put("state", 0);
         return jsonObject;

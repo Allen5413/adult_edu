@@ -30,7 +30,7 @@
 <script>
   function edit(){
     $("#form").ajaxSubmit({
-      url : "/editCenter/editLogo.json",
+      url : "${pageContext.request.contextPath}/editCenter/editLogo.json",
       dataType : 'json',
       success : function(data){
         if(0 == data.state) {

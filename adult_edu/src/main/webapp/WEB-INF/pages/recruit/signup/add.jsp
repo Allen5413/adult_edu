@@ -6,7 +6,7 @@
 <div class="container-view">
   <div class="mod-com-view">
     <div class="mod-content">
-      <form id="form" name="form" action="${pageContext.request.contextPath}/addCenter/add.html">
+      <form id="form" name="form" action="${pageContext.request.contextPath}/addSignUp/add.json">
         <table class="info-table-input">
           <tr>
             <td class="tag-b">学校：</td>
@@ -181,38 +181,69 @@
             <td class="tag-b" >何时何地曾获过何种奖励：</td>
             <td colspan="4"><textarea name="reward" class="textarea-intro"></textarea></td>
           </tr>
-          <tr>
-            <td class="tag-b" >上传照片：</td>
-            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a><span style="color: #ff0000">*</span></td>
-          </tr>
-          <tr>
-            <td class="tag-b" >上传身份证正面：</td>
-            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a><span style="color: #ff0000">*</span></td>
-          </tr>
-          <tr>
-            <td class="tag-b" >上传身份证背面：</td>
-            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a><span style="color: #ff0000">*</span></td>
-          </tr>
-          <tr>
-            <td class="tag-b" >上传学历证书：</td>
-            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a><span style="color: #ff0000">*</span></td>
-          </tr>
-          <tr>
-            <td class="tag-b" >上传学信网认证：</td>
-            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a></td>
-          </tr>
-          <tr>
-            <td class="tag-b" >上传异地生证明：</td>
-            <td colspan="4"><a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />选择照片</a></td>
-          </tr>
-          <tr>
-            <td class="tag-b" ></td>
-            <td colspan="4">
-              <a class="btn-com" href="#" onclick="add()">保存提交</a>
-            </td>
-          </tr>
         </table>
+        <input type="hidden" id="photoUrl" name="photoUrl" />
+        <input type="hidden" id="idCardFrontUrl" name="idCardFrontUrl" />
+        <input type="hidden" id="idCardBackUrl" name="idCardBackUrl" />
+        <input type="hidden" id="diplomaUrl" name="diplomaUrl" />
+        <input type="hidden" id="xxwUrl" name="xxwUrl" />
+        <input type="hidden" id="ydsUrl" name="ydsUrl" />
       </form>
+      <table class="info-table-input" style="width: 80%">
+        <tr>
+          <td style="text-align: center">
+            <form id="photoForm" name="photoForm" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
+              <input type="hidden" id="idCard_photo" name="idCard">
+              <img id="photoImg" style="display: none; width: 400px; height: 280px;" /><br/>
+              <a class="btn-com-upload" href="#"><input type="file" id="photoFile" name="img" class="uploadfile" onchange="upImg(1);" />上传照片</a><span style="color: #ff0000">*</span>
+            </form>
+          </td>
+          <td>
+            <form id="photoForm2" name="photoForm2" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
+              <input type="hidden" id="idCard_photo2" name="idCard">
+              <img id="photoImg2" style="display: none; width: 400px; height: 280px; " /><br/>
+              <a class="btn-com-upload" href="#"><input type="file" id="photoFile2" name="img" class="uploadfile" onchange="upImg(2);" />上传身份证正面</a><span style="color: #ff0000">*</span>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <form id="photoForm3" name="photoForm3" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
+              <input type="hidden" id="idCard_photo3" name="idCard">
+              <img id="photoImg3" style="display: none; width: 400px; height: 280px; " /><br/>
+              <a class="btn-com-upload" href="#"><input type="file" id="photoFile3" name="img" class="uploadfile" onchange="upImg(3);" />上传身份证背面</a><span style="color: #ff0000">*</span>
+            </form>
+          </td>
+          <td>
+            <form id="photoForm4" name="photoForm4" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
+              <input type="hidden" id="idCard_photo4" name="idCard">
+              <img id="photoImg4" style="display: none; width: 400px; height: 280px; " /><br/>
+              <a class="btn-com-upload" href="#"><input type="file" id="photoFile4" name="img" class="uploadfile" onchange="upImg(4);" />上传学历证书</a><span style="color: #ff0000">*</span>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <form id="photoForm5" name="photoForm5" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
+              <input type="hidden" id="idCard_photo5" name="idCard">
+              <img id="photoImg5" style="display: none; width: 400px; height: 280px; " /><br/>
+              <a class="btn-com-upload" href="#"><input type="file" id="photoFile5" name="img" class="uploadfile" onchange="upImg(5);" />上传学信网认证</a>
+            </form>
+          </td>
+          <td>
+            <form id="photoForm6" name="photoFor6m" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
+              <input type="hidden" id="idCard_photo6" name="idCard">
+              <img id="photoImg6" style="display: none; width: 400px; height: 280px; " /><br/>
+              <a class="btn-com-upload" href="#"><input type="file" id="photoFile6" name="img" class="uploadfile" onchange="upImg(6);" />上传异地生证明</a>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <a class="btn-com" href="#" onclick="add()">保存提交</a>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
@@ -325,6 +356,74 @@
     }
   }
 
+  function upImg(flag){
+    var formId = "";
+    var url = "";
+    var imgId = "";
+    var setValueId = "";
+    var idCard = $("#idCard").val().trim();
+    if(idCard == ""){
+      app.msg("请先输入身份证号！")
+      return false;
+    }
+
+    if(1 == flag){
+      formId = "photoForm";
+      url = "/uploadPhoto.json"
+      imgId = "photoImg";
+      setValueId = "photoUrl";
+      $("#idCard_photo").val(idCard);
+    }
+    if(2 == flag){
+      formId = "photoForm2";
+      url = "/uploadIdCardFront.json"
+      imgId = "photoImg2";
+      setValueId = "idCardFrontUrl";
+      $("#idCard_photo2").val(idCard);
+    }
+    if(3 == flag){
+      formId = "photoForm3";
+      url = "/uploadIdCardBack.json"
+      imgId = "photoImg3";
+      setValueId = "idCardBackUrl";
+      $("#idCard_photo3").val(idCard);
+    }
+    if(4 == flag){
+      formId = "photoForm4";
+      url = "/uploadDiploma.json"
+      imgId = "photoImg4";
+      setValueId = "diplomaUrl";
+      $("#idCard_photo4").val(idCard);
+    }
+    if(5 == flag){
+      formId = "photoForm5";
+      url = "/uploadXxw.json"
+      imgId = "photoImg5";
+      setValueId = "xxwUrl";
+      $("#idCard_photo5").val(idCard);
+    }
+    if(6 == flag){
+      formId = "photoForm6";
+      url = "/uploadYds.json"
+      imgId = "photoImg6";
+      setValueId = "ydsUrl";
+      $("#idCard_photo6").val(idCard);
+    }
+    $("#"+formId).ajaxSubmit({
+      url : "${pageContext.request.contextPath}"+url,
+      dataType : 'json',
+      success : function(data){
+        if(0 == data.state) {
+          $("#" + imgId).attr('src', data.url);
+          $("#" + imgId).show();
+          $("#"+setValueId).val(data.url);
+        }else{
+          app.msg(data.msg, 1);
+        }
+      }
+    });
+  }
+
   function add(){
     if($("#schoolId").val() == ""){
       app.alert("请选择学校！", 1);
@@ -382,6 +481,20 @@
       app.alert("请上传学历证书！", 1);
       return false;
     }
-    app.add("${pageContext.request.contextPath}/addCenter/add.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageCenter/page.html", ${reqParams});
+    $.ajax({
+      cache: true,
+      type: "POST",
+      url:"${pageContext.request.contextPath}/addSignUp/add.json",
+      data:$("#form").serialize(),
+      async: false,
+      success: function(data) {
+        if(data.state == 0){
+          app.msg("保存成功！", 0);
+          app.clickResources("${pageContext.request.contextPath}/addSignUp/open.html");
+        }else{
+          app.msg(data.msg, 1);
+        }
+      }
+    });
   }
 </script>

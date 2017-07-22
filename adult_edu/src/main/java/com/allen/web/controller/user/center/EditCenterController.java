@@ -3,7 +3,6 @@ package com.allen.web.controller.user.center;
 import com.alibaba.fastjson.JSONObject;
 import com.allen.base.config.ConfigProp;
 import com.allen.entity.user.Center;
-import com.allen.service.user.center.AddCenterService;
 import com.allen.service.user.center.EditCenterService;
 import com.allen.service.user.center.FindCenterByIdService;
 import com.allen.util.UpLoadFileUtil;
@@ -139,7 +138,7 @@ public class EditCenterController extends BaseController {
         JSONObject jsonObject = new JSONObject();
         Center center = findCenterByIdService.find(id);
         MultipartRequest mulReu = (MultipartRequest) request;
-        String url = configProp.getCenterLogo().get("url");
+        String url = configProp.getCenter().get("logoUrl");
         String saveFileName = center.getCode()+"_logo";
         //处理上传图片
         String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 10240, 10, url, saveFileName);
@@ -163,7 +162,7 @@ public class EditCenterController extends BaseController {
         JSONObject jsonObject = new JSONObject();
         Center center = findCenterByIdService.find(id);
         MultipartRequest mulReu = (MultipartRequest) request;
-        String url = configProp.getCenterBanner().get("url");
+        String url = configProp.getCenter().get("bannerUrl");
         String saveFileName = center.getCode()+"_banner";
         //处理上传图片
         String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 10240, 10, url, saveFileName);
