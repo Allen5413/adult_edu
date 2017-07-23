@@ -47,6 +47,7 @@ public class AddSignUpController extends BaseController {
     public JSONObject add(HttpServletRequest request, SignUp signUp) throws Exception {
         JSONObject jsonObject = new JSONObject();
         if(null != signUp) {
+            signUp.setState(SignUp.STATE_WAIT);
             signUp.setCenterId(UserUtil.getLoginUserForCenterId(request));
             signUp.setCerator(UserUtil.getLoginUserForName(request));
             signUp.setOperator(UserUtil.getLoginUserForName(request));

@@ -1,9 +1,6 @@
 package com.allen.entity.recruit;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -13,10 +10,16 @@ import java.util.Date;
 @Entity
 @Table(name = "sign_up")
 public class SignUp {
+
+    public static final int STATE_WAIT = 0;     //待审核
+    public static final int STATE_NOT = 1;      //未通过
+    public static final int STATE_PASS = 2;     //已通过
+
     @Id
     @GeneratedValue
     private long id;
     private long centerId;
+    private int state;
     private long schoolId;
     private long recruitTypeId;
     private long levelId;
@@ -81,6 +84,9 @@ public class SignUp {
     private Date createTime = new Date();       //创建时间
     private String operator;                    //操作人
     private Date operateTime = new Date();      //操作时间
+
+    @Transient
+    private String stateStr;
 
     public long getId() {
         return id;
@@ -608,5 +614,26 @@ public class SignUp {
 
     public void setSex(int sex) {
         this.sex = sex;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getStateStr() {
+        switch (this.getState()){
+            case SignUp.STATE_WAIT:
+                return "待审核";
+            case SignUp.STATE_NOT:
+                return "未通过";
+            case SignUp.STATE_PASS:
+                return "已通过";
+            default:
+                return "";
+        }
     }
 }
