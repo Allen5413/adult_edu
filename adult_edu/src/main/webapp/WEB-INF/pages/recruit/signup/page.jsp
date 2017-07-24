@@ -16,8 +16,20 @@
           <select name="state">
             <option value="">全部</option>
             <option value="0" <c:if test="${param.state eq '0'}">selected="selected" </c:if> >待审核</option>
-            <option value="1" <c:if test="${param.state eq '1'}">selected="selected" </c:if> >未通过</option>
-            <option value="2" <c:if test="${param.state eq '2'}">selected="selected" </c:if> >已通过</option>
+            <option value="1" <c:if test="${param.state eq '1'}">selected="selected" </c:if> >中心未通过</option>
+            <option value="2" <c:if test="${param.state eq '2'}">selected="selected" </c:if> >高校审核中</option>
+            <option value="3" <c:if test="${param.state eq '3'}">selected="selected" </c:if> >高校未通过</option>
+            <option value="4" <c:if test="${param.state eq '4'}">selected="selected" </c:if> >高校已通过</option>
+          </select>
+        </span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="itg">上传时间：</span>
+        <span class="inline-select">
+          <select name="date">
+            <option value="">全部</option>
+            <option value="0" <c:if test="${param.date eq '0'}">selected="selected" </c:if> >最近一周</option>
+            <option value="1" <c:if test="${param.date eq '1'}">selected="selected" </c:if> >最近半个月</option>
+            <option value="2" <c:if test="${param.date eq '2'}">selected="selected" </c:if> >最近一个月</option>
+            <option value="3" <c:if test="${param.date eq '3'}">selected="selected" </c:if> >最近三个月</option>
           </select>
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="inline-input"><a id="searchBtn" class="btn-1" href="#" onclick="app.searchFormPage($('#pageForm'), $('#pageForm').attr('action'))">查 询</a></span>
@@ -57,7 +69,9 @@
                 <td>${signUp.createTime}</td>
                 <td>${signUp.stateStr}</td>
                 <td>
-                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editLevel/open.html?id=${level.id}&reqParams=${reqParams}');">编辑</a>
+                  <c:if test="${signUp.state != 2 || signUp.state != 4}">
+                    <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editLevel/open.html?id=${level.id}&reqParams=${reqParams}');">编辑</a>
+                  </c:if>
                 </td>
               </tr>
             </c:forEach>

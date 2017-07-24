@@ -11,15 +11,18 @@ import java.util.Date;
 @Table(name = "sign_up")
 public class SignUp {
 
-    public static final int STATE_WAIT = 0;     //待审核
-    public static final int STATE_NOT = 1;      //未通过
-    public static final int STATE_PASS = 2;     //已通过
+    public static final int STATE_CENTER_WAIT = 0;     //待审核
+    public static final int STATE_CENTER_NOT = 1;      //中心未通过
+    public static final int STATE_SCHOOL_WAIT = 2;     //学校审核中
+    public static final int STATE_SCHOOL_NOT = 3;      //学校未通过
+    public static final int STATE_SCHOOL_PASS = 4;     //学校已通过
 
     @Id
     @GeneratedValue
     private long id;
     private long centerId;
     private int state;
+    private String reason;
     private long schoolId;
     private long recruitTypeId;
     private long levelId;
@@ -626,14 +629,26 @@ public class SignUp {
 
     public String getStateStr() {
         switch (this.getState()){
-            case SignUp.STATE_WAIT:
+            case SignUp.STATE_CENTER_WAIT:
                 return "待审核";
-            case SignUp.STATE_NOT:
-                return "未通过";
-            case SignUp.STATE_PASS:
-                return "已通过";
+            case SignUp.STATE_CENTER_NOT:
+                return "中心未通过";
+            case SignUp.STATE_SCHOOL_WAIT:
+                return "高校审核中";
+            case SignUp.STATE_SCHOOL_NOT:
+                return "高校未通过";
+            case SignUp.STATE_SCHOOL_PASS:
+                return "高校已通过";
             default:
                 return "";
         }
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }
