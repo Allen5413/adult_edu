@@ -16,6 +16,8 @@ public interface UserDao extends CrudRepository<User, Long> {
 
     public List<User> findByCenterId(long centerId)throws Exception;
 
+    public List<User> findByCenterIdAndTypeAndState(long centerId, int type, int state)throws Exception;
+
     public User findByCenterIdAndCode(long centerId, String code)throws Exception;
 
     public User findByCenterIdAndName(long centerId, String name)throws Exception;

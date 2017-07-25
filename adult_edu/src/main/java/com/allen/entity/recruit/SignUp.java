@@ -23,6 +23,7 @@ public class SignUp {
     private long centerId;
     private int state;
     private String reason;
+    private long userId;
     private long schoolId;
     private long recruitTypeId;
     private long levelId;
@@ -650,5 +651,13 @@ public class SignUp {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }
