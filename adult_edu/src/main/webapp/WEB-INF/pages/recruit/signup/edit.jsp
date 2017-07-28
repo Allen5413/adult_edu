@@ -8,6 +8,7 @@
     <div class="mod-content">
       <form id="form" name="form" action="${pageContext.request.contextPath}/editSignUp/editor.json">
         <input type="hidden" name="id" value="${signUp.id}" />
+        <input type="hidden" name="isTimeOut" value="${isTimeOut}" />
         <table class="info-table-input">
           <tr>
             <td class="tag-b">学校：</td>
@@ -27,6 +28,10 @@
                   <option value="${type.id}" <c:if test="${type.id == signUp.recruitTypeId}">selected="selected"</c:if> >${type.name}</option>
                 </c:forEach>
               </select><span style="color: #ff0000">*</span>
+            </td>
+            <td rowspan="4" width="120" style="text-align: center;">
+              <c:if test="${!empty signUp.photoUrl}"><img src="${pageContext.request.contextPath}${signUp.photoUrl}" style="width: 100px; height: 100px;" /></c:if>
+              <c:if test="${empty signUp.photoUrl}"><img src="${pageContext.request.contextPath}/img/zs_uhead.jpg" /></c:if>
             </td>
           </tr>
           <tr>
@@ -75,7 +80,7 @@
             <td class="tag-b" >手机：</td>
             <td><input type="text" id="phone" name="phone" value="${signUp.phone}" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
             <td class="tag-b">QQ：</td>
-            <td><input type="text" id="qq" name="qq" value="${signUp.qq}" class="input-txt-200" /></td>
+            <td  colspan="2"><input type="text" id="qq" name="qq" value="${signUp.qq}" class="input-txt-200" /></td>
           </tr>
           <tr>
             <td class="tag-b">学习方式：</td>
@@ -89,8 +94,7 @@
               </select>
             </td>
             <td class="tag-b" >家庭住址：</td>
-            <td><input type="text" id="address" name="address" value="${signUp.address}" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
-
+            <td colspan="2"><input type="text" id="address" name="address" value="${signUp.address}" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
           </tr>
           <tr>
             <td class="tag-b">邮政编码：</td>
@@ -102,19 +106,19 @@
             <td class="tag-b" >入学前学历：</td>
             <td><input type="text" name="beforeEdu" value="${signUp.beforeEdu}" class="input-txt-200" /></td>
             <td class="tag-b">毕（肄）业时间：</td>
-            <td ><input type="text" name="beforeGraduationDate" value="${signUp.beforeGraduationDate}" class="input-txt-200" /></td>
+            <td colspan="2"><input type="text" name="beforeGraduationDate" value="${signUp.beforeGraduationDate}" class="input-txt-200" /></td>
           </tr>
           <tr>
             <td class="tag-b" >毕（肄）业学校：</td>
             <td><input type="text" name="beforeSchool" value="${signUp.beforeSchool}" class="input-txt-200" /></td>
             <td class="tag-b">毕业证书编号：</td>
-            <td ><input type="text" name="beforeCode" value="${signUp.beforeCode}" class="input-txt-200" /></td>
+            <td colspan="2"><input type="text" name="beforeCode" value="${signUp.beforeCode}" class="input-txt-200" /></td>
           </tr>
           <tr>
             <td class="tag-b" >党团员否：</td>
             <td><input type="text" name="party" value="${signUp.party}" class="input-txt-200" /></td>
             <td class="tag-b">入党团年月：</td>
-            <td ><input type="text" name="partyDate" value="${signUp.partyDate}" class="input-txt-200" /></td>
+            <td colspan="2"><input type="text" name="partyDate" value="${signUp.partyDate}" class="input-txt-200" /></td>
           </tr>
           <tr>
             <td class="tag-b" >个人简历</td>
@@ -132,21 +136,21 @@
                   <td><input type="text" name="resumeCompany" value="${signUp.resumeCompany}" class="input-txt-120" /></td>
                   <td><input type="text" name="resumeAddress" value="${signUp.resumeAddress}" class="input-txt-120" /></td>
                   <td><input type="text" name="resumePost" value="${signUp.resumePost}" class="input-txt-120" /></td>
-                  <td><input type="text" name="resumeLeaveReason" value="${signUp.resumeLeaveReason}" class="input-txt-120" /></td>
+                  <td colspan="2"><input type="text" name="resumeLeaveReason" value="${signUp.resumeLeaveReason}" class="input-txt-120" /></td>
                 </tr>
                 <tr>
                   <td><input type="text" name="resumeDate2" value="${signUp.resumeDate2}" class="input-txt-120" /></td>
                   <td><input type="text" name="resumeCompany2" value="${signUp.resumeCompany2}" class="input-txt-120" /></td>
                   <td><input type="text" name="resumeAddress2" value="${signUp.resumeAddress2}" class="input-txt-120" /></td>
                   <td><input type="text" name="resumePost2" value="${signUp.resumePost2}" class="input-txt-120" /></td>
-                  <td><input type="text" name="resumeLeaveReason2" value="${signUp.resumeLeaveReason2}" class="input-txt-120" /></td>
+                  <td colspan="2"><input type="text" name="resumeLeaveReason2" value="${signUp.resumeLeaveReason2}" class="input-txt-120" /></td>
                 </tr>
                 <tr>
                   <td><input type="text" name="resumeDate3" value="${signUp.resumeDate3}" class="input-txt-120" /></td>
                   <td><input type="text" name="resumeCompany3" value="${signUp.resumeCompany3}" class="input-txt-120" /></td>
                   <td><input type="text" name="resumeAddress3" value="${signUp.resumeAddress3}" class="input-txt-120" /></td>
                   <td><input type="text" name="resumePost3" value="${signUp.resumePost3}" class="input-txt-120" /></td>
-                  <td><input type="text" name="resumeLeaveReason3" value="${signUp.resumeLeaveReason3}" class="input-txt-120" /></td>
+                  <td colspan="2"><input type="text" name="resumeLeaveReason3" value="${signUp.resumeLeaveReason3}" class="input-txt-120" /></td>
                 </tr>
               </table>
             </td>
@@ -207,21 +211,22 @@
           </tr>
           <tr>
             <td class="tag-b" >拒绝原因：</td>
-            <td colspan="4"><textarea name="reason" class="textarea-intro"></textarea></td>
+            <td colspan="4"><textarea id="reason" name="reason" class="textarea-intro"></textarea></td>
           </tr>
-          <c:if test="${sessionScope.isOperateAudit == 1}">
+          <c:if test="${sessionScope.isOperateAudit == 1 && isTimeOut == 1}">
             <tr>
               <td class="tag-b">变更原因：</td>
-              <td colspan="4"><input type="text" id="editReson" name="editReson" class="input-txt-220" /></td>
+              <td colspan="4"><textarea id="editReson" name="editReson" class="textarea-intro"></textarea></td>
             </tr>
           </c:if>
         </table>
-        <input type="hidden" id="photoUrl" name="photoUrl" />
-        <input type="hidden" id="idCardFrontUrl" name="idCardFrontUrl" />
-        <input type="hidden" id="idCardBackUrl" name="idCardBackUrl" />
-        <input type="hidden" id="diplomaUrl" name="diplomaUrl" />
-        <input type="hidden" id="xxwUrl" name="xxwUrl" />
-        <input type="hidden" id="ydsUrl" name="ydsUrl" />
+        <input type="hidden" id="photoUrl" name="photoUrl" value="${signUp.photoUrl}" />
+        <input type="hidden" id="idCardFrontUrl" name="idCardFrontUrl" value="${signUp.idCardFrontUrl}" />
+        <input type="hidden" id="idCardBackUrl" name="idCardBackUrl" value="${signUp.idCardBackUrl}" />
+        <input type="hidden" id="diplomaUrl" name="diplomaUrl" value="${signUp.diplomaUrl}" />
+        <input type="hidden" id="xxwUrl" name="xxwUrl" value="${signUp.xxwUrl}" />
+        <input type="hidden" id="ydsUrl" name="ydsUrl" value="${signUp.ydsUrl}" />
+        <input type="hidden" id="state" name="state" />
       </form>
       <table class="info-table-input" style="width: 80%">
         <tr>
@@ -274,7 +279,8 @@
         </tr>
         <tr>
           <td colspan="2">
-            <a class="btn-com" href="#" onclick="add()">保存提交</a>
+            <a class="btn-com" href="#" onclick="edit(2)">审核通过</a>
+            <a class="btn-com" href="#" onclick="edit(1)">审核不通过</a>
           </td>
         </tr>
       </table>
@@ -458,7 +464,7 @@
     });
   }
 
-  function add(){
+  function edit(flag){
     if($("#schoolId").val() == ""){
       app.alert("请选择学校！", 1);
       return false;
@@ -499,6 +505,10 @@
       app.alert("请输入生源备注！", 1);
       return false;
     }
+    if($("#userId").val().trim() == ""){
+      app.alert("请选择生源来源！", 1);
+      return false;
+    }
     if($("#photoUrl").val().trim() == ""){
       app.alert("请上传照片！", 1);
       return false;
@@ -515,20 +525,11 @@
       app.alert("请上传学历证书！", 1);
       return false;
     }
-    $.ajax({
-      cache: true,
-      type: "POST",
-      url:"${pageContext.request.contextPath}/addSignUp/add.json",
-      data:$("#form").serialize(),
-      async: false,
-      success: function(data) {
-        if(data.state == 0){
-          app.msg("保存成功！", 0);
-          app.clickResources("${pageContext.request.contextPath}/addSignUp/open.html");
-        }else{
-          app.msg(data.msg, 1);
-        }
-      }
-    });
+    if(1 == flag && $("#reason").val().trim() == ""){
+      app.alert("请填写拒绝原因！", 1);
+      return false;
+    }
+    $("#state").val(flag);
+    app.edit("${pageContext.request.contextPath}/editSignUp/editor.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageSignUp/page.html", ${reqParams});
   }
 </script>

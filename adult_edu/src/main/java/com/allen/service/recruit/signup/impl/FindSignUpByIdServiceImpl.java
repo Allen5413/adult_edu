@@ -2,7 +2,7 @@ package com.allen.service.recruit.signup.impl;
 
 import com.allen.dao.recruit.signup.SignUpDao;
 import com.allen.entity.recruit.SignUp;
-import com.allen.service.recruit.signup.FindSignUpService;
+import com.allen.service.recruit.signup.FindSignUpByIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * Created by Allen on 2017/7/25 0025.
  */
 @Service
-public class FindSignUpServiceImpl implements FindSignUpService {
+public class FindSignUpByIdServiceImpl implements FindSignUpByIdService {
 
     @Autowired
     private SignUpDao signUpDao;

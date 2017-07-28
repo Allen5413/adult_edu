@@ -52,7 +52,7 @@ public class EditSignUpServiceImpl implements EditSignUpService {
     private UserDao userDao;
 
     @Override
-    public void edit(HttpServletRequest request, SignUp signUp, long centerId, int isAudit, long operateId, String editReson) throws Exception {
+    public void edit(HttpServletRequest request, SignUp signUp, long centerId, int isAudit, long operateId, String editReson, int isTimeOut) throws Exception {
         SignUp signUp2 = signUpDao.findByCenterIdAndSchoolIdAndRecruitTypeIdAndLevelIdAndSpecIdAndIdCard(signUp.getCenterId(), signUp.getSchoolId(), signUp.getRecruitTypeId(), signUp.getLevelId(), signUp.getSpecId(), signUp.getIdCard());
         if(null != signUp2 && signUp2.getId() != signUp.getId()){
             throw new BusinessException("身份证号码在同一个学校、招生类型、层次、专业下已存在！");
@@ -62,7 +62,7 @@ public class EditSignUpServiceImpl implements EditSignUpService {
             throw new BusinessException("手机号码在同一个学校、招生类型、层次、专业下已存在！");
         }
         //查询操作是否需要审核
-        if(isAudit == User.ISOPERATEAUDIT_NOT) {
+        if(isAudit == User.ISOPERATEAUDIT_NOT || isTimeOut == 0) {
             if (null == signUp2) {
                 signUp2 = signUpDao.findOne(signUp.getId());
             }
@@ -400,28 +400,22 @@ public class EditSignUpServiceImpl implements EditSignUpService {
                 changeTableField += "reward='"+signUp.getReward() + "',";
             }
             if(!signUp.getPhotoUrl().equals(signUp2.getPhotoUrl())){
-                changeTableField += "photo_url="+signUp.getPhotoUrl() + "@#@photo_url,";
+                changeTableField += "photo_url='"+signUp.getPhotoUrl() + "@#@photo_url',";
             }
             if(!signUp.getIdCardFrontUrl().equals(signUp2.getIdCardFrontUrl())){
-                changeTableField += "id_card_front_url="+signUp.getIdCardFrontUrl() + "@#@id_card_front_url,";
+                changeTableField += "id_card_front_url='"+signUp.getIdCardFrontUrl() + "@#@id_card_front_url',";
             }
             if(!signUp.getIdCardBackUrl().equals(signUp2.getIdCardBackUrl())){
-                changeTableField += "id_card_back_url="+signUp.getIdCardBackUrl() + "@#@id_card_back_url,";
+                changeTableField += "id_card_back_url='"+signUp.getIdCardBackUrl() + "@#@id_card_back_url',";
             }
             if(!signUp.getDiplomaUrl().equals(signUp2.getDiplomaUrl())){
-                changeTableField += "diploma_url="+signUp.getDiplomaUrl() + "@#@diploma_url,";
+                changeTableField += "diploma_url='"+signUp.getDiplomaUrl() + "@#@diploma_url',";
             }
             if(!signUp.getXxwUrl().equals(signUp2.getXxwUrl())){
-                changeTableField += "xxw_url="+signUp.getXxwUrl() + "@#@xxw_url,";
+                changeTableField += "xxw_url='"+signUp.getXxwUrl() + "@#@xxw_url',";
             }
             if(!signUp.getYdsUrl().equals(signUp2.getYdsUrl())){
-                changeTableField += "yds_url="+signUp.getYdsUrl() + "@#@yds_url,";
-            }
-
-
-
-            if(changeTableField.length() > 0){
-                changeTableField = changeTableField.substring(0, changeTableField.length()-1);
+                changeTableField += "yds_url='"+signUp.getYdsUrl() + "@#@yds_url',";
             }
 
             DataChange dataChange = new DataChange();

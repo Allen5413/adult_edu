@@ -1,22 +1,17 @@
 package com.allen.web.controller.recruit.signup;
 
 import com.alibaba.fastjson.JSONObject;
-import com.allen.entity.fee.FeeType;
 import com.allen.entity.recruit.SignUp;
 import com.allen.entity.user.User;
 import com.allen.service.basic.level.FindLevelBySchoolIdAndTypeIdForTeachPlanService;
-import com.allen.service.basic.level.FindLevelBySchoolIdAndTypeIdService;
 import com.allen.service.basic.school.FindSchoolByCenterIdForTeachPlanService;
-import com.allen.service.basic.school.FindSchoolByCenterIdService;
 import com.allen.service.basic.spec.FindSpecBySchoolIdAndTypeIdAndLevelIdForTeachPlanService;
 import com.allen.service.eduadmin.recruittype.FindRecruitTypeBySchoolIdForTeachPlanService;
-import com.allen.service.eduadmin.recruittype.FindRecruitTypeBySchoolIdService;
 import com.allen.service.eduadmin.teachplan.FindTeachPlanBySchoolIdAndTypeIdAndLevelIdAndSpecIdService;
-import com.allen.service.fee.feetype.EditFeeTypeService;
-import com.allen.service.fee.feetype.FindFeeTypeByIdService;
 import com.allen.service.recruit.signup.EditSignUpService;
-import com.allen.service.recruit.signup.FindSignUpService;
+import com.allen.service.recruit.signup.FindSignUpByIdService;
 import com.allen.service.user.user.FindUserByCenterIdAndTypeService;
+import com.allen.util.DateUtil;
 import com.allen.util.UserUtil;
 import com.allen.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
 
 /**
  * Created by Allen on 2017/6/28.
@@ -35,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 public class EditSignUpController extends BaseController {
 
     @Autowired
-    private FindSignUpService findSignUpService;
+    private FindSignUpByIdService findSignUpByIdService;
     @Autowired
     private EditSignUpService editSignUpService;
     @Autowired
@@ -58,7 +54,7 @@ public class EditSignUpController extends BaseController {
     public String open(HttpServletRequest request,
                        @RequestParam(value = "reqParams", required = false)String reqParams,
                        @RequestParam("id")long id)throws Exception{
-        SignUp signUp = findSignUpService.find(id);
+        SignUp signUp = findSignUpByIdService.find(id);
         request.setAttribute("signUp", signUp);
         request.setAttribute("reqParams", new String(reqParams.getBytes("iso-8859-1"), "gbk"));
         request.setAttribute("schoolList", findSchoolByCenterIdForTeachPlanService.find(UserUtil.getLoginUserForCenterId(request)));
@@ -67,6 +63,13 @@ public class EditSignUpController extends BaseController {
         request.setAttribute("specList", findSpecBySchoolIdAndTypeIdAndLevelIdForTeachPlanService.find(signUp.getSchoolId(), signUp.getRecruitTypeId(), signUp.getLevelId()));
         request.setAttribute("tpList", findTeachPlanBySchoolIdAndTypeIdAndLevelIdAndSpecIdService.find(signUp.getSchoolId(), signUp.getRecruitTypeId(), signUp.getLevelId(), signUp.getSpecId()));
         request.setAttribute("userList", findUserByCenterIdAndTypeService.find(UserUtil.getLoginUserForCenterId(request), User.TYPE_FXS));
+        //判断上传时间是否超过1天，超过1天审核就需要提交到中心管理员处审核
+        Calendar calendar = Calendar.getInstance();
+        if(DateUtil.compareDateTime(calendar.getTime(), signUp.getCreateTime(), 60*24)){
+            request.setAttribute("isTimeOut", 1);
+        }else{
+            request.setAttribute("isTimeOut", 0);
+        }
         return "recruit/signup/edit";
     }
 
@@ -76,11 +79,11 @@ public class EditSignUpController extends BaseController {
      */
     @RequestMapping(value = "editor")
     @ResponseBody
-    public JSONObject editor(HttpServletRequest request, SignUp signUp, String editReson) throws Exception {
+    public JSONObject editor(HttpServletRequest request, SignUp signUp, String editReson, int isTimeOut) throws Exception {
         JSONObject jsonObject = new JSONObject();
         if(null != signUp) {
             signUp.setOperator(UserUtil.getLoginUserForName(request));
-            editSignUpService.edit(request, signUp, UserUtil.getLoginUserForCenterId(request), UserUtil.getLoginUserForIsOperateAudit(request), UserUtil.getLoginUserForLoginId(request), editReson);
+            editSignUpService.edit(request, signUp, UserUtil.getLoginUserForCenterId(request), UserUtil.getLoginUserForIsOperateAudit(request), UserUtil.getLoginUserForLoginId(request), editReson, isTimeOut);
         }
         jsonObject.put("state", 0);
         if(UserUtil.getLoginUserForIsOperateAudit(request) == User.ISOPERATEAUDIT_YES) {

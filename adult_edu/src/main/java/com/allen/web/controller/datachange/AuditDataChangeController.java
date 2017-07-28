@@ -20,11 +20,12 @@ public class AuditDataChangeController  extends BaseController {
     private AuditDataChangeService auditDataChangeService;
 
     @RequestMapping(value = "/auditDataChange")
-    public JSONObject del(@RequestParam("id")long id,
+    public JSONObject del(HttpServletRequest request,
+                          @RequestParam("id")long id,
                           @RequestParam(value = "refuseContent", required = false)String refuseContent,
                           @RequestParam(value = "state")int state) throws Exception {
         JSONObject jsonObject = new JSONObject();
-        auditDataChangeService.audit(id, state, refuseContent);
+        auditDataChangeService.audit(request, id, state, refuseContent);
         jsonObject.put("state", 0);
         return jsonObject;
     }

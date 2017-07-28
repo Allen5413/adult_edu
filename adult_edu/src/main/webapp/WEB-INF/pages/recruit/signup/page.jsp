@@ -69,7 +69,7 @@
                 <td>${signUp.createTime}</td>
                 <td>${signUp.stateStr}</td>
                 <td>
-                  <c:if test="${signUp.state != 2 || signUp.state != 4}">
+                  <c:if test="${signUp.state != 2 && signUp.state != 4}">
                     <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editSignUp/open.html?id=${signUp.id}&reqParams=${reqParams}');">编辑</a>
                   </c:if>
                 </td>
