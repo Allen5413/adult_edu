@@ -27,13 +27,13 @@ public class AddSignUpServiceImpl implements AddSignUpService {
     @Override
     @Transactional
     public void add(HttpServletRequest request, SignUp signUp) throws Exception {
-        SignUp signUp2 = signUpDao.findByCenterIdAndSchoolIdAndRecruitTypeIdAndLevelIdAndSpecIdAndIdCard(signUp.getCenterId(), signUp.getSchoolId(), signUp.getRecruitTypeId(), signUp.getLevelId(), signUp.getSpecId(), signUp.getIdCard());
+        SignUp signUp2 = signUpDao.findByCenterIdAndSchoolIdAndRecruitTypeIdAndLevelIdAndSpecIdAndTeachPlanIdAndIdCard(signUp.getCenterId(), signUp.getSchoolId(), signUp.getRecruitTypeId(), signUp.getLevelId(), signUp.getSpecId(), signUp.getTeachPlanId(), signUp.getIdCard());
         if(null != signUp2 && !StringUtil.isEmpty(signUp2.getName())){
-            throw new BusinessException("身份证号码在同一个学校、招生类型、层次、专业下已存在！");
+            throw new BusinessException("身份证号码在同一个学校、招生类型、层次、专业、批次下已存在！");
         }
-        signUp2 = signUpDao.findByCenterIdAndSchoolIdAndRecruitTypeIdAndLevelIdAndSpecIdAndPhone(signUp.getCenterId(), signUp.getSchoolId(), signUp.getRecruitTypeId(), signUp.getLevelId(), signUp.getSpecId(), signUp.getPhone());
+        signUp2 = signUpDao.findByCenterIdAndSchoolIdAndRecruitTypeIdAndLevelIdAndSpecIdAndTeachPlanIdAndPhone(signUp.getCenterId(), signUp.getSchoolId(), signUp.getRecruitTypeId(), signUp.getLevelId(), signUp.getSpecId(), signUp.getTeachPlanId(), signUp.getPhone());
         if(null != signUp2 && !StringUtil.isEmpty(signUp2.getName())){
-            throw new BusinessException("手机号码在同一个学校、招生类型、层次、专业下已存在！");
+            throw new BusinessException("手机号码在同一个学校、招生类型、层次、专业、批次下已存在！");
         }
 
         String photoUrl = signUp.getPhotoUrl();

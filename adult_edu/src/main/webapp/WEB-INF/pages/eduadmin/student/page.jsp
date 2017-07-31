@@ -40,30 +40,19 @@
             <option value="">请选择</option>
           </select>
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="itg">开课年：</span>
+        <span class="itg">状态：</span>
         <span class="inline-select">
-          <select name="year">
+          <select name="state">
             <option value="">全部</option>
-            <option value="2017" <c:if test="${param.year == 2017}">selected="selected" </c:if>>2017</option>
-            <option value="2018" <c:if test="${param.year == 2018}">selected="selected" </c:if>>2018</option>
-            <option value="2019" <c:if test="${param.year == 2019}">selected="selected" </c:if>>2019</option>
-            <option value="2020" <c:if test="${param.year == 2020}">selected="selected" </c:if>>2020</option>
-            <option value="2021" <c:if test="${param.year == 2021}">selected="selected" </c:if>>2021</option>
-            <option value="2022" <c:if test="${param.year == 2022}">selected="selected" </c:if>>2022</option>
-            <option value="2023" <c:if test="${param.year == 2023}">selected="selected" </c:if>>2023</option>
-            <option value="2024" <c:if test="${param.year == 2024}">selected="selected" </c:if>>2024</option>
-            <option value="2025" <c:if test="${param.year == 2025}">selected="selected" </c:if>>2025</option>
-            <option value="2026" <c:if test="${param.year == 2026}">selected="selected" </c:if>>2026</option>
-            <option value="2027" <c:if test="${param.year == 2027}">selected="selected" </c:if>>2027</option>
+            <option value="0" <c:if test="${param.state == 0}">selected="selected" </c:if>>在籍</option>
+            <option value="1" <c:if test="${param.state == 12}">selected="selected" </c:if>>休学</option>
+            <option value="2" <c:if test="${param.state == 3}">selected="selected" </c:if>>退学</option>
+            <option value="3" <c:if test="${param.state == 4}">selected="selected" </c:if>>毕业</option>
           </select>
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="itg">开课季：</span>
+        <span class="itg">姓名：</span>
         <span class="inline-select">
-          <select name="term">
-            <option value="">全部</option>
-            <option value="0" <c:if test="${param.term eq '0'}">selected="selected" </c:if>>春季</option>
-            <option value="1" <c:if test="${param.term eq '1'}">selected="selected" </c:if>>秋季</option>
-          </select>
+          <input type="text" class="input-txt-200" name="name" value="${param.name}" />
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="inline-input"><a id="searchBtn" class="btn-1" href="#" onclick="app.searchFormPage($('#pageForm'), $('#pageForm').attr('action'))">查 询</a></span>
       </li>
@@ -74,7 +63,7 @@
   <div class="mod-com-view">
     <div class="title-tabs">
       <a href="#">学生列表</a>
-      <a class="btn-com f-r" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/addRecruitType/open.html');">导入学生</a>
+      <a class="btn-com f-r" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/importStudent/open.html?reqParams=${reqParams}');">导入学生</a>
     </div>
     <div class="mod-content">
       <div class="data-table-list">

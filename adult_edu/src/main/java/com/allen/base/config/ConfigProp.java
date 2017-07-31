@@ -12,6 +12,7 @@ import java.util.Map;
 public class ConfigProp {
     public Map<String, String> center = new HashMap<String, String>();
     public Map<String, String> signUp = new HashMap<String, String>();
+    public Map<String, String> student = new HashMap<String, String>();
 
     public Map<String, String> getCenter() {
         return center;
@@ -27,5 +28,13 @@ public class ConfigProp {
 
     public void setSignUp(Map<String, String> signUp) {
         this.signUp = signUp;
+    }
+
+    public Map<String, String> getStudent() {
+        return student;
+    }
+
+    public void setStudent(Map<String, String> student) {
+        this.student = student;
     }
 }

@@ -33,6 +33,5 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(StringUtil.haoAddOne_2("313"));
     }
 }

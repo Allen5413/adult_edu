@@ -47,7 +47,7 @@
 </script>
 <body>
 <div class="header-view">
-  <div class="title">至善网后台管理2222222222222</div>
+  <div class="title">至善网后台管理</div>
 </div>
 <div id="main_page" class="section-view">
   <div class="logon-view">

@@ -34,7 +34,7 @@ public class Student {
     private String name;
     private int sex;                            //性别[0：男；1：女]
     private String idCard;
-    private Timestamp birthday;
+    private String birthday;
     private Timestamp signUpDate;
     private Integer studyType;                  //学习方式[0：脱产、1：业余、2：函授、3：远程教育]
     private String zipCode;
@@ -151,11 +151,11 @@ public class Student {
         this.idCard = idCard;
     }
 
-    public Timestamp getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Timestamp birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

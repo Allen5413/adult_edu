@@ -60,8 +60,10 @@ public class LoginController {
     @RequestMapping("/openIndex")
     public String index(HttpServletRequest request)throws Exception{
         //获取当前年月日星期
-        Center center = findCenterByIdService.find(UserUtil.getLoginUserForCenterId(request));
-        request.setAttribute("center", center);
+        if(null != UserUtil.getLoginUserForCenterId(request)) {
+            Center center = findCenterByIdService.find(UserUtil.getLoginUserForCenterId(request));
+            request.setAttribute("center", center);
+        }
         return "/index";
     }
 
