@@ -28,6 +28,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
@@ -61,6 +62,7 @@ public class ImportStudentServiceImpl implements ImportStudentService {
 
 
     @Override
+    @Transactional
     public JSONObject importStudent(HttpServletRequest request, long schoolId) throws Exception {
         JSONObject returnJSON = new JSONObject();
         String msg = "";
@@ -138,6 +140,9 @@ public class ImportStudentServiceImpl implements ImportStudentService {
                         student.setYdsUrl(configProp.getStudent().get("ydsUrl") + student.getId() + ".png");
                     }
                     studentDao.save(student);
+
+                    signUp.setState(SignUp.STATE_SCHOOL_PASS);
+                    signUpDao.save(signUp);
                 }
                 returnJSON.put("state", 0);
             }else{

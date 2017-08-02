@@ -150,7 +150,7 @@ public class EditSignUpServiceImpl implements EditSignUpService {
                     changeTableField += "state=" + SignUp.STATE_SCHOOL_PASS + ",";
                 }
             }
-            if(!signUp.getReason().equals(signUp2.getReason())){
+            if(!signUp.getReason().equals(signUp2.getReason()) && !StringUtil.isEmpty(signUp.getReason()) && !StringUtil.isEmpty(signUp2.getReason())){
                 changeContent += "拒绝原因变更为<span style='color:red'>"+signUp.getReason()+"</span>  ";
                 changeTableField += "reason='"+signUp.getReason()+"',";
             }
@@ -189,7 +189,7 @@ public class EditSignUpServiceImpl implements EditSignUpService {
                 changeContent += "批次<span style='color:red'>"+teachPlan.getYear()+"年"+(teachPlan.getTerm() == TeachPlan.TERM_SPRING ? "春季":"秋季")+"</span>变更为<span style='color:red'>"+teachPlan2.getYear()+"年"+(teachPlan2.getTerm() == TeachPlan.TERM_SPRING ? "春季":"秋季")+"</span>  ";
                 changeTableField += "teach_plan_id="+signUp.getTeachPlanId() +",";
             }
-            if(!signUp.getName().equals(signUp2.getName())){
+            if(!signUp.getName().equals(signUp2.getName()) && !StringUtil.isEmpty(signUp.getName()) && !StringUtil.isEmpty(signUp2.getName())){
                 changeContent += "姓名<span style='color:red'>"+signUp2.getName()+"</span>变更为<span style='color:red'>"+signUp.getName()+"</span>  ";
                 changeTableField += "name='"+signUp.getName() +"',";
             }
@@ -197,15 +197,15 @@ public class EditSignUpServiceImpl implements EditSignUpService {
                 changeContent += "性别<span style='color:red'>"+(signUp2.getSex() == 0 ? "男":"女")+"</span>变更为<span style='color:red'>"+(signUp.getSex() == 0 ? "男":"女")+"</span>  ";
                 changeTableField += "sex="+signUp.getSex() +",";
             }
-            if(!signUp.getIdCard().equals(signUp2.getIdCard())){
+            if(!signUp.getIdCard().equals(signUp2.getIdCard()) && !StringUtil.isEmpty(signUp.getIdCard()) && !StringUtil.isEmpty(signUp2.getIdCard())){
                 changeContent += "身份证号<span style='color:red'>"+signUp2.getIdCard()+"</span>变更为<span style='color:red'>"+signUp.getIdCard()+"</span>  ";
                 changeTableField += "id_card='"+signUp.getIdCard() +"',";
             }
-            if(!signUp.getPhone().equals(signUp2.getPhone())){
+            if(!signUp.getPhone().equals(signUp2.getPhone()) && !StringUtil.isEmpty(signUp.getPhone()) && !StringUtil.isEmpty(signUp2.getPhone())){
                 changeContent += "手机号码<span style='color:red'>"+signUp2.getPhone()+"</span>变更为<span style='color:red'>"+signUp.getPhone()+"</span>  ";
                 changeTableField += "phone='"+signUp.getPhone() +"',";
             }
-            if(!signUp.getQq().equals(signUp2.getQq())){
+            if(!signUp.getQq().equals(signUp2.getQq()) && !StringUtil.isEmpty(signUp.getQq()) && !StringUtil.isEmpty(signUp2.getQq())){
                 changeContent += "qq<span style='color:red'>"+signUp2.getQq()+"</span>变更为<span style='color:red'>"+signUp.getQq()+"</span>  ";
                 changeTableField += "qq='"+signUp.getQq() +"',";
             }
@@ -227,95 +227,95 @@ public class EditSignUpServiceImpl implements EditSignUpService {
                     changeTableField += "study_type=" + signUp.getStudyType() + ",";
                 }
             }
-            if(!signUp.getAddress().equals(signUp2.getAddress())){
+            if(!signUp.getAddress().equals(signUp2.getAddress()) && !StringUtil.isEmpty(signUp.getAddress()) && !StringUtil.isEmpty(signUp2.getAddress())){
                 changeContent += "家庭住址<span style='color:red'>"+signUp2.getAddress()+"</span>变更为<span style='color:red'>"+signUp.getAddress()+"</span>  ";
                 changeTableField += "address='"+signUp.getAddress() +"',";
             }
-            if(!signUp.getZipCode().equals(signUp2.getZipCode())){
+            if(!signUp.getZipCode().equals(signUp2.getZipCode()) && !StringUtil.isEmpty(signUp.getZipCode()) && !StringUtil.isEmpty(signUp2.getZipCode())){
                 changeContent += "邮政编码<span style='color:red'>"+signUp2.getZipCode()+"</span>变更为<span style='color:red'>"+signUp.getZipCode()+"</span>  ";
                 changeTableField += "zip_code='"+signUp.getZipCode() +"',";
             }
-            if(!signUp.getSourceRemark().equals(signUp2.getSourceRemark())){
+            if(!signUp.getSourceRemark().equals(signUp2.getSourceRemark()) && !StringUtil.isEmpty(signUp.getSourceRemark()) && !StringUtil.isEmpty(signUp2.getSourceRemark())){
                 changeContent += "生源备注<span style='color:red'>"+signUp2.getSourceRemark()+"</span>变更为<span style='color:red'>"+signUp.getSourceRemark()+"</span>  ";
                 changeTableField += "source_remark='"+signUp.getSourceRemark() +"',";
             }
-            if(!signUp.getBeforeEdu().equals(signUp2.getBeforeEdu())){
+            if(!signUp.getBeforeEdu().equals(signUp2.getBeforeEdu()) && !StringUtil.isEmpty(signUp.getBeforeEdu()) && !StringUtil.isEmpty(signUp2.getBeforeEdu())){
                 changeContent += "入学前的学历<span style='color:red'>"+signUp2.getBeforeEdu()+"</span>变更为<span style='color:red'>"+signUp.getBeforeEdu()+"</span>  ";
                 changeTableField += "before_edu='"+signUp.getBeforeEdu() + "',";
             }
-            if(!signUp.getBeforeGraduationDate().equals(signUp2.getBeforeGraduationDate())){
+            if(!signUp.getBeforeGraduationDate().equals(signUp2.getBeforeGraduationDate()) && !StringUtil.isEmpty(signUp.getBeforeGraduationDate()) && !StringUtil.isEmpty(signUp2.getBeforeGraduationDate())){
                 changeContent += "入学前的毕业时间<span style='color:red'>"+signUp2.getBeforeGraduationDate()+"</span>变更为<span style='color:red'>"+signUp.getBeforeGraduationDate()+"</span>  ";
                 changeTableField += "before_graduation_date='"+signUp.getBeforeGraduationDate() + "',";
             }
-            if(!signUp.getBeforeSchool().equals(signUp2.getBeforeSchool())){
+            if(!signUp.getBeforeSchool().equals(signUp2.getBeforeSchool()) && !StringUtil.isEmpty(signUp.getBeforeSchool()) && !StringUtil.isEmpty(signUp2.getBeforeSchool())){
                 changeContent += "入学前的学校<span style='color:red'>"+signUp2.getBeforeSchool()+"</span>变更为<span style='color:red'>"+signUp.getBeforeSchool()+"</span>  ";
                 changeTableField += "before_school='"+signUp.getBeforeSchool() + "',";
             }
-            if(!signUp.getBeforeCode().equals(signUp2.getBeforeCode())){
+            if(!signUp.getBeforeCode().equals(signUp2.getBeforeCode()) && !StringUtil.isEmpty(signUp.getBeforeCode()) && !StringUtil.isEmpty(signUp2.getBeforeCode())){
                 changeContent += "入学前的证书编号<span style='color:red'>"+signUp2.getBeforeCode()+"</span>变更为<span style='color:red'>"+signUp.getBeforeCode()+"</span>  ";
                 changeTableField += "before_code='"+signUp.getBeforeCode() + "',";
             }
-            if(!signUp.getParty().equals(signUp2.getParty())){
+            if(!signUp.getParty().equals(signUp2.getParty()) && !StringUtil.isEmpty(signUp.getParty()) && !StringUtil.isEmpty(signUp2.getParty())){
                 changeContent += "是否党团员<span style='color:red'>"+signUp2.getParty()+"</span>变更为<span style='color:red'>"+signUp.getParty()+"</span>  ";
                 changeTableField += "party='"+signUp.getParty() + "',";
             }
-            if(!signUp.getPartyDate().equals(signUp2.getPartyDate())){
+            if(!signUp.getPartyDate().equals(signUp2.getPartyDate()) && !StringUtil.isEmpty(signUp.getPartyDate()) && !StringUtil.isEmpty(signUp2.getPartyDate())){
                 changeContent += "入党团年月<span style='color:red'>"+signUp2.getPartyDate()+"</span>变更为<span style='color:red'>"+signUp.getPartyDate()+"</span>  ";
                 changeTableField += "party_date='"+signUp.getPartyDate() + "',";
             }
-            if(!signUp.getResumeDate().equals(signUp2.getResumeDate())){
+            if(!signUp.getResumeDate().equals(signUp2.getResumeDate()) && !StringUtil.isEmpty(signUp.getResumeDate()) && !StringUtil.isEmpty(signUp2.getResumeDate())){
                 changeContent += "简历1的起止时间<span style='color:red'>"+signUp2.getResumeDate()+"</span>变更为<span style='color:red'>"+signUp.getResumeDate()+"</span>  ";
                 changeTableField += "resume_date='"+signUp.getResumeDate() + "',";
             }
-            if(!signUp.getResumeCompany().equals(signUp2.getResumeCompany())){
+            if(!signUp.getResumeCompany().equals(signUp2.getResumeCompany()) && !StringUtil.isEmpty(signUp.getResumeCompany()) && !StringUtil.isEmpty(signUp2.getResumeCompany())){
                 changeContent += "简历1的工作单位<span style='color:red'>"+signUp2.getResumeCompany()+"</span>变更为<span style='color:red'>"+signUp.getResumeCompany()+"</span>  ";
                 changeTableField += "resume_company='"+signUp.getResumeCompany() + "',";
             }
-            if(!signUp.getResumeAddress().equals(signUp2.getResumeAddress())){
+            if(!signUp.getResumeAddress().equals(signUp2.getResumeAddress()) && !StringUtil.isEmpty(signUp.getResumeAddress()) && !StringUtil.isEmpty(signUp2.getResumeAddress())){
                 changeContent += "简历1的工作地址<span style='color:red'>"+signUp2.getResumeAddress()+"</span>变更为<span style='color:red'>"+signUp.getResumeAddress()+"</span>  ";
                 changeTableField += "resume_address='"+signUp.getResumeAddress() + "',";
             }
-            if(!signUp.getResumePost().equals(signUp2.getResumePost())){
+            if(!signUp.getResumePost().equals(signUp2.getResumePost()) && !StringUtil.isEmpty(signUp.getResumePost()) && !StringUtil.isEmpty(signUp2.getResumePost())){
                 changeContent += "简历1的职务<span style='color:red'>"+signUp2.getResumePost()+"</span>变更为<span style='color:red'>"+signUp.getResumePost()+"</span>  ";
                 changeTableField += "resume_post='"+signUp.getResumePost() + "',";
             }
-            if(!signUp.getResumeLeaveReason().equals(signUp2.getResumeLeaveReason())){
+            if(!signUp.getResumeLeaveReason().equals(signUp2.getResumeLeaveReason()) && !StringUtil.isEmpty(signUp.getResumeLeaveReason()) && !StringUtil.isEmpty(signUp2.getResumeLeaveReason())){
                 changeContent += "简历1的离职原因<span style='color:red'>"+signUp2.getResumeLeaveReason()+"</span>变更为<span style='color:red'>"+signUp.getResumeLeaveReason()+"</span>  ";
                 changeTableField += "resume_leave_reason='"+signUp.getResumeLeaveReason() + "',";
             }
-            if(!signUp.getResumeDate2().equals(signUp2.getResumeDate2())){
+            if(!signUp.getResumeDate2().equals(signUp2.getResumeDate2()) && !StringUtil.isEmpty(signUp.getResumeDate2()) && !StringUtil.isEmpty(signUp2.getResumeDate2())){
                 changeContent += "简历2的起止时间<span style='color:red'>"+signUp2.getResumeDate2()+"</span>变更为<span style='color:red'>"+signUp.getResumeDate2()+"</span>  ";
                 changeTableField += "resume_date2='"+signUp.getResumeDate2() + "',";
             }
-            if(!signUp.getResumeCompany2().equals(signUp2.getResumeCompany2())){
+            if(!signUp.getResumeCompany2().equals(signUp2.getResumeCompany2()) && !StringUtil.isEmpty(signUp.getResumeCompany2()) && !StringUtil.isEmpty(signUp2.getResumeCompany2())){
                 changeContent += "简历2的工作单位<span style='color:red'>"+signUp2.getResumeCompany2()+"</span>变更为<span style='color:red'>"+signUp.getResumeCompany2()+"</span>  ";
                 changeTableField += "resume_company2='"+signUp.getResumeCompany2() + "',";
             }
-            if(!signUp.getResumeAddress2().equals(signUp2.getResumeAddress2())){
+            if(!signUp.getResumeAddress2().equals(signUp2.getResumeAddress2()) && !StringUtil.isEmpty(signUp.getResumeAddress2()) && !StringUtil.isEmpty(signUp2.getResumeAddress2())){
                 changeContent += "简历2的工作地址<span style='color:red'>"+signUp2.getResumeAddress2()+"</span>变更为<span style='color:red'>"+signUp.getResumeAddress2()+"</span>  ";
                 changeTableField += "resume_address2='"+signUp.getResumeAddress2() + "',";
             }
-            if(!signUp.getResumePost2().equals(signUp2.getResumePost2())){
+            if(!signUp.getResumePost2().equals(signUp2.getResumePost2()) && !StringUtil.isEmpty(signUp.getResumePost2()) && !StringUtil.isEmpty(signUp2.getResumePost2())){
                 changeContent += "简历2的职务<span style='color:red'>"+signUp2.getResumePost2()+"</span>变更为<span style='color:red'>"+signUp.getResumePost2()+"</span>  ";
                 changeTableField += "resume_post2='"+signUp.getResumePost2() + "',";
             }
-            if(!signUp.getResumeLeaveReason2().equals(signUp2.getResumeLeaveReason2())){
+            if(!signUp.getResumeLeaveReason2().equals(signUp2.getResumeLeaveReason2()) && !StringUtil.isEmpty(signUp.getResumeLeaveReason2()) && !StringUtil.isEmpty(signUp2.getResumeLeaveReason2())){
                 changeContent += "简历2的离职原因<span style='color:red'>"+signUp2.getResumeLeaveReason2()+"</span>变更为<span style='color:red'>"+signUp.getResumeLeaveReason2()+"</span>  ";
                 changeTableField += "resume_leave_reason2='"+signUp.getResumeLeaveReason2() + "',";
             }
-            if(!signUp.getResumeDate3().equals(signUp2.getResumeDate3())){
+            if(!signUp.getResumeDate3().equals(signUp2.getResumeDate3()) && !StringUtil.isEmpty(signUp.getResumeDate3()) && !StringUtil.isEmpty(signUp2.getResumeDate3())){
                 changeContent += "简历3的起止时间<span style='color:red'>"+signUp2.getResumeDate3()+"</span>变更为<span style='color:red'>"+signUp.getResumeDate3()+"</span>  ";
                 changeTableField += "resume_date3='"+signUp.getResumeDate3() + "',";
             }
-            if(!signUp.getResumeCompany3().equals(signUp2.getResumeCompany3())){
+            if(!signUp.getResumeCompany3().equals(signUp2.getResumeCompany3()) && !StringUtil.isEmpty(signUp.getResumeCompany3()) && !StringUtil.isEmpty(signUp2.getResumeCompany3())){
                 changeContent += "简历3的工作单位<span style='color:red'>"+signUp2.getResumeCompany3()+"</span>变更为<span style='color:red'>"+signUp.getResumeCompany3()+"</span>  ";
                 changeTableField += "resume_company3='"+signUp.getResumeCompany3() + "',";
             }
-            if(!signUp.getResumeAddress3().equals(signUp2.getResumeAddress3())){
+            if(!signUp.getResumeAddress3().equals(signUp2.getResumeAddress3()) && !StringUtil.isEmpty(signUp.getResumeAddress3()) && !StringUtil.isEmpty(signUp2.getResumeAddress3())){
                 changeContent += "简历3的工作地址<span style='color:red'>"+signUp2.getResumeAddress3()+"</span>变更为<span style='color:red'>"+signUp.getResumeAddress3()+"</span>  ";
                 changeTableField += "resume_address3='"+signUp.getResumeAddress3() + "',";
             }
-            if(!signUp.getResumePost3().equals(signUp2.getResumePost3())){
+            if(!signUp.getResumePost3().equals(signUp2.getResumePost3()) && !StringUtil.isEmpty(signUp.getResumePost3()) && !StringUtil.isEmpty(signUp2.getResumePost3())){
                 changeContent += "简历3的职务<span style='color:red'>"+signUp2.getResumePost3()+"</span>变更为<span style='color:red'>"+signUp.getResumePost3()+"</span>  ";
                 changeTableField += "resume_post3='"+signUp.getResumePost3() + "',";
             }
@@ -323,79 +323,79 @@ public class EditSignUpServiceImpl implements EditSignUpService {
                 changeContent += "简历3的离职原因<span style='color:red'>"+signUp2.getResumeLeaveReason3()+"</span>变更为<span style='color:red'>"+signUp.getResumeLeaveReason3()+"</span>  ";
                 changeTableField += "resume_leave_reason3='"+signUp.getResumeLeaveReason3() + "',";
             }
-            if(!signUp.getFamilyName().equals(signUp2.getFamilyName())){
+            if(!signUp.getFamilyName().equals(signUp2.getFamilyName()) && !StringUtil.isEmpty(signUp.getFamilyName()) && !StringUtil.isEmpty(signUp2.getFamilyName())){
                 changeContent += "家庭成员1的姓名<span style='color:red'>"+signUp2.getFamilyName()+"</span>变更为<span style='color:red'>"+signUp.getFamilyName()+"</span>  ";
                 changeTableField += "family_name='"+signUp.getFamilyName() + "',";
             }
-            if(!signUp.getFamilyRelation().equals(signUp2.getFamilyRelation())){
+            if(!signUp.getFamilyRelation().equals(signUp2.getFamilyRelation()) && !StringUtil.isEmpty(signUp.getFamilyRelation()) && !StringUtil.isEmpty(signUp2.getFamilyRelation())){
                 changeContent += "家庭成员1的关系、称谓<span style='color:red'>"+signUp2.getFamilyRelation()+"</span>变更为<span style='color:red'>"+signUp.getFamilyRelation()+"</span>  ";
                 changeTableField += "family_relation='"+signUp.getFamilyRelation() + "',";
             }
-            if(!signUp.getFamilyAge().equals(signUp2.getFamilyAge())){
+            if(!signUp.getFamilyAge().equals(signUp2.getFamilyAge()) && !StringUtil.isEmpty(signUp.getFamilyAge()) && !StringUtil.isEmpty(signUp2.getFamilyAge())){
                 changeContent += "家庭成员1的年龄<span style='color:red'>"+signUp2.getFamilyAge()+"</span>变更为<span style='color:red'>"+signUp.getFamilyAge()+"</span>  ";
                 changeTableField += "family_age='"+signUp.getFamilyAge() + "',";
             }
-            if(!signUp.getFamilyPolitical().equals(signUp2.getFamilyPolitical())){
+            if(!signUp.getFamilyPolitical().equals(signUp2.getFamilyPolitical()) && !StringUtil.isEmpty(signUp.getFamilyPolitical()) && !StringUtil.isEmpty(signUp2.getFamilyPolitical())){
                 changeContent += "家庭成员1的政治面貌<span style='color:red'>"+signUp2.getFamilyPolitical()+"</span>变更为<span style='color:red'>"+signUp.getFamilyPolitical()+"</span>  ";
                 changeTableField += "family_political='"+signUp.getFamilyPolitical() + "',";
             }
-            if(!signUp.getFamilyCompany().equals(signUp2.getFamilyCompany())){
+            if(!signUp.getFamilyCompany().equals(signUp2.getFamilyCompany()) && !StringUtil.isEmpty(signUp.getFamilyCompany()) && !StringUtil.isEmpty(signUp2.getFamilyCompany())){
                 changeContent += "家庭成员1的工作单位<span style='color:red'>"+signUp2.getFamilyCompany()+"</span>变更为<span style='color:red'>"+signUp.getFamilyCompany()+"</span>  ";
                 changeTableField += "family_company='"+signUp.getFamilyCompany() + "',";
             }
-            if(!signUp.getFamilyPost().equals(signUp2.getFamilyPost())){
+            if(!signUp.getFamilyPost().equals(signUp2.getFamilyPost()) && !StringUtil.isEmpty(signUp.getFamilyPost()) && !StringUtil.isEmpty(signUp2.getFamilyPost())){
                 changeContent += "家庭成员1的职务<span style='color:red'>"+signUp2.getFamilyPost()+"</span>变更为<span style='color:red'>"+signUp.getFamilyPost()+"</span>  ";
                 changeTableField += "family_post='"+signUp.getFamilyPost() + "',";
             }
-            if(!signUp.getFamilyName2().equals(signUp2.getFamilyName2())){
+            if(!signUp.getFamilyName2().equals(signUp2.getFamilyName2()) && !StringUtil.isEmpty(signUp.getFamilyName2()) && !StringUtil.isEmpty(signUp2.getFamilyName2())){
                 changeContent += "家庭成员2的姓名<span style='color:red'>"+signUp2.getFamilyName2()+"</span>变更为<span style='color:red'>"+signUp.getFamilyName2()+"</span>  ";
                 changeTableField += "family_name2='"+signUp.getFamilyName2() + "',";
             }
-            if(!signUp.getFamilyRelation2().equals(signUp2.getFamilyRelation2())){
+            if(!signUp.getFamilyRelation2().equals(signUp2.getFamilyRelation2()) && !StringUtil.isEmpty(signUp.getFamilyRelation2()) && !StringUtil.isEmpty(signUp2.getFamilyRelation2())){
                 changeContent += "家庭成员2的关系、称谓<span style='color:red'>"+signUp2.getFamilyRelation2()+"</span>变更为<span style='color:red'>"+signUp.getFamilyRelation2()+"</span>  ";
                 changeTableField += "family_relation2='"+signUp.getFamilyRelation2() + "',";
             }
-            if(!signUp.getFamilyAge2().equals(signUp2.getFamilyAge2())){
+            if(!signUp.getFamilyAge2().equals(signUp2.getFamilyAge2()) && !StringUtil.isEmpty(signUp.getFamilyAge2()) && !StringUtil.isEmpty(signUp2.getFamilyAge2())){
                 changeContent += "家庭成员2的年龄<span style='color:red'>"+signUp2.getFamilyAge2()+"</span>变更为<span style='color:red'>"+signUp.getFamilyAge2()+"</span>  ";
                 changeTableField += "family_age2='"+signUp.getFamilyAge2() + "',";
             }
-            if(!signUp.getFamilyPolitical2().equals(signUp2.getFamilyPolitical2())){
+            if(!signUp.getFamilyPolitical2().equals(signUp2.getFamilyPolitical2()) && !StringUtil.isEmpty(signUp.getFamilyPolitical2()) && !StringUtil.isEmpty(signUp2.getFamilyPolitical2())){
                 changeContent += "家庭成员2的政治面貌<span style='color:red'>"+signUp2.getFamilyPolitical2()+"</span>变更为<span style='color:red'>"+signUp.getFamilyPolitical2()+"</span>  ";
                 changeTableField += "family_political2='"+signUp.getFamilyPolitical2() + "',";
             }
-            if(!signUp.getFamilyCompany2().equals(signUp2.getFamilyCompany2())){
+            if(!signUp.getFamilyCompany2().equals(signUp2.getFamilyCompany2()) && !StringUtil.isEmpty(signUp.getFamilyCompany2()) && !StringUtil.isEmpty(signUp2.getFamilyCompany2())){
                 changeContent += "家庭成员2的工作单位<span style='color:red'>"+signUp2.getFamilyCompany2()+"</span>变更为<span style='color:red'>"+signUp.getFamilyCompany2()+"</span>  ";
                 changeTableField += "family_company2='"+signUp.getFamilyCompany2() + "',";
             }
-            if(!signUp.getFamilyPost2().equals(signUp2.getFamilyPost2())){
+            if(!signUp.getFamilyPost2().equals(signUp2.getFamilyPost2()) && !StringUtil.isEmpty(signUp.getFamilyPost2()) && !StringUtil.isEmpty(signUp2.getFamilyPost2())){
                 changeContent += "家庭成员2的职务<span style='color:red'>"+signUp2.getFamilyPost2()+"</span>变更为<span style='color:red'>"+signUp.getFamilyPost2()+"</span>  ";
                 changeTableField += "family_post2='"+signUp.getFamilyPost2() + "',";
             }
-            if(!signUp.getFamilyName3().equals(signUp2.getFamilyName3())){
+            if(!signUp.getFamilyName3().equals(signUp2.getFamilyName3()) && !StringUtil.isEmpty(signUp.getFamilyName3()) && !StringUtil.isEmpty(signUp2.getFamilyName3())){
                 changeContent += "家庭成员3的姓名<span style='color:red'>"+signUp2.getFamilyName3()+"</span>变更为<span style='color:red'>"+signUp.getFamilyName3()+"</span>  ";
                 changeTableField += "family_name3='"+signUp.getFamilyName3() + "',";
             }
-            if(!signUp.getFamilyRelation3().equals(signUp2.getFamilyRelation3())){
+            if(!signUp.getFamilyRelation3().equals(signUp2.getFamilyRelation3()) && !StringUtil.isEmpty(signUp.getFamilyRelation3()) && !StringUtil.isEmpty(signUp2.getFamilyRelation3())){
                 changeContent += "家庭成员3的关系、称谓<span style='color:red'>"+signUp2.getFamilyRelation3()+"</span>变更为<span style='color:red'>"+signUp.getFamilyRelation3()+"</span>  ";
                 changeTableField += "family_relation3='"+signUp.getFamilyRelation3() + "',";
             }
-            if(!signUp.getFamilyAge3().equals(signUp2.getFamilyAge3())){
+            if(!signUp.getFamilyAge3().equals(signUp2.getFamilyAge3()) && !StringUtil.isEmpty(signUp.getFamilyAge3()) && !StringUtil.isEmpty(signUp2.getFamilyAge3())){
                 changeContent += "家庭成员3的年龄<span style='color:red'>"+signUp2.getFamilyAge3()+"</span>变更为<span style='color:red'>"+signUp.getFamilyAge3()+"</span>  ";
                 changeTableField += "family_age3='"+signUp.getFamilyAge3() + "',";
             }
-            if(!signUp.getFamilyPolitical3().equals(signUp2.getFamilyPolitical3())){
+            if(!signUp.getFamilyPolitical3().equals(signUp2.getFamilyPolitical3()) && !StringUtil.isEmpty(signUp.getFamilyPolitical3()) && !StringUtil.isEmpty(signUp2.getFamilyPolitical3())){
                 changeContent += "家庭成员3的政治面貌<span style='color:red'>"+signUp2.getFamilyPolitical3()+"</span>变更为<span style='color:red'>"+signUp.getFamilyPolitical3()+"</span>  ";
                 changeTableField += "family_political3='"+signUp.getFamilyPolitical3() + "',";
             }
-            if(!signUp.getFamilyCompany3().equals(signUp2.getFamilyCompany3())){
+            if(!signUp.getFamilyCompany3().equals(signUp2.getFamilyCompany3()) && !StringUtil.isEmpty(signUp.getFamilyCompany3()) && !StringUtil.isEmpty(signUp2.getFamilyCompany3())){
                 changeContent += "家庭成员3的工作单位<span style='color:red'>"+signUp2.getFamilyCompany3()+"</span>变更为<span style='color:red'>"+signUp.getFamilyCompany3()+"</span>  ";
                 changeTableField += "family_company3='"+signUp.getFamilyCompany3() + "',";
             }
-            if(!signUp.getFamilyPost3().equals(signUp2.getFamilyPost3())){
+            if(!signUp.getFamilyPost3().equals(signUp2.getFamilyPost3()) && !StringUtil.isEmpty(signUp.getFamilyPost3()) && !StringUtil.isEmpty(signUp2.getFamilyPost3())){
                 changeContent += "家庭成员3的职务<span style='color:red'>"+signUp2.getFamilyPost3()+"</span>变更为<span style='color:red'>"+signUp.getFamilyPost3()+"</span>  ";
                 changeTableField += "family_post3='"+signUp.getFamilyPost3() + "',";
             }
-            if(!signUp.getReward().equals(signUp2.getReward())){
+            if(!signUp.getReward().equals(signUp2.getReward()) && !StringUtil.isEmpty(signUp.getReward()) && !StringUtil.isEmpty(signUp2.getReward())){
                 changeContent += "获得奖励<span style='color:red'>"+signUp2.getReward()+"</span>变更为<span style='color:red'>"+signUp.getReward()+"</span>  ";
                 changeTableField += "reward='"+signUp.getReward() + "',";
             }

@@ -44,10 +44,10 @@
         <span class="inline-select">
           <select name="state">
             <option value="">全部</option>
-            <option value="0" <c:if test="${param.state == 0}">selected="selected" </c:if>>在籍</option>
-            <option value="1" <c:if test="${param.state == 12}">selected="selected" </c:if>>休学</option>
-            <option value="2" <c:if test="${param.state == 3}">selected="selected" </c:if>>退学</option>
-            <option value="3" <c:if test="${param.state == 4}">selected="selected" </c:if>>毕业</option>
+            <option value="0" <c:if test="${param.state eq '0'}">selected="selected" </c:if>>在籍</option>
+            <option value="1" <c:if test="${param.state eq '1'}">selected="selected" </c:if>>休学</option>
+            <option value="2" <c:if test="${param.state eq '2'}">selected="selected" </c:if>>退学</option>
+            <option value="3" <c:if test="${param.state eq '3'}">selected="selected" </c:if>>毕业</option>
           </select>
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="itg">姓名：</span>
@@ -105,7 +105,7 @@
                   <c:if test="${student.state == 3}">毕业</c:if>
                 </td>
                 <td>
-                  <a class="btn-opr" href="#" onclick="edit(${student.id});">编辑</a>
+                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editStudent/open.html?id=${student.id}&reqParams=${reqParams}');">编辑</a>
                 </td>
               </tr>
             </c:forEach>

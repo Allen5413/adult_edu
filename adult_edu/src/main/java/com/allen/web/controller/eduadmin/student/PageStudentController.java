@@ -3,6 +3,7 @@ package com.allen.web.controller.eduadmin.student;
 import com.allen.dao.PageInfo;
 import com.allen.service.basic.school.FindSchoolByCenterIdForTeachPlanService;
 import com.allen.service.eduadmin.student.PageStudentService;
+import com.allen.util.StringUtil;
 import com.allen.util.UserUtil;
 import com.allen.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class PageStudentController extends BaseController {
         params.put("sp.id", specId);
         params.put("tp.id", teachPlanId);
         params.put("s.state", state);
-        params.put("s.name", new Object[]{"%"+name+"%", "like"});
+        params.put("s.name", StringUtil.isEmpty(name) ? null : new Object[]{"%"+name+"%", "like"});
         PageInfo pageInfo = super.getPageInfo(request);
         Map<String, Boolean> sortMap = new HashMap<String, Boolean>();
         sortMap.put("s.id", true);

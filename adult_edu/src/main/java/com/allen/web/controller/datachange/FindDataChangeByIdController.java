@@ -50,5 +50,8 @@ public class FindDataChangeByIdController extends BaseController{
         if("sign_up".equals(table)){
             response.sendRedirect("/findSignUpById/open.html?id="+tableId+"&dataChangeId="+id+"&reqParams="+reqParams);
         }
+        if("student".equals(table)){
+            response.sendRedirect("/findStudentById/open.html?id="+tableId+"&dataChangeId="+id+"&reqParams="+reqParams);
+        }
     }
 }

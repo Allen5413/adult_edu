@@ -47,7 +47,7 @@ public class AuditDataChangeServiceImpl implements AuditDataChangeService {
                 //如果是修改报名表，那么报名表的上传照片的字段不需要修改，但是文件需要重新覆盖
                 if("sign_up".equals(dataChange.getChangeTable())){
                     String changeTableField = dataChange.getChangeTableField();
-                    if(changeTableField.indexOf("photo_url=") > 0){
+                    if(changeTableField.indexOf("photo_url=") > -1){
                         String photoUrl = changeTableField.substring(changeTableField.indexOf("photo_url="), changeTableField.indexOf("@#@photo_url")+14);
                         String url = photoUrl.substring(photoUrl.indexOf("'")+1, photoUrl.indexOf("@#@"));
                         //删除文件
@@ -60,7 +60,7 @@ public class AuditDataChangeServiceImpl implements AuditDataChangeService {
                             changeTableField = changeTableField.replace(photoUrl, "photo_url='"+configProp.getSignUp().get("photoUrl")+dataChange.getChangeTableId()+".png"+"',");
                         }
                     }
-                    if(changeTableField.indexOf("id_card_front_url=") > 0){
+                    if(changeTableField.indexOf("id_card_front_url=") > -1){
                         String id_card_front_url = changeTableField.substring(changeTableField.indexOf("id_card_front_url="), changeTableField.indexOf("@#@id_card_front_url")+22);
                         String url = id_card_front_url.substring(id_card_front_url.indexOf("'")+1, id_card_front_url.indexOf("@#@"));
                         //删除文件
@@ -73,7 +73,7 @@ public class AuditDataChangeServiceImpl implements AuditDataChangeService {
                             changeTableField = changeTableField.replace(id_card_front_url, "id_card_front_url='"+configProp.getSignUp().get("idCardFrontUrl")+dataChange.getChangeTableId()+".png"+"',");
                         }
                     }
-                    if(changeTableField.indexOf("id_card_back_url=") > 0){
+                    if(changeTableField.indexOf("id_card_back_url=") > -1){
                         String id_card_back_url = changeTableField.substring(changeTableField.indexOf("id_card_back_url="), changeTableField.indexOf("@#@id_card_back_url")+21);
                         String url = id_card_back_url.substring(id_card_back_url.indexOf("'")+1, id_card_back_url.indexOf("@#@"));
                         //删除文件
@@ -86,7 +86,7 @@ public class AuditDataChangeServiceImpl implements AuditDataChangeService {
                             changeTableField = changeTableField.replace(id_card_back_url, "id_card_back_url='"+configProp.getSignUp().get("idCardBackUrl")+dataChange.getChangeTableId()+".png"+"',");
                         }
                     }
-                    if(changeTableField.indexOf("diploma_url=") > 0){
+                    if(changeTableField.indexOf("diploma_url=") > -1){
                         String diploma_url = changeTableField.substring(changeTableField.indexOf("diploma_url="), changeTableField.indexOf("@#@diploma_url")+16);
                         String url = diploma_url.substring(diploma_url.indexOf("'")+1, diploma_url.indexOf("@#@"));
                         //删除文件
@@ -99,7 +99,7 @@ public class AuditDataChangeServiceImpl implements AuditDataChangeService {
                             changeTableField = changeTableField.replace(diploma_url, "diploma_url='"+configProp.getSignUp().get("diplomaUrl")+dataChange.getChangeTableId()+".png"+"',");
                         }
                     }
-                    if(changeTableField.indexOf("xxw_url=") > 0){
+                    if(changeTableField.indexOf("xxw_url=") > -1){
                         String xxw_url = changeTableField.substring(changeTableField.indexOf("xxw_url="), changeTableField.indexOf("@#@xxw_url")+12);
                         String url = xxw_url.substring(xxw_url.indexOf("'")+1, xxw_url.indexOf("@#@"));
                         //删除文件
@@ -112,7 +112,7 @@ public class AuditDataChangeServiceImpl implements AuditDataChangeService {
                             changeTableField = changeTableField.replace(xxw_url, "xxw_url='"+configProp.getSignUp().get("xxwUrl")+dataChange.getChangeTableId()+".png"+"',");
                         }
                     }
-                    if(changeTableField.indexOf("yds_url=") > 0){
+                    if(changeTableField.indexOf("yds_url=") > -1){
                         String yds_url = changeTableField.substring(changeTableField.indexOf("yds_url="), changeTableField.indexOf("@#@yds_url")+12);
                         String url = yds_url.substring(yds_url.indexOf("'")+1, yds_url.indexOf("@#@"));
                         //删除文件
@@ -123,6 +123,50 @@ public class AuditDataChangeServiceImpl implements AuditDataChangeService {
                             //替换文件
                             UpLoadFileUtil.custFile(request, url, configProp.getSignUp().get("ydsUrl"), dataChange.getChangeTableId()+".png");
                             changeTableField = changeTableField.replace(yds_url, "yds_url='"+configProp.getSignUp().get("ydsUrl")+dataChange.getChangeTableId()+".png"+"',");
+                        }
+                    }
+                    dataChange.setChangeTableField(changeTableField.substring(0, changeTableField.length()-1));
+                }
+                //如果是修改学生表，那么学生表的上传照片的字段不需要修改，但是文件需要重新覆盖
+                if("student".equals(dataChange.getChangeTable())){
+                    String changeTableField = dataChange.getChangeTableField();
+                    if(changeTableField.indexOf("xxw_url=") > -1){
+                        String xxw_url = changeTableField.substring(changeTableField.indexOf("xxw_url="), changeTableField.indexOf("@#@xxw_url")+12);
+                        String url = xxw_url.substring(xxw_url.indexOf("'")+1, xxw_url.indexOf("@#@"));
+                        //删除文件
+                        if(StringUtil.isEmpty(url)){
+                            changeTableField = changeTableField.replace(xxw_url, "xxw_url='',");
+                            UpLoadFileUtil.delDir(request.getRealPath("")+configProp.getStudent().get("xxwUrl")+dataChange.getChangeTableId()+".png");
+                        }else{
+                            //替换文件
+                            UpLoadFileUtil.custFile(request, url, configProp.getStudent().get("xxwUrl"), dataChange.getChangeTableId()+".png");
+                            changeTableField = changeTableField.replace(xxw_url, "xxw_url='"+configProp.getStudent().get("xxwUrl")+dataChange.getChangeTableId()+".png"+"',");
+                        }
+                    }
+                    if(changeTableField.indexOf("zkz_front_url=") > -1){
+                        String zkz_front_url = changeTableField.substring(changeTableField.indexOf("zkz_front_url="), changeTableField.indexOf("@#@zkz_front_url")+18);
+                        String url = zkz_front_url.substring(zkz_front_url.indexOf("'")+1, zkz_front_url.indexOf("@#@"));
+                        //删除文件
+                        if(StringUtil.isEmpty(url)){
+                            changeTableField = changeTableField.replace(zkz_front_url, "zkz_front_url='',");
+                            UpLoadFileUtil.delDir(request.getRealPath("")+configProp.getStudent().get("zkzFrontUrl")+dataChange.getChangeTableId()+".png");
+                        }else{
+                            //替换文件
+                            UpLoadFileUtil.custFile(request, url, configProp.getStudent().get("zkzFrontUrl"), dataChange.getChangeTableId()+".png");
+                            changeTableField = changeTableField.replace(zkz_front_url, "zkz_front_url='"+configProp.getStudent().get("zkzFrontUrl")+dataChange.getChangeTableId()+".png"+"',");
+                        }
+                    }
+                    if(changeTableField.indexOf("zkz_back_url=") > -1){
+                        String zkz_back_url = changeTableField.substring(changeTableField.indexOf("zkz_back_url="), changeTableField.indexOf("@#@zkz_back_url")+17);
+                        String url = zkz_back_url.substring(zkz_back_url.indexOf("'")+1, zkz_back_url.indexOf("@#@"));
+                        //删除文件
+                        if(StringUtil.isEmpty(url)){
+                            changeTableField = changeTableField.replace(zkz_back_url, "zkz_back_url='',");
+                            UpLoadFileUtil.delDir(request.getRealPath("")+configProp.getStudent().get("zkzBackUrl")+dataChange.getChangeTableId()+".png");
+                        }else{
+                            //替换文件
+                            UpLoadFileUtil.custFile(request, url, configProp.getStudent().get("zkzBackUrl"), dataChange.getChangeTableId()+".png");
+                            changeTableField = changeTableField.replace(zkz_back_url, "zkz_back_url='"+configProp.getStudent().get("zkzBackUrl")+dataChange.getChangeTableId()+".png"+"',");
                         }
                     }
                     dataChange.setChangeTableField(changeTableField.substring(0, changeTableField.length()-1));
