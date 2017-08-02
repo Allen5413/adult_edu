@@ -30,7 +30,7 @@ public class BaseQueryDao extends JapDynamicQueryDao {
     public PageInfo findPageByNativeSql(PageInfo pageInfo, String fields, String[] tableNames, Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
         List<Object> paramsList = new ArrayList<Object>();
         String sql = new String("from ");
-        sql = this.queryTableWhereConfigure(paramsList, sql, null, tableNames, paramsMap, sortMap);
+        sql = this.queryTableWhereConfigure(paramsList, sql, null, tableNames, "", paramsMap, sortMap);
         this.pageSqlQueryByNativeSql(pageInfo, sql, fields, paramsList.toArray());
         return pageInfo;
     }
@@ -50,7 +50,27 @@ public class BaseQueryDao extends JapDynamicQueryDao {
                                              Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
         List<Object> paramsList = new ArrayList<Object>();
         String sql = new String("from ");
-        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, paramsMap, sortMap);
+        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, "", paramsMap, sortMap);
+        this.pageSqlQueryByNativeSqlToMap(pageInfo, sql, fields, paramsList.toArray());
+        return pageInfo;
+    }
+
+    /**
+     * 功能：根据原声sql 分页查询 返回map 带有默认条件的，如：多个表关联
+     * @param pageInfo 分页信息
+     * @param fields 查询字段名称
+     * @param defaultWhere 关联条件
+     * @param tableNames 数据库表名称
+     * @param paramsMap 参数对象
+     * @param sortMap 排序方式
+     * @return
+     * @throws Exception
+     */
+    public PageInfo findPageByNativeSqlToMap(PageInfo pageInfo, String fields, String defaultWhere, String[] tableNames, String groupBy,
+                                             Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
+        List<Object> paramsList = new ArrayList<Object>();
+        String sql = new String("from ");
+        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, groupBy, paramsMap, sortMap);
         this.pageSqlQueryByNativeSqlToMap(pageInfo, sql, fields, paramsList.toArray());
         return pageInfo;
     }
@@ -67,7 +87,7 @@ public class BaseQueryDao extends JapDynamicQueryDao {
     public List findListBySql(String[] tableNames, String fields, String defaultWhere, Map<String, Object> paramsMap, Map<String, Boolean> sortMap){
         List paramsList = new ArrayList();
         String sql = new String("select "+fields+" from ");
-        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, paramsMap, sortMap);
+        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, "", paramsMap, sortMap);
         return this.sqlQueryByNativeSql(sql, paramsList.toArray());
     }
 
@@ -83,7 +103,7 @@ public class BaseQueryDao extends JapDynamicQueryDao {
     public List<Map> findListBySqlToMap(String[] tableNames, String fields, String defaultWhere, Map<String, Object> paramsMap, Map<String, Boolean> sortMap){
         List paramsList = new ArrayList();
         String sql = new String("select "+fields+" from ");
-        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, paramsMap, sortMap);
+        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, "", paramsMap, sortMap);
         return this.sqlQueryByNativeSqlToMap(sql, paramsList.toArray());
     }
 
@@ -99,7 +119,7 @@ public class BaseQueryDao extends JapDynamicQueryDao {
     public PageInfo findPageByJpal(PageInfo pageInfo, String[] tableNames, Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
         List paramsList = new ArrayList();
         String sql = new String("from ");
-        sql = this.queryTableWhereConfigure(paramsList, sql, null, tableNames, paramsMap, sortMap);
+        sql = this.queryTableWhereConfigure(paramsList, sql, null, tableNames, "", paramsMap, sortMap);
         this.pagedQueryByJpql(pageInfo, sql.toString(), paramsList.toArray());
         return pageInfo;
     }
@@ -117,7 +137,7 @@ public class BaseQueryDao extends JapDynamicQueryDao {
     public PageInfo findPageByJpal(PageInfo pageInfo, String[] tableNames, String defaultWhere, Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
         List paramsList = new ArrayList();
         String sql = new String("from ");
-        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, paramsMap, sortMap);
+        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, "", paramsMap, sortMap);
         this.pagedQueryByJpql(pageInfo, sql.toString(), paramsList.toArray());
         return pageInfo;
     }
@@ -135,7 +155,7 @@ public class BaseQueryDao extends JapDynamicQueryDao {
     public PageInfo findPageByJpal(PageInfo pageInfo, String fields, String[] tableNames, Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
         List paramsList = new ArrayList();
         String sql = new String("select "+fields+" from ");
-        sql = this.queryTableWhereConfigure(paramsList, sql, null, tableNames, paramsMap, sortMap);
+        sql = this.queryTableWhereConfigure(paramsList, sql, null, tableNames, "", paramsMap, sortMap);
         this.pagedQueryByJpql(pageInfo, sql.toString(), paramsList.toArray());
         return pageInfo;
     }
@@ -154,7 +174,7 @@ public class BaseQueryDao extends JapDynamicQueryDao {
     public PageInfo findPageByJpal(PageInfo pageInfo, String fields, String[] tableNames, String defaultWhere, Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
         List paramsList = new ArrayList();
         String sql = new String("select "+fields+" from ");
-        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, paramsMap, sortMap);
+        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, "", paramsMap, sortMap);
         this.pagedQueryByJpql(pageInfo, sql.toString(), paramsList.toArray());
         return pageInfo;
     }
@@ -171,7 +191,7 @@ public class BaseQueryDao extends JapDynamicQueryDao {
     public List findListByHql(String[] tableNames, String fields, Map<String, Object> paramsMap, Map<String, Boolean> sortMap, Class returnClass){
         List paramsList = new ArrayList();
         String sql = new String("select "+fields+" from ");
-        sql = this.queryTableWhereConfigure(paramsList, sql, null, tableNames, paramsMap, sortMap);
+        sql = this.queryTableWhereConfigure(paramsList, sql, null, tableNames, "", paramsMap, sortMap);
         return this.sqlQueryByHql(sql, returnClass, paramsList.toArray());
     }
 
@@ -188,7 +208,7 @@ public class BaseQueryDao extends JapDynamicQueryDao {
     public List findListByHql(String[] tableNames, String fields, String defaultWhere, Map<String, Object> paramsMap, Map<String, Boolean> sortMap, Class returnClass){
         List paramsList = new ArrayList();
         String sql = new String("select "+fields+" from ");
-        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, paramsMap, sortMap);
+        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, "", paramsMap, sortMap);
         return this.sqlQueryByHql(sql, returnClass, paramsList.toArray());
     }
 
@@ -204,7 +224,7 @@ public class BaseQueryDao extends JapDynamicQueryDao {
     public List findListByHql(String[] tableNames, String fields, String defaultWhere, Map<String, Object> paramsMap, Map<String, Boolean> sortMap){
         List paramsList = new ArrayList();
         String sql = new String("select "+fields+" from ");
-        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, paramsMap, sortMap);
+        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, "", paramsMap, sortMap);
         return this.sqlQueryByHql(sql, paramsList.toArray());
     }
 
@@ -236,7 +256,7 @@ public class BaseQueryDao extends JapDynamicQueryDao {
      * @param paramsMap
      * @param sortMap
      */
-    private String queryTableWhereConfigure(List<Object> paramsList, String sql, String defaultWhere, String[] tableNames,
+    private String queryTableWhereConfigure(List<Object> paramsList, String sql, String defaultWhere, String[] tableNames, String groupBy,
                                           Map<String, Object> paramsMap, Map<String, Boolean> sortMap){
         for(int i=0; i<tableNames.length; i++){
             sql += tableNames[i];
@@ -248,6 +268,9 @@ public class BaseQueryDao extends JapDynamicQueryDao {
         }
         sql += StringUtil.isEmpty(defaultWhere) ? "where 1=1 " : "where "+defaultWhere+" ";
         sql = getParamListVal(sql,paramsMap,paramsList);
+        if(!StringUtil.isEmpty(groupBy)){
+            sql += "group by " + groupBy + " ";
+        }
         if(null != sortMap) {
             sql += "order by ";
             int i = 0;

@@ -19,6 +19,10 @@ public class Student {
     public final static int STATE_QUIT = 2;         //退学
     public final static int STATE_BY = 3;           //毕业
 
+    public final static int FEE_STATE_NOT = 0;       //在籍
+    public final static int FEE_STATE_ING = 1;         //休学
+    public final static int FEE_STATE_OVER = 2;         //退学
+
     @Id
     @GeneratedValue
     private long id;
@@ -30,6 +34,7 @@ public class Student {
     private long specId;
     private long teachPlanId;
     private int state;
+    private int feeState;                       //费用缴清状态[0：未交，1：未缴完，2：已结清]
     private String code;
     private String name;
     private int sex;                            //性别[0：男；1：女]
@@ -317,5 +322,13 @@ public class Student {
 
     public void setStudyType(Integer studyType) {
         this.studyType = studyType;
+    }
+
+    public int getFeeState() {
+        return feeState;
+    }
+
+    public void setFeeState(int feeState) {
+        this.feeState = feeState;
     }
 }
