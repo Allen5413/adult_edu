@@ -75,7 +75,7 @@
   <div class="mod-com-view">
     <div class="title-tabs">
       <a href="#">学生列表</a>
-      <a class="btn-com f-r" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/importStudent/open.html?reqParams=${reqParams}');">导入缴费表</a>
+      <a class="btn-com f-r" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/importStudentFee/open.html?reqParams=${reqParams}');">导入缴费表</a>
     </div>
     <div class="mod-content">
       <div class="data-table-list">
@@ -118,7 +118,8 @@
                   <c:if test="${student.fee_state == 2}">已结清</c:if>
                 </td>
                 <td>
-                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editStudent/open.html?id=${student.id}&reqParams=${reqParams}');">编辑</a>
+                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/addStudentFee/open.html?studentId=${student.id}&reqParams=${reqParams}');">缴费</a>
+                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/findStudentFeeByStudentId/open.html?studentId=${student.id}');">详情</a>
                 </td>
               </tr>
             </c:forEach>
