@@ -21,6 +21,7 @@ public class DataChange {
     public final static int TYPE_ADD = 0;               //新增
     public final static int TYPE_EDIT = 1;              //修改
     public final static int TYPE_DEL = 2;               //删除
+    public final static int TYPE_NOTICE = 3;            //新发的通知公告
 
     @Id
     @GeneratedValue

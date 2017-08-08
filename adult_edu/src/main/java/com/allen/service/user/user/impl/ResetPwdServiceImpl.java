@@ -22,4 +22,13 @@ public class ResetPwdServiceImpl implements ResetPwdService {
         user.setPwd(MD5Util.MD5(user.getPhone().substring(user.getPhone().length()-6, user.getPhone().length())));
         userDao.save(user);
     }
+
+    @Override
+    public String edit(long id) throws Exception {
+        User user = userDao.findOne(id);
+        String pwd = user.getPhone().substring(user.getPhone().length()-6, user.getPhone().length());
+        user.setPwd(MD5Util.MD5(pwd));
+        userDao.save(user);
+        return pwd;
+    }
 }

@@ -36,6 +36,7 @@ public class SignUp {
     private String qq;
     private Integer studyType;                  //学习方式[0：脱产、1：业余、2：函授、3：远程教育]
     private String address;
+    private String email;
     private String zipCode;
     private String sourceRemark;            //生源备注
     private String beforeEdu;               //入学前的学历
@@ -202,6 +203,14 @@ public class SignUp {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSourceRemark() {

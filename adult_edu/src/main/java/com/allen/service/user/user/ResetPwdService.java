@@ -5,4 +5,6 @@ package com.allen.service.user.user;
  */
 public interface ResetPwdService {
     public void edit(String loginName)throws Exception;
+
+    public String edit(long id)throws Exception;
 }

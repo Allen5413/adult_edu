@@ -14,14 +14,14 @@ import java.util.Date;
 @Table(name = "student")
 public class Student {
 
-    public final static int STATE_NORMAL = 0;       //在籍
+    public final static int STATE_NORMAL = 0;       //在读
     public final static int STATE_REST = 1;         //休学
     public final static int STATE_QUIT = 2;         //退学
     public final static int STATE_BY = 3;           //毕业
 
-    public final static int FEE_STATE_NOT = 0;       //在籍
-    public final static int FEE_STATE_ING = 1;         //休学
-    public final static int FEE_STATE_OVER = 2;         //退学
+    public final static int FEE_STATE_NOT = 0;       //未交
+    public final static int FEE_STATE_ING = 1;         //未缴完
+    public final static int FEE_STATE_OVER = 2;         //已结清
 
     @Id
     @GeneratedValue
