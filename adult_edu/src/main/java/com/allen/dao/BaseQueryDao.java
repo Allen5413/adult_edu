@@ -108,6 +108,22 @@ public class BaseQueryDao extends JapDynamicQueryDao {
     }
 
     /**
+     * Sql 集合查询 可以设置查询字段 带有默认条件的，如：多个表关联 返回Map对象
+     * @param tableNames
+     * @param fields
+     * @param defaultWhere
+     * @param paramsMap
+     * @param sortMap
+     * @return
+     */
+    public List<Map> findListBySqlToMap(String[] tableNames, String fields, String defaultWhere, String groupBy, Map<String, Object> paramsMap, Map<String, Boolean> sortMap){
+        List paramsList = new ArrayList();
+        String sql = new String("select "+fields+" from ");
+        sql = this.queryTableWhereConfigure(paramsList, sql, defaultWhere, tableNames, groupBy, paramsMap, sortMap);
+        return this.sqlQueryByNativeSqlToMap(sql, paramsList.toArray());
+    }
+
+    /**
      * Hql 分页查询 没有设置查询字段 适用于单表查询
      * @param pageInfo
      * @param tableNames

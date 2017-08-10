@@ -13,6 +13,7 @@ public class ConfigProp {
     public Map<String, String> center = new HashMap<String, String>();
     public Map<String, String> signUp = new HashMap<String, String>();
     public Map<String, String> student = new HashMap<String, String>();
+    public Map<String, String> attop = new HashMap<String, String>();
 
     public Map<String, String> getCenter() {
         return center;
@@ -36,5 +37,13 @@ public class ConfigProp {
 
     public void setStudent(Map<String, String> student) {
         this.student = student;
+    }
+
+    public Map<String, String> getAttop() {
+        return attop;
+    }
+
+    public void setAttop(Map<String, String> attop) {
+        this.attop = attop;
     }
 }

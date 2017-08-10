@@ -49,4 +49,21 @@ public class FindStudentFeeDao extends BaseQueryDao {
         String defaultWhere = "sf.fee_type_id = ft.id";
         return super.findListBySqlToMap(tableNames, fileds, defaultWhere, paramsMap, sortMap);
     }
+
+
+    /**
+     * 查询一个招生类型下的相同批次年季的应缴费人数，已缴清人数，未缴完人数和未缴费人数
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countFeeNumByRtIdAndYearAndTerm(long rtId, int year, int term)throws Exception{
+        Map<String, Object> paramsMap = new HashMap<String, Object>(1);
+        paramsMap.put("s.recruit_type_id", rtId);
+        paramsMap.put("tp.year", year);
+        paramsMap.put("tp.term", term);
+        String fileds = "count(*) feeNum, ifnull((case when s.fee_state = 0 then count(*) end), 0) notPayFeeNum, ifnull((case when s.fee_state = 1 then count(*) end), 0) notCleanNum, ifnull((case when s.fee_state = 2 then count(*) end), 0) payFeeNum";
+        String[] tableNames = {"student s", "teach_plan tp"};
+        String defaultWhere = "s.teach_plan_id = tp.id";
+        return super.findListBySqlToMap(tableNames, fileds, defaultWhere, paramsMap, null);
+    }
 }

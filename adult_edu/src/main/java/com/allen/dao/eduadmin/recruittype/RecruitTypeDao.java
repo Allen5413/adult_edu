@@ -4,6 +4,7 @@ import com.allen.entity.eduadmin.RecruitType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**

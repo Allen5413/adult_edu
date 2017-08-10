@@ -22,6 +22,9 @@ public class GlobalDefaultExceptionHandler {
         e.printStackTrace();
         jsonObject.put("state", 1);
         jsonObject.put("msg", "程序出现了异常");
+        //主要是用于app接口用的，朱总非要把返回字段定义成他那种格式的，没得法
+        jsonObject.put("status", 0);
+        jsonObject.put("err", "程序出现了异常");
         return jsonObject;
     }
 
@@ -38,6 +41,9 @@ public class GlobalDefaultExceptionHandler {
         }
         jsonObject.put("state", 1);
         jsonObject.put("msg", eMsg);
+        //主要是用于app接口用的，朱总非要把返回字段定义成他那种格式的，没得法
+        jsonObject.put("status", 0);
+        jsonObject.put("err", eMsg);
         return jsonObject;
     }
 }
