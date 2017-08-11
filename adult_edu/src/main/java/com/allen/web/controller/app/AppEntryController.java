@@ -9,6 +9,9 @@ import com.allen.service.app.signup.CountPeopleNumForLevelAndTPByIdService;
 import com.allen.service.app.recruittype.FindRTByCenterIdService;
 import com.allen.service.app.signup.CountPeopleNumForSchoolByRtIdAndYearAndTermService;
 import com.allen.service.app.signup.CountPeopleNumForSpecByRtIdAndYearAndTermService;
+import com.allen.service.app.student.CountPeopleNumByRtIdService;
+import com.allen.service.app.student.FindSByIdService;
+import com.allen.service.app.student.ListSService;
 import com.allen.service.app.studentfee.CountFeeNumByRtIdAndYearAndTermService;
 import com.allen.service.app.user.FindUByPhoneService;
 import com.allen.util.MD5Util;
@@ -42,6 +45,12 @@ public class AppEntryController extends BaseController {
     private CountFeeByRtIdService countFeeByRtIdService;
     @Autowired
     private CountFeeNumByRtIdAndYearAndTermService countFeeNumByRtIdAndYearAndTermService;
+    @Autowired
+    private CountPeopleNumByRtIdService countPeopleNumByRtIdService;
+    @Autowired
+    private ListSService listSService;
+    @Autowired
+    private FindSByIdService findSByIdService;
     @Autowired
     private ConfigProp configProp;
 
@@ -92,12 +101,15 @@ public class AppEntryController extends BaseController {
         }
         if(8 == methodId){
             //获取招生类型下的学生统计信息
+            jsonObject = countPeopleNumByRtIdService.find(request);
         }
         if(9 == methodId){
             //通过筛选条件查询学生信息
+            jsonObject = listSService.find(request);
         }
         if(10 == methodId){
             //获取一个学生的详细信息
+            jsonObject = findSByIdService.find(request);
         }
         if(11 == methodId){
             //获取审核列表

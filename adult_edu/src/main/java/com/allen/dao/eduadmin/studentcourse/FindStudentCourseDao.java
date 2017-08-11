@@ -21,6 +21,7 @@ public class FindStudentCourseDao extends BaseQueryDao {
         String courseName = paramsMap.get("courseName");
         String score = paramsMap.get("score");
         String scId = paramsMap.get("schoolId");
+        String studentId = paramsMap.get("studentId");
         String rtId = paramsMap.get("recruitTypeId");
         String lId = paramsMap.get("levelId");
         String spId = paramsMap.get("specId");
@@ -69,6 +70,10 @@ public class FindStudentCourseDao extends BaseQueryDao {
         if(!StringUtil.isEmpty(tpId)){
             sql += "and s.teach_plan_id = ? ";
             paramsList.add(Long.parseLong(tpId));
+        }
+        if(!StringUtil.isEmpty(studentId)){
+            sql += "and s.id = ? ";
+            paramsList.add(Long.parseLong(studentId));
         }
         sql += "order by s.code, c.code";
 

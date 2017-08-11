@@ -45,6 +45,7 @@ public class Student {
     private String zipCode;
     private String phone;
     private String tel;
+    private String qq;
     private String email;
     private String address;
     private String photoUrl;                 //上传照片地址
@@ -330,5 +331,13 @@ public class Student {
 
     public void setFeeState(int feeState) {
         this.feeState = feeState;
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
     }
 }
