@@ -6,6 +6,7 @@ import com.allen.util.StringUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,5 +52,23 @@ public class FindDataChangeDao extends BaseQueryDao {
         sql += "order by dc.create_time desc ";
 
         return super.pageSqlQueryByNativeSqlToMap(pageInfo, sql, fileds, paramsList.toArray());
+    }
+
+    /**
+     * 查询一个中心下的某种状态的变更审核数据，主要是app用
+     * 这点的state 表示0：待审核；1：已审核
+     * @return
+     * @throws Exception
+     */
+    public List<Map> findByCenterIdAndState(Long centerId, Integer state)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("dc.center_id", centerId);
+        paramMaps.put("dc.state", null == state ? null : new Object[]{state, 0 == state ? "=" : ">="});
+        Map<String, Boolean> sortMap = new HashMap<String, Boolean>();
+        sortMap.put("dc.create_time", false);
+        String fields = "dc.id, dc.type, ug.name role, dc.edit_reson editReson, dc.state, date_format(dc.create_time, '%Y-%m-%d') createTime";
+        String[] tableNames = {"data_change dc", "user_group_user ugu", "user_group ug"};
+        String defaultWhere = "dc.creator_id = ugu.user_id and ugu.user_group_id = ug.id";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, paramMaps, sortMap);
     }
 }

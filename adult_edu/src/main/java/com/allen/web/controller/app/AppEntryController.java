@@ -3,7 +3,11 @@ package com.allen.web.controller.app;
 import com.alibaba.fastjson.JSONObject;
 import com.allen.base.config.ConfigProp;
 import com.allen.base.exception.BusinessException;
+import com.allen.service.app.datachange.AuditDCService;
+import com.allen.service.app.datachange.FindDCByCenterIdAndStateService;
+import com.allen.service.app.datachange.FindDCByIdService;
 import com.allen.service.app.feetype.CountFeeByRtIdService;
+import com.allen.service.app.index.AppIndexService;
 import com.allen.service.app.signup.CountPeopleNumByRtIdAndYearAndTermService;
 import com.allen.service.app.signup.CountPeopleNumForLevelAndTPByIdService;
 import com.allen.service.app.recruittype.FindRTByCenterIdService;
@@ -51,6 +55,14 @@ public class AppEntryController extends BaseController {
     private ListSService listSService;
     @Autowired
     private FindSByIdService findSByIdService;
+    @Autowired
+    private FindDCByCenterIdAndStateService findDCByCenterIdAndStateService;
+    @Autowired
+    private FindDCByIdService findDCByIdService;
+    @Autowired
+    private AuditDCService auditDCService;
+    @Autowired
+    private AppIndexService appIndexService;
     @Autowired
     private ConfigProp configProp;
 
@@ -113,12 +125,15 @@ public class AppEntryController extends BaseController {
         }
         if(11 == methodId){
             //获取审核列表
+            jsonObject = findDCByCenterIdAndStateService.find(request);
         }
         if(12 == methodId){
             //获取审核详情数据
+            jsonObject = findDCByIdService.find(request);
         }
         if(13 == methodId){
             //审核数据
+            jsonObject = auditDCService.audit(request);
         }
         if(14 == methodId){
             //获取用户数据
@@ -134,7 +149,7 @@ public class AppEntryController extends BaseController {
         }
         if(18 == methodId){
             //用户登录验证
-            jsonObject = findUByPhoneService.find(request);
+            jsonObject = findUByPhoneService.find(mobile);
         }
         if(19 == methodId){
             //获取学习中心信息
@@ -165,6 +180,10 @@ public class AppEntryController extends BaseController {
         }
         if(28 == methodId){
             //上传学生报名信息图片
+        }
+        if(29 == methodId){
+            //首页各种统计
+            jsonObject = appIndexService.find(request);
         }
         return jsonObject;
     }

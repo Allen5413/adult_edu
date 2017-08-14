@@ -73,4 +73,21 @@ public class FindStudentDao extends BaseQueryDao {
         String groupBy = "tp.year desc, tp.term desc";
         return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, sortMaps);
     }
+
+
+    /**
+     * 统计一个中心下的各种状态的学生数量,包括总人数、在读人数、未缴费人数、未缴完人数
+     * @param centerId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countNumForStateWhereByCenterIdAndUserId(Long centerId, Long userId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("s.center_id", centerId);
+        paramMaps.put("s.user_id", userId);
+        String fields = "count(*) totalNum, ifnull((case when state = 0 then count(*) end), 0) zdNum, ifnull((case when fee_state = 0 then count(*) end), 0) notPayNum, ifnull((case when state = 1 then count(*) end), 0) notCleanNum";
+        String[] tableNames = {"student s"};
+        String defaultWhere = "1=1";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, paramMaps, null);
+    }
 }

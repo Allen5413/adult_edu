@@ -4,6 +4,7 @@ import com.allen.entity.basic.School;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -22,4 +23,13 @@ public interface SchoolDao extends CrudRepository<School, Long> {
      */
     @Query("select s from School s, TeachPlan tp where s.centerId = ?1 and s.centerId = tp.centerId and s.id = tp.schoolId and NOW() BETWEEN tp.beginDate and tp.endDate order by s.code")
     public List<School> findByCenterIdForTeachPlan(long centerId)throws Exception;
+
+    /**
+     * 统计一个学习中心下的高校数量
+     * @param centerId
+     * @return
+     * @throws Exception
+     */
+    @Query(nativeQuery = true, value = "select count(*) from school s where s.center_id = ?1")
+    public BigInteger countNumByCenterId(long centerId)throws Exception;
 }

@@ -31,4 +31,14 @@ public interface SpecDao extends CrudRepository<Spec, Long> {
      */
     @Query("select DISTINCT s from Spec s, TeachPlan tp where s.id = tp.specId and NOW() BETWEEN tp.beginDate and tp.endDate and tp.schoolId = ?1 and tp.typeId = ?2 and tp.levelId = ?3 order by s.code")
     public List<Spec> findBySchoolIdAndTypeIdAndLevelIdForTeachPlan(long schoolId, long typeId, long levelId)throws Exception;
+
+
+    /**
+     * 查询一个学习中心下的专业名称集合，不同高校的相同专业算一个
+     * @param centerId
+     * @return
+     * @throws Exception
+     */
+    @Query(nativeQuery = true, value = "select DISTINCT sp.name from school s, spec sp where s.id = sp.school_id and s.center_id = ?1")
+    public List<String> findForNameByCenterId(long centerId)throws Exception;
 }

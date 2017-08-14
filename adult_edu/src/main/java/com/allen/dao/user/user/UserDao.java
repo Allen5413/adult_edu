@@ -4,6 +4,7 @@ import com.allen.entity.user.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -29,4 +30,13 @@ public interface UserDao extends CrudRepository<User, Long> {
 
     @Query("select u from User u where u.type between 1 and 2 and u.centerId = ?1 order by u.type")
     public List<User> findByCenterIdForCenterMan(long centerId)throws Exception;
+
+    /**
+     * 统计一个学习中心下的分销商数量
+     * @param centerId
+     * @return
+     * @throws Exception
+     */
+    @Query(nativeQuery = true, value = "select count(*) from user u where u.center_id = ?1 and u.type = 3")
+    public BigInteger countNumForFxsByCenterId(long centerId)throws Exception;
 }
