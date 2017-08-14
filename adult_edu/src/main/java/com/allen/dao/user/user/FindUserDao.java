@@ -6,6 +6,7 @@ import com.allen.util.StringUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,5 +42,23 @@ public class FindUserDao extends BaseQueryDao {
         sql += "order by "+orderBy;
 
         return super.pageSqlQueryByNativeSqlToMap(pageInfo, sql, fileds, paramsList.toArray());
+    }
+
+
+    /**
+     * 查询一个学习中心下的通讯录，只要就是中心子账户和管理员
+     * @param centerId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> findByCenterIdForCenterMan(Long centerId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("u.center_id", centerId);
+        Map<String, Boolean> sortMaps = new HashMap<String, Boolean>();
+        sortMaps.put("u.type", true);
+        String fields = "u.id, u.name, u.phone, ug.name ugName";
+        String[] tableNames = {"user u", "user_group_user ugu", "user_group ug"};
+        String defaultWhere = "u.id = ugu.user_id and ugu.user_group_id = ug.id";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, paramMaps, sortMaps);
     }
 }

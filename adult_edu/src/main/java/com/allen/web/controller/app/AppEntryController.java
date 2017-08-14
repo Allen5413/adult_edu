@@ -18,6 +18,7 @@ import com.allen.service.app.student.FindSByIdService;
 import com.allen.service.app.student.ListSService;
 import com.allen.service.app.studentfee.CountFeeNumByRtIdAndYearAndTermService;
 import com.allen.service.app.user.*;
+import com.allen.service.app.center.FindCByIdService;
 import com.allen.util.MD5Util;
 import com.allen.util.StringUtil;
 import com.allen.web.controller.BaseController;
@@ -71,6 +72,8 @@ public class AppEntryController extends BaseController {
     private AppResetPwdService appResetPwdService;
     @Autowired
     private DelUService delUService;
+    @Autowired
+    private FindCByIdService findCByIdService;
     @Autowired
     private ConfigProp configProp;
 
@@ -165,6 +168,7 @@ public class AppEntryController extends BaseController {
         }
         if(19 == methodId){
             //获取学习中心信息
+            jsonObject = findCByIdService.find(request);
         }
         if(20 == methodId){
             //获取学生报名信息

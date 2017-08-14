@@ -84,7 +84,7 @@
             <c:forEach var="user" items="${userList}" varStatus="status">
               <tr>
                 <td>${user.name}</td>
-                <td>${user.type}</td>
+                <td>${user.ugName}</td>
                 <td>${user.phone}</td>
                 <%--<td>--%>
                   <%--<a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editFeeType/open.html?id=${feeType.id}&reqParams=${reqParams}');">编辑</a>--%>
