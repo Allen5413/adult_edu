@@ -8,5 +8,5 @@ import java.util.Map;
  * Created by Allen on 2016/12/20.
  */
 public interface PageUserService {
-    public PageInfo find(PageInfo pageInfo, Map<String, String> params)throws Exception;
+    public PageInfo find(PageInfo pageInfo, Map<String, String> params, String orderBy)throws Exception;
 }

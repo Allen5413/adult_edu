@@ -17,7 +17,9 @@ import com.allen.service.app.student.CountPeopleNumByRtIdService;
 import com.allen.service.app.student.FindSByIdService;
 import com.allen.service.app.student.ListSService;
 import com.allen.service.app.studentfee.CountFeeNumByRtIdAndYearAndTermService;
+import com.allen.service.app.user.FindFxsByIdService;
 import com.allen.service.app.user.FindUByPhoneService;
+import com.allen.service.app.user.ListUByWhereService;
 import com.allen.util.MD5Util;
 import com.allen.util.StringUtil;
 import com.allen.web.controller.BaseController;
@@ -63,6 +65,10 @@ public class AppEntryController extends BaseController {
     private AuditDCService auditDCService;
     @Autowired
     private AppIndexService appIndexService;
+    @Autowired
+    private ListUByWhereService listUByWhereService;
+    @Autowired
+    private FindFxsByIdService findFxsByIdService;
     @Autowired
     private ConfigProp configProp;
 
@@ -137,12 +143,15 @@ public class AppEntryController extends BaseController {
         }
         if(14 == methodId){
             //获取用户数据
+            jsonObject = listUByWhereService.find(request);
         }
         if(15 == methodId){
             //获取分销商详情数据
+            jsonObject = findFxsByIdService.find(request);
         }
         if(16 == methodId){
             //中心子账户密码重置
+            
         }
         if(17 == methodId){
             //删除中心子账户

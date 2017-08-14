@@ -37,7 +37,7 @@ public class PageUserController extends BaseController {
         params.put("state", state);
         params.put("type", type);
         PageInfo pageInfo = super.getPageInfo(request);
-        pageInfo = pageUserService.find(pageInfo, params);
+        pageInfo = pageUserService.find(pageInfo, params, "u.create_time desc");
         request.setAttribute("pageInfo", pageInfo);
         request.setAttribute("reqParams", super.getParameters(request));
         if("2".equals(type)){

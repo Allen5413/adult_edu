@@ -70,7 +70,7 @@ public class FindStudentDao extends BaseQueryDao {
         String fields = "tp.year, tp.term, ifnull((case when s.state = 0 then count(*) end), 0) num";
         String[] tableNames = {"student s", "teach_plan tp"};
         String defaultWhere = "s.teach_plan_id = tp.id";
-        String groupBy = "tp.year desc, tp.term desc";
+        String groupBy = "tp.year, tp.term";
         return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, sortMaps);
     }
 
@@ -89,5 +89,30 @@ public class FindStudentDao extends BaseQueryDao {
         String[] tableNames = {"student s"};
         String defaultWhere = "1=1";
         return super.findListBySqlToMap(tableNames, fields, defaultWhere, paramMaps, null);
+    }
+
+    /**
+     * 统计各个批次的在各种状态的学生人数
+     * 包括，总人数，在读人数，休学人数，退学人数，毕业人数，未缴完学费人数
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countTPNumForStateWhereByUserId(Long userId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("s.user_id", userId);
+        Map<String, Boolean> sortMaps = new HashMap<String, Boolean>();
+        sortMaps.put("tp.year", false);
+        sortMaps.put("tp.term", false);
+        String fields = "tp.year,tp.term,count(*) zsNum," +
+                "ifnull((case when state = 0 then count(*) end), 0) zdNum," +
+                "ifnull((case when state = 1 then count(*) end), 0) xxNum," +
+                "ifnull((case when state = 2 then count(*) end), 0) txNum," +
+                "ifnull((case when state = 3 then count(*) end), 0) byNum," +
+                "ifnull((case when fee_state = 1 then count(*) end), 0) notCleanNum";
+        String[] tableNames = {"student s", "teach_plan tp"};
+        String defaultWhere = "s.teach_plan_id = tp.id";
+        String groupBy = "tp.year, tp.term";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, sortMaps);
     }
 }

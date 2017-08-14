@@ -18,7 +18,7 @@ public class PageUserServiceImpl implements PageUserService {
     private FindUserDao findUserDao;
 
     @Override
-    public PageInfo find(PageInfo pageInfo, Map<String, String> params) throws Exception {
-        return findUserDao.findPage(pageInfo, params);
+    public PageInfo find(PageInfo pageInfo, Map<String, String> params, String orderBy) throws Exception {
+        return findUserDao.findPage(pageInfo, params, orderBy);
     }
 }

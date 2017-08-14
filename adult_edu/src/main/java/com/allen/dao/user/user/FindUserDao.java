@@ -14,7 +14,7 @@ import java.util.Map;
  */
 @Service
 public class FindUserDao extends BaseQueryDao {
-    public PageInfo findPage(PageInfo pageInfo, Map<String, String> paramsMap)throws Exception{
+    public PageInfo findPage(PageInfo pageInfo, Map<String, String> paramsMap, String orderBy)throws Exception{
         List<Object> paramsList = new ArrayList<Object>();
         String centerId = paramsMap.get("centerId");
         String type = paramsMap.get("type");
@@ -38,7 +38,7 @@ public class FindUserDao extends BaseQueryDao {
             sql += "and u.name like ? ";
             paramsList.add("%"+name+"%");
         }
-        sql += "order by u.create_time desc";
+        sql += "order by "+orderBy;
 
         return super.pageSqlQueryByNativeSqlToMap(pageInfo, sql, fileds, paramsList.toArray());
     }
