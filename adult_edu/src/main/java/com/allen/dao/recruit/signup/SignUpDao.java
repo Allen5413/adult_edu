@@ -20,4 +20,14 @@ public interface SignUpDao extends CrudRepository<SignUp, Long> {
      */
     @Query(nativeQuery = true, value = "select count(*) from sign_up su where su.recruit_type_id = ?1")
     public BigInteger countByRtId(long rtId)throws Exception;
+
+
+    /**
+     * 统计一个招生类型下的一个分销商的报名人数
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    @Query(nativeQuery = true, value = "select count(*) from sign_up su where su.recruit_type_id = ?1 and su.user_id = ?2")
+    public BigInteger countByRtIdAndUserId(long rtId, long userId)throws Exception;
 }

@@ -31,6 +31,7 @@ public class CountPeopleNumForSchoolByRtIdAndYearAndTermServiceImpl implements C
         String recruitTypeId = request.getParameter("recruitTypeId");
         String year = request.getParameter("year");
         String term = request.getParameter("term");
+        String userId = request.getParameter("userId");
         if(StringUtil.isEmpty(recruitTypeId)){
             throw new BusinessException("没有传入招生类型id");
         }
@@ -42,11 +43,11 @@ public class CountPeopleNumForSchoolByRtIdAndYearAndTermServiceImpl implements C
         }
         long rtId = Long.parseLong(recruitTypeId);
         //查询招生类型下一共招生人数
-        BigInteger totalNum = signUpDao.countByRtId(rtId);
+        BigInteger totalNum = StringUtil.isEmpty(userId) ? signUpDao.countByRtId(rtId) : signUpDao.countByRtIdAndUserId(rtId, Long.parseLong(userId));
         //查询各层次招生人数统计
-        List<Map> levelList = findSignUpDao.countForLevelByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term));
+        List<Map> levelList = findSignUpDao.countForLevelByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term), StringUtil.isEmpty(userId) ? null : Long.parseLong(userId));
         //查询各高校招生人数统计
-        List<Map> schoolList = findSignUpDao.countForSchoolByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term));
+        List<Map> schoolList = findSignUpDao.countForSchoolByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term), StringUtil.isEmpty(userId) ? null : Long.parseLong(userId));
 
         json.put("totalNum", totalNum);
         json.put("levelList", levelList);

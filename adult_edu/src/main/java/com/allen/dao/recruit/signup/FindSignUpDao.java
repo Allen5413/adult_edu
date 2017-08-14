@@ -91,11 +91,12 @@ public class FindSignUpDao extends BaseQueryDao {
      * @return
      * @throws Exception
      */
-    public List<Map> countForLevelByRtIdAndYearAndTerm(long rtId, int year, int term)throws Exception{
+    public List<Map> countForLevelByRtIdAndYearAndTerm(long rtId, int year, int term, Long userId)throws Exception{
         Map<String, Object> paramMaps = new HashMap<String, Object>();
         paramMaps.put("su.recruit_type_id", rtId);
         paramMaps.put("tp.year", year);
         paramMaps.put("tp.term", term);
+        paramMaps.put("su.user_id", userId);
         String fields = "l.name, count(*) num";
         String[] tableNames = {"sign_up su", "level l", "teach_plan tp"};
         String defaultWhere = "su.level_id = l.id and su.teach_plan_id = tp.id";
@@ -109,11 +110,12 @@ public class FindSignUpDao extends BaseQueryDao {
      * @return
      * @throws Exception
      */
-    public List<Map> countForSchoolByRtIdAndYearAndTerm(long rtId, int year, int term)throws Exception{
+    public List<Map> countForSchoolByRtIdAndYearAndTerm(long rtId, int year, int term, Long userId)throws Exception{
         Map<String, Object> paramMaps = new HashMap<String, Object>();
         paramMaps.put("su.recruit_type_id", rtId);
         paramMaps.put("tp.year", year);
         paramMaps.put("tp.term", term);
+        paramMaps.put("su.user_id", userId);
         String fields = "sc.name, count(*) num";
         String[] tableNames = {"sign_up su", "school sc", "teach_plan tp"};
         String defaultWhere = "su.school_id = sc.id and su.teach_plan_id = tp.id";
@@ -127,11 +129,12 @@ public class FindSignUpDao extends BaseQueryDao {
      * @return
      * @throws Exception
      */
-    public List<Map> countForSpecByRtIdAndYearAndTerm(long rtId, int year, int term)throws Exception{
+    public List<Map> countForSpecByRtIdAndYearAndTerm(long rtId, int year, int term, Long userId)throws Exception{
         Map<String, Object> paramMaps = new HashMap<String, Object>();
         paramMaps.put("su.recruit_type_id", rtId);
         paramMaps.put("tp.year", year);
         paramMaps.put("tp.term", term);
+        paramMaps.put("su.user_id", userId);
         String fields = "sp.name, count(*) num";
         String[] tableNames = {"sign_up su", "spec sp", "teach_plan tp"};
         String defaultWhere = "su.spec_id = sp.id and su.teach_plan_id = tp.id";
