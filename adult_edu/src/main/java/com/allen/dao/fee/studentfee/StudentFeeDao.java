@@ -14,6 +14,15 @@ public interface StudentFeeDao extends CrudRepository<StudentFee, Long> {
     public List<StudentFee> findByStudentId(long studentId)throws Exception;
 
     /**
+     * 查询一个学生一共交了好多钱
+     * @param studentId
+     * @return
+     * @throws Exception
+     */
+    @Query(nativeQuery = true, value = "SELECT round(sum(sf.fee)/100, 2) fee FROM student_fee sf where sf.student_id = ?1")
+    public Double findTotalFeeByStudentId(long studentId)throws Exception;
+
+    /**
      * 查询一个招生类型下的学生已经交的金额
      * @param rtId
      * @return

@@ -76,6 +76,10 @@ public class AppEntryController extends BaseController {
     @Autowired
     private AddSUService addSUService;
     @Autowired
+    private FindBmkServiceByIdService findBmkServiceByIdService;
+    @Autowired
+    private FindSUByIdService findSUByIdService;
+    @Autowired
     private ConfigProp configProp;
 
 
@@ -181,9 +185,11 @@ public class AppEntryController extends BaseController {
         }
         if(22 == methodId){
             //获取学生报名卡
+            jsonObject = findBmkServiceByIdService.find(request);
         }
         if(23 == methodId){
             //获取学生报名信息详情
+            jsonObject = findSUByIdService.find(request);
         }
         if(24 == methodId){
             //获取学生缴费信息

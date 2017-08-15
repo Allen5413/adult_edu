@@ -15,6 +15,21 @@ public interface FeeTypeDao extends CrudRepository<FeeType, Long> {
     public List<FeeType> findBySchoolIdAndTypeIdAndLevelIdAndYearAndTerm(long schoolId, long typeId, long levelId, int year, int term)throws Exception;
 
     /**
+     * 查询一个招生类型下的一个学校的一个层次的一个批次的学费总金额
+     * @param schoolId
+     * @param rtId
+     * @param levelId
+     * @param tpId
+     * @return
+     * @throws Exception
+     */
+    @Query(nativeQuery = true, value = "SELECT " +
+            "round(sum(ft.fee)/100, 2) fee " +
+            "FROM fee_type ft, teach_plan tp " +
+            "where ft.school_id = ?1 and ft.type_id = ?2 and ft.level_id = ?3 and tp.id = ?4 and tp.year = ft.year and tp.term = ft.term")
+    public Double findTotalFeeBySchoolIdAndTypeIdAndLevelIdAndTpId(long schoolId, long rtId, long levelId, long tpId)throws Exception;
+
+    /**
      * 统计一个招生类型下一共应该交多少钱
      * @param rtId
      * @return
