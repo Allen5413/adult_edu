@@ -16,6 +16,7 @@ public class School {
     @GeneratedValue
     private long id;
     private long centerId;                      //中心id
+    private String logo;                        //logo
     private String code;                        //高校编号
     private String name;                        //高校名称
     private String linkMan;                     //联系人
@@ -130,5 +131,13 @@ public class School {
 
     public void setCenterId(long centerId) {
         this.centerId = centerId;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 }

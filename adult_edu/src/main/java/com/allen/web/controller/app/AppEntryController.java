@@ -8,11 +8,8 @@ import com.allen.service.app.datachange.FindDCByCenterIdAndStateService;
 import com.allen.service.app.datachange.FindDCByIdService;
 import com.allen.service.app.feetype.CountFeeByRtIdService;
 import com.allen.service.app.index.AppIndexService;
-import com.allen.service.app.signup.CountPeopleNumByRtIdAndYearAndTermService;
-import com.allen.service.app.signup.CountPeopleNumForLevelAndTPByIdService;
+import com.allen.service.app.signup.*;
 import com.allen.service.app.recruittype.FindRTByCenterIdService;
-import com.allen.service.app.signup.CountPeopleNumForSchoolByRtIdAndYearAndTermService;
-import com.allen.service.app.signup.CountPeopleNumForSpecByRtIdAndYearAndTermService;
 import com.allen.service.app.student.CountPeopleNumByRtIdService;
 import com.allen.service.app.student.FindSByIdService;
 import com.allen.service.app.student.ListSService;
@@ -74,6 +71,10 @@ public class AppEntryController extends BaseController {
     private DelUService delUService;
     @Autowired
     private FindCByIdService findCByIdService;
+    @Autowired
+    private FindSUByPhoneService findSUByPhoneService;
+    @Autowired
+    private AddSUService addSUService;
     @Autowired
     private ConfigProp configProp;
 
@@ -172,9 +173,11 @@ public class AppEntryController extends BaseController {
         }
         if(20 == methodId){
             //获取学生报名信息
+            jsonObject = findSUByPhoneService.find(mobile);
         }
         if(21 == methodId){
             //提交学生报名信息
+            jsonObject = addSUService.add(request);
         }
         if(22 == methodId){
             //获取学生报名卡

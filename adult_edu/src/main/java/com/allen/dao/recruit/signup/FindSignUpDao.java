@@ -141,4 +141,20 @@ public class FindSignUpDao extends BaseQueryDao {
         String groupBy = "sp.name";
         return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
     }
+
+
+    /**
+     * 查询一个手机号码下的报名信息
+     * @param phone
+     * @return
+     * @throws Exception
+     */
+    public List<Map> findByPhone(String phone)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.phone", phone);
+        String fields = "su.id, sc.logo, sc.name, sp.name specName";
+        String[] tableNames = {"sign_up su", "school sc", "spec sp"};
+        String defaultWhere = "su.school_id = sc.id and su.spec_id = sp.id";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, paramMaps, null);
+    }
 }
