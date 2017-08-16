@@ -8,14 +8,25 @@ import com.allen.service.app.datachange.FindDCByCenterIdAndStateService;
 import com.allen.service.app.datachange.FindDCByIdService;
 import com.allen.service.app.feetype.CountFeeByRtIdService;
 import com.allen.service.app.index.AppIndexService;
+import com.allen.service.app.level.FindLByCenterIdService;
+import com.allen.service.app.level.FindLByRtIdAndScIdForTeachPlanService;
+import com.allen.service.app.school.FindScByCenterIdService;
+import com.allen.service.app.school.FindScByRtIdForTeachPlanService;
 import com.allen.service.app.signup.*;
 import com.allen.service.app.recruittype.FindRTByCenterIdService;
+import com.allen.service.app.spec.FindSpByRtIdAndScIdAndLevelIdForTeachPlanService;
+import com.allen.service.app.spec.FindSpBySchoolIdService;
 import com.allen.service.app.student.CountPeopleNumByRtIdService;
 import com.allen.service.app.student.FindSByIdService;
 import com.allen.service.app.student.ListSService;
 import com.allen.service.app.studentfee.CountFeeNumByRtIdAndYearAndTermService;
+import com.allen.service.app.studentfee.FindSFDetailByStudentIdService;
+import com.allen.service.app.studentfee.FindSFInfoByStudentIdService;
+import com.allen.service.app.teachplan.FindTPByRtIdAndScIdAndLevelIdAndSpIdForTeachPlanService;
+import com.allen.service.app.uploadfile.AppUpLoadImgService;
 import com.allen.service.app.user.*;
 import com.allen.service.app.center.FindCByIdService;
+import com.allen.service.eduadmin.studentcourse.FindSCDetailByStudentIdAndCourseIdService;
 import com.allen.util.MD5Util;
 import com.allen.util.StringUtil;
 import com.allen.web.controller.BaseController;
@@ -79,6 +90,28 @@ public class AppEntryController extends BaseController {
     private FindBmkServiceByIdService findBmkServiceByIdService;
     @Autowired
     private FindSUByIdService findSUByIdService;
+    @Autowired
+    private FindSFInfoByStudentIdService findSFInfoByStudentIdService;
+    @Autowired
+    private FindSFDetailByStudentIdService findSFDetailByStudentIdService;
+    @Autowired
+    private FindSCDetailByStudentIdAndCourseIdService findSCDetailByStudentIdAndCourseIdService;
+    @Autowired
+    private AppUpLoadImgService appUpLoadImgService;
+    @Autowired
+    private FindScByRtIdForTeachPlanService findScByRtIdForTeachPlanService;
+    @Autowired
+    private FindLByRtIdAndScIdForTeachPlanService findLByRtIdAndScIdForTeachPlanService;
+    @Autowired
+    private FindSpByRtIdAndScIdAndLevelIdForTeachPlanService findSpByRtIdAndScIdAndLevelIdForTeachPlanService;
+    @Autowired
+    private FindTPByRtIdAndScIdAndLevelIdAndSpIdForTeachPlanService findTPByRtIdAndScIdAndLevelIdAndSpIdForTeachPlanService;
+    @Autowired
+    private FindLByCenterIdService findLByCenterIdService;
+    @Autowired
+    private FindScByCenterIdService findScByCenterIdService;
+    @Autowired
+    private FindSpBySchoolIdService findSpBySchoolIdService;
     @Autowired
     private ConfigProp configProp;
 
@@ -193,22 +226,55 @@ public class AppEntryController extends BaseController {
         }
         if(24 == methodId){
             //获取学生缴费信息
+            jsonObject = findSFInfoByStudentIdService.find(request);
         }
         if(25 == methodId){
             //获取学生缴费详情
+            jsonObject = findSFDetailByStudentIdService.find(request);
         }
         if(26 == methodId){
             //获取学生学籍详情
+            jsonObject = findSByIdService.find(request);
         }
         if(27 == methodId){
             //获取学生课程详情
+            jsonObject = findSCDetailByStudentIdAndCourseIdService.find(request);
         }
         if(28 == methodId){
             //上传学生报名信息图片
+            jsonObject = appUpLoadImgService.upload(request, configProp.getSignUp().get("tempUrl"));
         }
         if(29 == methodId){
             //首页各种统计
             jsonObject = appIndexService.find(request);
+        }
+        if(30 == methodId){
+            //报名时，获取一个招生类型下的当前时间能招生的高校信息
+            jsonObject = findScByRtIdForTeachPlanService.find(request);
+        }
+        if(31 == methodId){
+            //报名时，获取一个招生类型下的一个高校下的当前时间能招生的层次信息
+            jsonObject = findLByRtIdAndScIdForTeachPlanService.find(request);
+        }
+        if(32 == methodId){
+            //报名时，获取一个招生类型下的一个高校下的一个层次下当前时间能招生的专业信息
+            jsonObject = findSpByRtIdAndScIdAndLevelIdForTeachPlanService.find(request);
+        }
+        if(33 == methodId){
+            //报名时，获取一个招生类型下的一个高校下的一个层次下的一个专业下当前时间能招生的批次信息
+            jsonObject = findTPByRtIdAndScIdAndLevelIdAndSpIdForTeachPlanService.find(request);
+        }
+        if(34 == methodId){
+            //查询学生时，返回一个学习中心下的层次信息
+            jsonObject = findLByCenterIdService.find(request);
+        }
+        if(35 == methodId){
+            //查询学生时，返回一个学习中心下的高校信息
+            jsonObject = findScByCenterIdService.find(request);
+        }
+        if(35 == methodId){
+            //查询学生时，返回一个学习中心下的高校信息
+            jsonObject = findSpBySchoolIdService.find(request);
         }
         return jsonObject;
     }

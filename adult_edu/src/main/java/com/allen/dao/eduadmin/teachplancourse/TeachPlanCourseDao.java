@@ -10,6 +10,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface TeachPlanCourseDao extends CrudRepository<TeachPlanCourse, Long> {
     public TeachPlanCourse findByTeachPlanIdAndSemesterAndCourseId(long tpId, String semester, long courseId)throws Exception;
+    public TeachPlanCourse findByTeachPlanIdAndCourseId(long tpId, long courseId)throws Exception;
 
     @Modifying
     @Query("delete from TeachPlanCourse where teachPlanId = ?1")

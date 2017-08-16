@@ -32,4 +32,13 @@ public interface SchoolDao extends CrudRepository<School, Long> {
      */
     @Query(nativeQuery = true, value = "select count(*) from school s where s.center_id = ?1")
     public BigInteger countNumByCenterId(long centerId)throws Exception;
+
+    /**
+     * 查询一个招生类型下关联的高校,发布了教学计划的
+     * @param typeId
+     * @return
+     * @throws Exception
+     */
+    @Query("select DISTINCT sc from School sc, TeachPlan tp where sc.id = tp.schoolId and NOW() BETWEEN tp.beginDate and tp.endDate and tp.typeId = ?1 order by sc.id")
+    public List<School> findByTypeIdForTeachPlan(long typeId)throws Exception;
 }
