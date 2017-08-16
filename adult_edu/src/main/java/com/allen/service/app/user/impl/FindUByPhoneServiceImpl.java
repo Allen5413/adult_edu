@@ -32,6 +32,7 @@ public class FindUByPhoneServiceImpl implements FindUByPhoneService{
             json.put("phone", user.getPhone());
             json.put("centerId", user.getCenterId());
         }
+        json.put("status", 1);
         return json;
     }
 }
