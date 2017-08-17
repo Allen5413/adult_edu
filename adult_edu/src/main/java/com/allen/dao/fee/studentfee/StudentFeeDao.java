@@ -28,7 +28,7 @@ public interface StudentFeeDao extends CrudRepository<StudentFee, Long> {
      * @return
      * @throws Exception
      */
-    @Query(nativeQuery = true, value = "select sum(sf.fee) from student s, student_fee sf where s.id = sf.student_id and s.recruit_type_id = ?1")
+    @Query(nativeQuery = true, value = "select ifnull(sum(sf.fee),0) from student s, student_fee sf where s.id = sf.student_id and s.recruit_type_id = ?1")
     public BigInteger countTotalFeeByRtId(long rtId)throws Exception;
 
 
