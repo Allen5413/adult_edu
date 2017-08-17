@@ -6,8 +6,19 @@
 <div class="container-view">
   <div class="mod-com-view">
     <div class="mod-content">
-      <form id="form" name="form" action="${pageContext.request.contextPath}/addSchool/add.html">
+      <form id="logoForm" name="logoForm" action="${pageContext.request.contextPath}/uploadScLogo.json" enctype="multipart/form-data" method="post">
         <table class="set-table-info">
+          <tr>
+            <td>
+              <img id="logoImg" style="display:none; width: 400px; height: 280px; " /><br/>
+              <a class="btn-com-upload" href="#"><input type="file" id="logoFile" name="img" class="uploadfile" onchange="upLogo();" />选择要上传的logo</a>
+            </td>
+          </tr>
+        </table>
+      </form>
+      <form id="form" name="form" action="${pageContext.request.contextPath}/addSchool/add.json">
+        <table class="set-table-info">
+          <input type="hidden" id="logo" name="logo" />
           <tr>
             <td class="tag-b">高校编码：</td>
             <td><input type="text" id="code" name="code" class="input-txt-220" /></td>
@@ -54,6 +65,22 @@
   </div>
 </div>
 <script>
+  function upLogo(){
+    $("#logoForm").ajaxSubmit({
+      url : "${pageContext.request.contextPath}/uploadScLogo.json",
+      dataType : 'json',
+      success : function(data){
+        if(0 == data.state) {
+          $("#logoImg").show();
+          $("#logoImg").attr('src', data.url);
+          $("#logo").val(data.url);
+        }else{
+          app.msg(data.msg, 1);
+        }
+      }
+    });
+  }
+
   function saveCenter(){
     if($("#code").val() == ""){
       app.alert("请输入编号！", 1);

@@ -54,10 +54,14 @@
           <td colspan="2">${signUp.address}</td>
         </tr>
         <tr>
+          <td class="tag-b">电子邮箱：</td>
+          <td >${signUp.email}</td>
           <td class="tag-b">邮政编码：</td>
           <td >${signUp.zipCode}</td>
+        </tr>
+        <tr>
           <td class="tag-b" >生源备注：</td>
-          <td colspan="2">${signUp.sourceRemark}</td>
+          <td colspan="3">${signUp.sourceRemark}</td>
         </tr>
         <tr>
           <td class="tag-b" >入学前学历：</td>

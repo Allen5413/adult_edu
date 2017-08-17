@@ -231,6 +231,10 @@ public class EditSignUpServiceImpl implements EditSignUpService {
                 changeContent += "家庭住址<span style='color:red'>"+signUp2.getAddress()+"</span>变更为<span style='color:red'>"+signUp.getAddress()+"</span>  ";
                 changeTableField += "address='"+signUp.getAddress() +"',";
             }
+            if(!signUp.getEmail().equals(signUp2.getEmail()) && !StringUtil.isEmpty(signUp.getEmail()) && !StringUtil.isEmpty(signUp2.getEmail())){
+                changeContent += "电子邮箱<span style='color:red'>"+signUp2.getEmail()+"</span>变更为<span style='color:red'>"+signUp.getEmail()+"</span>  ";
+                changeTableField += "email='"+signUp.getEmail() +"',";
+            }
             if(!signUp.getZipCode().equals(signUp2.getZipCode()) && !StringUtil.isEmpty(signUp.getZipCode()) && !StringUtil.isEmpty(signUp2.getZipCode())){
                 changeContent += "邮政编码<span style='color:red'>"+signUp2.getZipCode()+"</span>变更为<span style='color:red'>"+signUp.getZipCode()+"</span>  ";
                 changeTableField += "zip_code='"+signUp.getZipCode() +"',";
@@ -417,7 +421,7 @@ public class EditSignUpServiceImpl implements EditSignUpService {
             if(!signUp.getYdsUrl().equals(signUp2.getYdsUrl())){
                 changeTableField += "yds_url='"+signUp.getYdsUrl() + "@#@yds_url',";
             }
-
+            changeContent += "  请再核对下上传照片是否正确";
             DataChange dataChange = new DataChange();
             dataChange.setCenterId(centerId);
             dataChange.setChangeContent(changeContent);

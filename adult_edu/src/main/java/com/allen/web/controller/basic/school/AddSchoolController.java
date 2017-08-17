@@ -48,7 +48,7 @@ public class AddSchoolController extends BaseController {
             school.setCenterId(UserUtil.getLoginUserForCenterId(request));
             school.setCerator(UserUtil.getLoginUserForName(request));
             school.setOperator(UserUtil.getLoginUserForName(request));
-            addSchoolService.add(school);
+            addSchoolService.add(request, school);
         }
         jsonObject.put("state", 0);
         return jsonObject;

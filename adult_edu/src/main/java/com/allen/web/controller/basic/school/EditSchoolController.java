@@ -51,7 +51,7 @@ public class EditSchoolController extends BaseController {
     @ResponseBody
     public JSONObject editor(HttpServletRequest request, School school) throws Exception {
         JSONObject jsonObject = new JSONObject();
-        editSchoolService.edit(school, UserUtil.getLoginUserForName(request));
+        editSchoolService.edit(request, school);
         jsonObject.put("state", 0);
         return jsonObject;
     }

@@ -97,10 +97,14 @@
             <td colspan="2"><input type="text" id="address" name="address" value="${signUp.address}" class="input-txt-200" /><span style="color: #ff0000">*</span></td>
           </tr>
           <tr>
+            <td class="tag-b">电子邮箱：</td>
+            <td ><input type="text" name="email" value="${signUp.email}" class="input-txt-200" /></td>
             <td class="tag-b">邮政编码：</td>
             <td ><input type="text" name="zipCode" value="${signUp.zipCode}" class="input-txt-200" /></td>
+          </tr>
+          <tr>
             <td class="tag-b" >生源备注：</td>
-            <td colspan="2"><textarea id="sourceRemark" name="sourceRemark" class="textarea-intro">${signUp.sourceRemark}</textarea><span style="color: #ff0000">*</span></td>
+            <td colspan="3"><textarea id="sourceRemark" name="sourceRemark" class="textarea-intro">${signUp.sourceRemark}</textarea><span style="color: #ff0000">*</span></td>
           </tr>
           <tr>
             <td class="tag-b" >入学前学历：</td>
