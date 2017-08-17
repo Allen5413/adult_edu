@@ -10,6 +10,7 @@ import com.allen.service.app.feetype.CountFeeByRtIdService;
 import com.allen.service.app.index.AppIndexService;
 import com.allen.service.app.level.FindLByCenterIdService;
 import com.allen.service.app.level.FindLByRtIdAndScIdForTeachPlanService;
+import com.allen.service.app.school.FindScAndSpByCenterIdService;
 import com.allen.service.app.school.FindScByCenterIdService;
 import com.allen.service.app.school.FindScByRtIdForTeachPlanService;
 import com.allen.service.app.signup.*;
@@ -112,6 +113,8 @@ public class AppEntryController extends BaseController {
     private FindScByCenterIdService findScByCenterIdService;
     @Autowired
     private FindSpBySchoolIdService findSpBySchoolIdService;
+    @Autowired
+    private FindScAndSpByCenterIdService findScAndSpByCenterIdService;
     @Autowired
     private ConfigProp configProp;
 
@@ -272,9 +275,13 @@ public class AppEntryController extends BaseController {
             //查询学生时，返回一个学习中心下的高校信息
             jsonObject = findScByCenterIdService.find(request);
         }
-        if(35 == methodId){
+        if(36 == methodId){
             //查询学生时，返回一个学习中心下的高校信息
             jsonObject = findSpBySchoolIdService.find(request);
+        }
+        if(37 == methodId){
+            //查询学生时，返回一个学习中心下的高校和专业信息
+            jsonObject = findScAndSpByCenterIdService.find(request);
         }
         return jsonObject;
     }

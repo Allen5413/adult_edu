@@ -65,7 +65,7 @@
   <div class="mod-com-view">
     <div class="title-tabs">
       <a href="#">学生列表</a>
-      <a class="btn-com f-r" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/importStudent/open.html?reqParams=${reqParams}');">导入学生成绩</a>
+      <a class="btn-com f-r" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/importStudentCourse/open.html?reqParams=${reqParams}');">导入学生成绩</a>
     </div>
     <div class="mod-content">
       <div class="data-table-list">
@@ -101,9 +101,9 @@
                 <td>${student.year}年${student.term == 0 ? "春季":"秋季"}</td>
                 <td>${student.cName}</td>
                 <td>
-                  <c:if test="${student.score == 0}">未通过</c:if>
-                  <c:if test="${student.state == 1}">通过</c:if>
-                  <c:if test="${empty student.state}">未录入</c:if>
+                  <c:if test="${student.score eq '0'}">未通过</c:if>
+                  <c:if test="${student.score eq '1'}">通过</c:if>
+                  <c:if test="${empty student.score}">未录入</c:if>
                 </td>
                 <td>
                   <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editStudent/open.html?id=${student.id}&reqParams=${reqParams}');">录入成绩</a>
