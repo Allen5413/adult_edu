@@ -33,8 +33,8 @@ public class FindDCByIdServiceImpl implements FindDCByIdService {
         DataChange dataChange = dataChangeDao.findOne(Long.parseLong(id));
         User user = userDao.findOne(dataChange.getCenterId());
         json.put("id", dataChange.getId());
-        json.put("userName", user.getName());
-        json.put("phone", user.getPhone());
+        json.put("userName", null == user ? "" : user.getName());
+        json.put("phone", null == user ? "" : user.getPhone());
         json.put("createTime", dataChange.getCreateTime());
         json.put("editReson", dataChange.getEditReson());
         json.put("changeContent", dataChange.getChangeContent());

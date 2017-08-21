@@ -42,8 +42,8 @@ public class ListSServiceImpl implements ListSService {
         params.put("s.fee_state", StringUtil.isEmpty(request.getParameter("feeState")) ? null : Integer.parseInt(request.getParameter("feeState")));
         params.put("s.name", StringUtil.isEmpty(request.getParameter("name")) ? null : new Object[]{"%"+request.getParameter("name")+"%", "like"});
         PageInfo pageInfo = new PageInfo();
-        pageInfo.setCurrentPage(1);
-        pageInfo.setCountOfCurrentPage(999999999);
+        pageInfo.setCurrentPage(StringUtil.isEmpty(request.getParameter("pageNum")) ? 1 : Integer.parseInt(request.getParameter("pageNum")));
+        pageInfo.setCountOfCurrentPage(StringUtil.isEmpty(request.getParameter("pageSize")) ? 10 : Integer.parseInt(request.getParameter("pageSize")));
         Map<String, Boolean> sortMap = new HashMap<String, Boolean>();
         sortMap.put("s.id", true);
         pageInfo = findStudentDao.findPage(pageInfo, params, sortMap);

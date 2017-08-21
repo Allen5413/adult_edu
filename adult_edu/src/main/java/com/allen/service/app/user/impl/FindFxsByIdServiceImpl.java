@@ -42,6 +42,7 @@ public class FindFxsByIdServiceImpl implements FindFxsByIdService {
         json.put("address", user.getAddress());
         json.put("createTime", user.getCreateTime());
         json.put("teachPlanList", list);
+        json.put("status", 1);
         return json;
     }
 }
