@@ -1,4 +1,4 @@
-package com.allen.service.eduadmin.studentcourse.impl;
+package com.allen.service.app.studentcourse.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.allen.base.exception.BusinessException;
@@ -6,7 +6,7 @@ import com.allen.dao.eduadmin.student.StudentDao;
 import com.allen.dao.eduadmin.teachplancourse.TeachPlanCourseDao;
 import com.allen.entity.eduadmin.Student;
 import com.allen.entity.eduadmin.TeachPlanCourse;
-import com.allen.service.eduadmin.studentcourse.FindSCDetailByStudentIdAndCourseIdService;
+import com.allen.service.app.studentcourse.FindSCDetailByStudentIdAndCourseIdService;
 import com.allen.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

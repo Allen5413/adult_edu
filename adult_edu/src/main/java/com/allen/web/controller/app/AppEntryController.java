@@ -27,7 +27,7 @@ import com.allen.service.app.teachplan.FindTPByRtIdAndScIdAndLevelIdAndSpIdForTe
 import com.allen.service.app.uploadfile.AppUpLoadImgService;
 import com.allen.service.app.user.*;
 import com.allen.service.app.center.FindCByIdService;
-import com.allen.service.eduadmin.studentcourse.FindSCDetailByStudentIdAndCourseIdService;
+import com.allen.service.app.studentcourse.FindSCDetailByStudentIdAndCourseIdService;
 import com.allen.util.MD5Util;
 import com.allen.util.StringUtil;
 import com.allen.web.controller.BaseController;

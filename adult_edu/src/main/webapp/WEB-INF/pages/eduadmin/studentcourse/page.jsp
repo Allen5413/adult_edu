@@ -106,7 +106,7 @@
                   <c:if test="${empty student.score}">未录入</c:if>
                 </td>
                 <td>
-                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editStudent/open.html?id=${student.id}&reqParams=${reqParams}');">录入成绩</a>
+                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/addStudentCourse/open.html?studentId=${student.id}&courseId=${student.cId}&reqParams=${reqParams}');">录入成绩</a>
                 </td>
               </tr>
             </c:forEach>

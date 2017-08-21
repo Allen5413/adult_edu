@@ -27,7 +27,7 @@ public class FindStudentCourseDao extends BaseQueryDao {
         String spId = paramsMap.get("specId");
         String tpId = paramsMap.get("teachPlanId");
 
-        String fileds = "s.id, s.name, s.code, sc.name scName, rt.name rtName, l.name lName, sp.name spName, c.name cName, scc.score";
+        String fileds = "s.id, s.name, s.code, sc.name scName, rt.name rtName, l.name lName, sp.name spName, c.name cName, scc.score, c.id cId, tp.year, tp.term";
         String sql = "from student s INNER JOIN school sc on s.school_id = sc.id " +
                 "INNER JOIN recruit_type rt on s.recruit_type_id = rt.id " +
                 "INNER JOIN level l on s.level_id = l.id " +

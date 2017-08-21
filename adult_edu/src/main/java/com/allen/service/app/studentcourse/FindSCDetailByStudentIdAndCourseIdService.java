@@ -1,4 +1,4 @@
-package com.allen.service.eduadmin.studentcourse;
+package com.allen.service.app.studentcourse;
 
 import com.alibaba.fastjson.JSONObject;
 

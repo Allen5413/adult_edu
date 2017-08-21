@@ -32,6 +32,7 @@ public class EditCenterServiceImpl implements EditCenterService {
         if(null == center2){
             center2 = centerDao.findOne(center.getId());
         }
+        String oldPhone = center2.getPhone();
         center2.setCode(center.getCode());
         center2.setName(center.getName());
         center2.setLinkman(center.getLinkman());
@@ -45,7 +46,7 @@ public class EditCenterServiceImpl implements EditCenterService {
         centerDao.save(center2);
 
         //查询用户信息
-        User user = userDao.findByLoginName(center2.getPhone());
+        User user = userDao.findByLoginName(oldPhone);
         user.setLoginName(center2.getPhone());
         user.setName(center2.getLinkman());
         user.setPhone(center2.getPhone());
