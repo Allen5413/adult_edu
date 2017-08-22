@@ -1,5 +1,6 @@
 package com.allen.service.app.student.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.allen.base.exception.BusinessException;
 import com.allen.dao.PageInfo;
@@ -21,8 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Created by Allen on 2017/8/11.
@@ -61,6 +62,27 @@ public class FindSByIdServiceImpl implements FindSByIdService {
 
         //查询该学生的缴费详情集合
         JSONObject feeJSON = findStudentFeeByStudentIdService.find(student.getId());
+        List<JSONObject> feeList = new ArrayList<JSONObject>();
+        Set<String> keys = feeJSON.keySet();
+        for (String key : keys){
+            JSONObject json2 = new JSONObject();
+            BigDecimal totalFee = new BigDecimal(0);
+
+            JSONArray ja = feeJSON.getJSONArray(key);
+            if(null != ja && 0 < ja.size()){
+                for(int i=0; i<ja.size(); i++){
+                    JSONObject json3 = ja.getJSONObject(i);
+                    BigDecimal fee = new BigDecimal(json3.get("fee").toString());
+                    totalFee = totalFee.add(fee);
+                }
+            }
+            json2.put("date", key);
+            json2.put("totalFee", totalFee.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            json2.put("list", ja);
+            feeList.add(json2);
+        }
+
+
         //查询该学生的课程信息
         Map<String, String> params = new HashMap<String, String>();
         params.put("centerId", student.getCenterId()+"");
@@ -87,7 +109,7 @@ public class FindSByIdServiceImpl implements FindSByIdService {
         jsonObject.put("userName", -1 == student.getUserId() ? "本部" : user.getName());
         jsonObject.put("signUpDate", student.getSignUpDate());
         jsonObject.put("feeState", student.getFeeState());
-        jsonObject.put("fee", feeJSON);
+        jsonObject.put("feeList", feeList);
         jsonObject.put("courseList", pageInfo.getPageResults());
         jsonObject.put("status", 1);
         return jsonObject;
