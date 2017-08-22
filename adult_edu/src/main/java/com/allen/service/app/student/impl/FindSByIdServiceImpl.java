@@ -84,7 +84,7 @@ public class FindSByIdServiceImpl implements FindSByIdService {
         jsonObject.put("code", student.getCode());
         jsonObject.put("state", student.getState());
         jsonObject.put("code", student.getCode());
-        jsonObject.put("userName", user.getName());
+        jsonObject.put("userName", -1 == student.getUserId() ? "本部" : user.getName());
         jsonObject.put("signUpDate", student.getSignUpDate());
         jsonObject.put("feeState", student.getFeeState());
         jsonObject.put("fee", feeJSON);

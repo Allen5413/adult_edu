@@ -106,7 +106,7 @@ public class EditSignUpServiceImpl implements EditSignUpService {
                     signUp.setXxwUrl("");
                 }else{
                     UpLoadFileUtil.custFile(request, xxwUrl, configProp.getSignUp().get("xxwUrl"), signUp.getId()+".png");
-                    signUp.setXxwUrl(configProp.getSignUp().get("xxwUrl") + signUp.getId() + ".png");
+                    signUp.setXxwUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("xxwUrl") + signUp.getId() + ".png");
                 }
             }
             if(!ydsUrl.equals(signUp2.getYdsUrl())){
@@ -114,7 +114,7 @@ public class EditSignUpServiceImpl implements EditSignUpService {
                     signUp.setYdsUrl("");
                 }else{
                     UpLoadFileUtil.custFile(request, ydsUrl, configProp.getSignUp().get("ydsUrl"), signUp.getId()+".png");
-                    signUp.setYdsUrl(configProp.getSignUp().get("ydsUrl") + signUp.getId() + ".png");
+                    signUp.setYdsUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("ydsUrl") + signUp.getId() + ".png");
                 }
             }
 

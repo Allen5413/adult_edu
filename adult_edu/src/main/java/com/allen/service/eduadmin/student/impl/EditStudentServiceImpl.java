@@ -48,7 +48,7 @@ public class EditStudentServiceImpl implements EditStudentService {
                     student.setXxwUrl("");
                 }else{
                     UpLoadFileUtil.custFile(request, xxwUrl, configProp.getStudent().get("xxwUrl"), student.getId()+".png");
-                    student.setXxwUrl(configProp.getStudent().get("xxwUrl") + student.getId() + ".png");
+                    student.setXxwUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("xxwUrl") + student.getId() + ".png");
                 }
             }
             if(!zkzFrontUrl.equals(student2.getZkzFrontUrl())){
@@ -56,7 +56,7 @@ public class EditStudentServiceImpl implements EditStudentService {
                     student.setZkzFrontUrl("");
                 }else{
                     UpLoadFileUtil.custFile(request, zkzFrontUrl, configProp.getStudent().get("zkzFrontUrl"), student.getId()+".png");
-                    student.setZkzFrontUrl(configProp.getSignUp().get("zkzFrontUrl") + student.getId() + ".png");
+                    student.setZkzFrontUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("zkzFrontUrl") + student.getId() + ".png");
                 }
             }
             if(!zkzBackUrl.equals(student2.getZkzBackUrl())){
@@ -64,7 +64,7 @@ public class EditStudentServiceImpl implements EditStudentService {
                     student.setZkzBackUrl("");
                 }else{
                     UpLoadFileUtil.custFile(request, zkzBackUrl, configProp.getStudent().get("zkzBackUrl"), student.getId()+".png");
-                    student.setZkzBackUrl(configProp.getStudent().get("zkzBackUrl") + student.getId() + ".png");
+                    student.setZkzBackUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("zkzBackUrl") + student.getId() + ".png");
                 }
             }
 

@@ -38,6 +38,8 @@ public class FindDCByIdServiceImpl implements FindDCByIdService {
         json.put("createTime", dataChange.getCreateTime());
         json.put("editReson", dataChange.getEditReson());
         json.put("changeContent", dataChange.getChangeContent());
+        json.put("state", dataChange.getState());
+        json.put("refuseContent", dataChange.getRefuseContent());
         json.put("noticeTitle", "");
         json.put("noticeType", "");
         json.put("noticeSendee", "");

@@ -104,6 +104,7 @@ public class ImportStudentServiceImpl implements ImportStudentService {
                     student.setName(signUp.getName());
                     student.setSex(signUp.getSex());
                     student.setIdCard(signUp.getIdCard());
+                    student.setEmail(signUp.getEmail());
                     student.setBirthday(signUp.getIdCard().substring(6, 10) + "-" + signUp.getIdCard().substring(10, 12) + "-" + signUp.getIdCard().substring(12, 14));
                     student.setSignUpDate(Timestamp.valueOf(signUp.getCreateTime().toString()));
                     student.setStudyType(signUp.getStudyType());
@@ -117,27 +118,27 @@ public class ImportStudentServiceImpl implements ImportStudentService {
 
                     if(!StringUtil.isEmpty(signUp.getPhotoUrl())){
                         UpLoadFileUtil.copyFile(request, signUp.getPhotoUrl(), configProp.getStudent().get("photoUrl"), student.getId()+".png");
-                        student.setPhotoUrl(configProp.getStudent().get("photoUrl")+student.getId()+".png");
+                        student.setPhotoUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("photoUrl")+student.getId()+".png");
                     }
                     if(!StringUtil.isEmpty(signUp.getIdCardFrontUrl())){
                         UpLoadFileUtil.copyFile(request, signUp.getIdCardFrontUrl(), configProp.getStudent().get("idCardFrontUrl"), student.getId()+".png");
-                        student.setIdCardFrontUrl(configProp.getStudent().get("idCardFrontUrl") + student.getId() + ".png");
+                        student.setIdCardFrontUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("idCardFrontUrl") + student.getId() + ".png");
                     }
                     if(!StringUtil.isEmpty(signUp.getIdCardBackUrl())){
                         UpLoadFileUtil.copyFile(request, signUp.getIdCardBackUrl(), configProp.getStudent().get("idCardBackUrl"), student.getId()+".png");
-                        student.setIdCardBackUrl(configProp.getStudent().get("idCardBackUrl") + student.getId() + ".png");
+                        student.setIdCardBackUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("idCardBackUrl") + student.getId() + ".png");
                     }
                     if(!StringUtil.isEmpty(signUp.getDiplomaUrl())){
                         UpLoadFileUtil.copyFile(request, signUp.getDiplomaUrl(), configProp.getStudent().get("diplomaUrl"), student.getId()+".png");
-                        student.setDiplomaUrl(configProp.getStudent().get("diplomaUrl") + student.getId() + ".png");
+                        student.setDiplomaUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("diplomaUrl") + student.getId() + ".png");
                     }
                     if(!StringUtil.isEmpty(signUp.getXxwUrl())){
                         UpLoadFileUtil.copyFile(request, signUp.getXxwUrl(), configProp.getStudent().get("xxwUrl"), student.getId()+".png");
-                        student.setXxwUrl(configProp.getStudent().get("xxwUrl") + student.getId() + ".png");
+                        student.setXxwUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("xxwUrl") + student.getId() + ".png");
                     }
                     if(!StringUtil.isEmpty(signUp.getYdsUrl())){
                         UpLoadFileUtil.copyFile(request, signUp.getYdsUrl(), configProp.getStudent().get("ydsUrl"), student.getId()+".png");
-                        student.setYdsUrl(configProp.getStudent().get("ydsUrl") + student.getId() + ".png");
+                        student.setYdsUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("ydsUrl") + student.getId() + ".png");
                     }
                     studentDao.save(student);
 

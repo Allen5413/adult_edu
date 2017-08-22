@@ -13,7 +13,7 @@
           <tr>
             <td>
               <c:if test="${!empty center.logo}">
-                <img src="${pageContext.request.contextPath}${center.logo}?random=${random}" />
+                <img src="${center.logo}?random=${random}" />
               </c:if>
             </td>
           </tr>

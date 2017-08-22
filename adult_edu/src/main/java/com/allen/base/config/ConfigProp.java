@@ -10,6 +10,7 @@ import java.util.Map;
  */
 @ConfigurationProperties(prefix = "edu", locations = "classpath:config.properties")
 public class ConfigProp {
+    public Map<String, String> domain = new HashMap<String, String>();
     public Map<String, String> center = new HashMap<String, String>();
     public Map<String, String> signUp = new HashMap<String, String>();
     public Map<String, String> student = new HashMap<String, String>();
@@ -54,5 +55,13 @@ public class ConfigProp {
 
     public void setSchool(Map<String, String> school) {
         this.school = school;
+    }
+
+    public Map<String, String> getDomain() {
+        return domain;
+    }
+
+    public void setDomain(Map<String, String> domain) {
+        this.domain = domain;
     }
 }

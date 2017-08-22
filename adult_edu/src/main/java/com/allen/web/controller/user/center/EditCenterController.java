@@ -143,7 +143,7 @@ public class EditCenterController extends BaseController {
         //处理上传图片
         String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 10240, 10, url, saveFileName);
 
-        center.setLogo(filePath);
+        center.setLogo(configProp.getDomain().get("xiwang")+filePath);
         editCenterService.edit(center, UserUtil.getLoginUserForName(request));
         jsonObject.put("state", 0);
         return jsonObject;
@@ -167,7 +167,7 @@ public class EditCenterController extends BaseController {
         //处理上传图片
         String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 10240, 10, url, saveFileName);
 
-        center.setBanner(filePath);
+        center.setBanner(configProp.getDomain().get("xiwang")+filePath);
         editCenterService.edit(center, UserUtil.getLoginUserForName(request));
         jsonObject.put("state", 0);
         return jsonObject;

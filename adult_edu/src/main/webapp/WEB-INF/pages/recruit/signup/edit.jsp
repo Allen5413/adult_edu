@@ -207,6 +207,7 @@
             <td colspan="4">
               <select id="userId" name="userId" class="select-140">
                 <option value="">请选择</option>
+                <option value="-1">本部</option>
                 <c:forEach var="user" items="${userList}">
                   <option value="${user.id}" <c:if test="${user.id == signUp.userId}">selected="selected"</c:if> >${user.name}</option>
                 </c:forEach>
@@ -237,14 +238,14 @@
           <td style="text-align: center">
             <form id="photoForm" name="photoForm" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
               <input type="hidden" id="idCard_photo" name="idCard">
-              <img id="photoImg" <c:if test="${!empty signUp.photoUrl}">src="${pageContext.request.contextPath}${signUp.photoUrl}"</c:if> style="<c:if test="${empty signUp.photoUrl}">display: none;</c:if> width: 400px; height: 280px;" /><br/>
+              <img id="photoImg" <c:if test="${!empty signUp.photoUrl}">src="${signUp.photoUrl}"</c:if> style="<c:if test="${empty signUp.photoUrl}">display: none;</c:if> width: 400px; height: 280px;" /><br/>
               <a class="btn-com-upload" href="#"><input type="file" id="photoFile" name="img" class="uploadfile" onchange="upImg(1);" />上传照片</a><span style="color: #ff0000">*</span>
             </form>
           </td>
           <td>
             <form id="photoForm2" name="photoForm2" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
               <input type="hidden" id="idCard_photo2" name="idCard">
-              <img id="photoImg2" <c:if test="${!empty signUp.idCardFrontUrl}">src="${pageContext.request.contextPath}${signUp.idCardFrontUrl}"</c:if> style="<c:if test="${empty signUp.idCardFrontUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+              <img id="photoImg2" <c:if test="${!empty signUp.idCardFrontUrl}">src="${signUp.idCardFrontUrl}"</c:if> style="<c:if test="${empty signUp.idCardFrontUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
               <a class="btn-com-upload" href="#"><input type="file" id="photoFile2" name="img" class="uploadfile" onchange="upImg(2);" />上传身份证正面</a><span style="color: #ff0000">*</span>
             </form>
           </td>
@@ -253,14 +254,14 @@
           <td style="text-align: center">
             <form id="photoForm3" name="photoForm3" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
               <input type="hidden" id="idCard_photo3" name="idCard">
-              <img id="photoImg3" <c:if test="${!empty signUp.idCardBackUrl}">src="${pageContext.request.contextPath}${signUp.idCardBackUrl}"</c:if> style="<c:if test="${empty signUp.idCardBackUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+              <img id="photoImg3" <c:if test="${!empty signUp.idCardBackUrl}">src="${signUp.idCardBackUrl}"</c:if> style="<c:if test="${empty signUp.idCardBackUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
               <a class="btn-com-upload" href="#"><input type="file" id="photoFile3" name="img" class="uploadfile" onchange="upImg(3);" />上传身份证背面</a><span style="color: #ff0000">*</span>
             </form>
           </td>
           <td>
             <form id="photoForm4" name="photoForm4" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
               <input type="hidden" id="idCard_photo4" name="idCard">
-              <img id="photoImg4" <c:if test="${!empty signUp.diplomaUrl}">src="${pageContext.request.contextPath}${signUp.diplomaUrl}"</c:if> style="<c:if test="${empty signUp.diplomaUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+              <img id="photoImg4" <c:if test="${!empty signUp.diplomaUrl}">src="${signUp.diplomaUrl}"</c:if> style="<c:if test="${empty signUp.diplomaUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
               <a class="btn-com-upload" href="#"><input type="file" id="photoFile4" name="img" class="uploadfile" onchange="upImg(4);" />上传学历证书</a><span style="color: #ff0000">*</span>
             </form>
           </td>
@@ -269,14 +270,14 @@
           <td style="text-align: center">
             <form id="photoForm5" name="photoForm5" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
               <input type="hidden" id="idCard_photo5" name="idCard">
-              <img id="photoImg5" <c:if test="${!empty signUp.xxwUrl}">src="${pageContext.request.contextPath}${signUp.xxwUrl}"</c:if> style="<c:if test="${empty signUp.xxwUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+              <img id="photoImg5" <c:if test="${!empty signUp.xxwUrl}">src="${signUp.xxwUrl}"</c:if> style="<c:if test="${empty signUp.xxwUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
               <a class="btn-com-upload" href="#"><input type="file" id="photoFile5" name="img" class="uploadfile" onchange="upImg(5);" />上传学信网认证</a>
             </form>
           </td>
           <td>
             <form id="photoForm6" name="photoFor6m" action="${pageContext.request.contextPath}/uploadPhoto.json" enctype="multipart/form-data" method="post">
               <input type="hidden" id="idCard_photo6" name="idCard">
-              <img id="photoImg6" <c:if test="${!empty signUp.ydsUrl}">src="${pageContext.request.contextPath}${signUp.ydsUrl}"</c:if> style="<c:if test="${empty signUp.ydsUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+              <img id="photoImg6" <c:if test="${!empty signUp.ydsUrl}">src="${signUp.ydsUrl}"</c:if> style="<c:if test="${empty signUp.ydsUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
               <a class="btn-com-upload" href="#"><input type="file" id="photoFile6" name="img" class="uploadfile" onchange="upImg(6);" />上传异地生证明</a>
             </form>
           </td>

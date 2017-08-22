@@ -50,7 +50,7 @@ public class EditSchoolServiceImpl implements EditSchoolService {
         if(!StringUtil.isEmpty(school2.getLogo()) && 0 < school2.getLogo().indexOf("temp")) {
             //把上传的logo照片从临时目录剪切到正式目录，并把文件名改成id
             UpLoadFileUtil.custFile(request, school2.getLogo(), configProp.getSchool().get("logoUrl"), school2.getId() + ".png");
-            school2.setLogo(configProp.getSchool().get("logoUrl") + school2.getId() + ".png");
+            school2.setLogo(configProp.getDomain().get("xiwang")+configProp.getSchool().get("logoUrl") + school2.getId() + ".png");
         }
         schoolDao.save(school2);
     }

@@ -57,7 +57,10 @@
           </tr>
           <tr>
             <td class="tag-b">生源来源：</td>
-            <td>${user.name}</td>
+            <td>
+              <c:if test="${student.userId == -1}">本部</c:if>
+              <c:if test="${student.userId != -1}">${user.name}</c:if>
+            </td>
             <td class="tag-b">学籍状态：</td>
             <td>
               <input type="radio" name="state" value="0" <c:if test="${student.state eq '0'}">checked</c:if>> 在籍
@@ -102,33 +105,33 @@
         <tr>
           <td class="tag-b" >照片：</td>
           <td style="text-align: center">
-            <img <c:if test="${!empty student.photoUrl}">src="${pageContext.request.contextPath}${student.photoUrl}"</c:if> style="<c:if test="${empty student.photoUrl}">display: none;</c:if> width: 400px; height: 280px;" /><br/>
+            <img <c:if test="${!empty student.photoUrl}">src="${student.photoUrl}"</c:if> style="<c:if test="${empty student.photoUrl}">display: none;</c:if> width: 400px; height: 280px;" /><br/>
           </td>
           <td class="tag-b" >身份证正面照：</td>
           <td>
-            <img <c:if test="${!empty student.idCardFrontUrl}">src="${pageContext.request.contextPath}${student.idCardFrontUrl}"</c:if> style="<c:if test="${empty student.idCardFrontUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+            <img <c:if test="${!empty student.idCardFrontUrl}">src="${student.idCardFrontUrl}"</c:if> style="<c:if test="${empty student.idCardFrontUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
           </td>
         </tr>
         <tr>
           <td class="tag-b" >身份证背面照：</td>
           <td style="text-align: center">
-            <img <c:if test="${!empty student.idCardBackUrl}">src="${pageContext.request.contextPath}${student.idCardBackUrl}"</c:if> style="<c:if test="${empty student.idCardBackUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+            <img <c:if test="${!empty student.idCardBackUrl}">src="${student.idCardBackUrl}"</c:if> style="<c:if test="${empty student.idCardBackUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
           </td>
           <td class="tag-b" >学历证书：</td>
           <td>
-            <img <c:if test="${!empty student.diplomaUrl}">src="${pageContext.request.contextPath}${student.diplomaUrl}"</c:if> style="<c:if test="${empty student.diplomaUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+            <img <c:if test="${!empty student.diplomaUrl}">src="${student.diplomaUrl}"</c:if> style="<c:if test="${empty student.diplomaUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
           </td>
         </tr>
         <tr>
           <td class="tag-b" >异地生证明：</td>
           <td>
-            <img <c:if test="${!empty student.ydsUrl}">src="${pageContext.request.contextPath}${student.ydsUrl}"</c:if> style="<c:if test="${empty student.ydsUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+            <img <c:if test="${!empty student.ydsUrl}">src="${student.ydsUrl}"</c:if> style="<c:if test="${empty student.ydsUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
           </td>
           <td class="tag-b" >学信网认证：</td>
           <td style="text-align: center">
             <form id="photoForm" name="photoForm" action="${pageContext.request.contextPath}/student/uploadXxw.json" enctype="multipart/form-data" method="post">
               <input type="hidden" id="idCard_photo" name="idCard">
-              <img id="photoImg" <c:if test="${!empty student.xxwUrl}">src="${pageContext.request.contextPath}${student.xxwUrl}"</c:if> style="<c:if test="${empty student.xxwUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+              <img id="photoImg" <c:if test="${!empty student.xxwUrl}">src="${student.xxwUrl}"</c:if> style="<c:if test="${empty student.xxwUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
               <a class="btn-com-upload" href="#"><input type="file" id="photoFile" name="img" class="uploadfile" onchange="upImg(1);" />上传学信网认证</a>
             </form>
           </td>
@@ -138,7 +141,7 @@
           <td>
             <form id="photoForm2" name="photoForm2" action="${pageContext.request.contextPath}/student/uploadZkzFront.json" enctype="multipart/form-data" method="post">
               <input type="hidden" id="idCard_photo2" name="idCard">
-              <img id="photoImg2" <c:if test="${!empty student.zkzFrontUrl}">src="${pageContext.request.contextPath}${student.zkzFrontUrl}"</c:if> style="<c:if test="${empty student.zkzFrontUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+              <img id="photoImg2" <c:if test="${!empty student.zkzFrontUrl}">src="${student.zkzFrontUrl}"</c:if> style="<c:if test="${empty student.zkzFrontUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
               <a class="btn-com-upload" href="#"><input type="file" id="photoFile2" name="img" class="uploadfile" onchange="upImg(2);" />上传准考证正面照</a>
             </form>
           </td>
@@ -146,7 +149,7 @@
           <td style="text-align: center">
             <form id="photoForm3" name="photoForm3" action="${pageContext.request.contextPath}/student/uploadZkzBack" enctype="multipart/form-data" method="post">
               <input type="hidden" id="idCard_photo3" name="idCard">
-              <img id="photoImg3" <c:if test="${!empty student.zkzBackUrl}">src="${pageContext.request.contextPath}${student.zkzBackUrl}"</c:if> style="<c:if test="${empty student.zkzBackUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+              <img id="photoImg3" <c:if test="${!empty student.zkzBackUrl}">src="${student.zkzBackUrl}"</c:if> style="<c:if test="${empty student.zkzBackUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
               <a class="btn-com-upload" href="#"><input type="file" id="photoFile3" name="img" class="uploadfile" onchange="upImg(3);" />上传准考证背面照</a>
             </form>
           </td>

@@ -63,18 +63,18 @@ public class AddSignUpServiceImpl implements AddSignUpService {
         UpLoadFileUtil.custFile(request, idCardBackUrl, configProp.getSignUp().get("idCardBackUrl"), signUp.getId()+".png");
         UpLoadFileUtil.custFile(request, diplomaUrl, configProp.getSignUp().get("diplomaUrl"), signUp.getId()+".png");
 
-        signUp.setPhotoUrl(configProp.getSignUp().get("photoUrl")+signUp.getId()+".png");
-        signUp.setIdCardFrontUrl(configProp.getSignUp().get("idCardFrontUrl") + signUp.getId() + ".png");
-        signUp.setIdCardBackUrl(configProp.getSignUp().get("idCardBackUrl") + signUp.getId() + ".png");
-        signUp.setDiplomaUrl(configProp.getSignUp().get("diplomaUrl") + signUp.getId() + ".png");
+        signUp.setPhotoUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("photoUrl")+signUp.getId()+".png");
+        signUp.setIdCardFrontUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("idCardFrontUrl") + signUp.getId() + ".png");
+        signUp.setIdCardBackUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("idCardBackUrl") + signUp.getId() + ".png");
+        signUp.setDiplomaUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("diplomaUrl") + signUp.getId() + ".png");
 
         if(!StringUtil.isEmpty(xxwUrl)){
             UpLoadFileUtil.custFile(request, xxwUrl, configProp.getSignUp().get("xxwUrl"), signUp.getId()+".png");
-            signUp.setXxwUrl(configProp.getSignUp().get("xxwUrl") + signUp.getId() + ".png");
+            signUp.setXxwUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("xxwUrl") + signUp.getId() + ".png");
         }
         if(!StringUtil.isEmpty(ydsUrl)){
             UpLoadFileUtil.custFile(request, ydsUrl, configProp.getSignUp().get("ydsUrl"), signUp.getId()+".png");
-            signUp.setYdsUrl(configProp.getSignUp().get("ydsUrl") + signUp.getId() + ".png");
+            signUp.setYdsUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("ydsUrl") + signUp.getId() + ".png");
         }
         signUpDao.save(signUp);
     }

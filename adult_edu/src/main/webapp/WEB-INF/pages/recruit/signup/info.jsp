@@ -161,7 +161,10 @@
         </tr>
         <tr>
           <td class="tag-b" >生源来源：</td>
-          <td colspan="4">${user.name}</td>
+          <td colspan="4">
+            <c:if test="${signUp.userId == -1}">本部</c:if>
+            <c:if test="${signUp.userId != -1}">${user.name}</c:if>
+          </td>
         </tr>
         <tr>
           <td class="tag-b" >拒绝原因：</td>
@@ -172,26 +175,26 @@
       <table class="info-table-input" style="width: 80%">
         <tr>
           <td style="text-align: center">
-            <img id="photoImg" <c:if test="${!empty signUp.photoUrl}">src="${pageContext.request.contextPath}${signUp.photoUrl}"</c:if> style="<c:if test="${empty signUp.photoUrl}">display: none;</c:if> width: 400px; height: 280px;" /><br/>
+            <img id="photoImg" <c:if test="${!empty signUp.photoUrl}">src="${signUp.photoUrl}"</c:if> style="<c:if test="${empty signUp.photoUrl}">display: none;</c:if> width: 400px; height: 280px;" /><br/>
           </td>
           <td>
-            <img id="photoImg2" <c:if test="${!empty signUp.idCardFrontUrl}">src="${pageContext.request.contextPath}${signUp.idCardFrontUrl}"</c:if> style="<c:if test="${empty signUp.idCardFrontUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+            <img id="photoImg2" <c:if test="${!empty signUp.idCardFrontUrl}">src="${signUp.idCardFrontUrl}"</c:if> style="<c:if test="${empty signUp.idCardFrontUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
           </td>
         </tr>
         <tr>
           <td style="text-align: center">
-            <img id="photoImg3" <c:if test="${!empty signUp.idCardBackUrl}">src="${pageContext.request.contextPath}${signUp.idCardBackUrl}"</c:if> style="<c:if test="${empty signUp.idCardBackUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+            <img id="photoImg3" <c:if test="${!empty signUp.idCardBackUrl}">src="${signUp.idCardBackUrl}"</c:if> style="<c:if test="${empty signUp.idCardBackUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
           </td>
           <td>
-            <img id="photoImg4" <c:if test="${!empty signUp.diplomaUrl}">src="${pageContext.request.contextPath}${signUp.diplomaUrl}"</c:if> style="<c:if test="${empty signUp.diplomaUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+            <img id="photoImg4" <c:if test="${!empty signUp.diplomaUrl}">src="${signUp.diplomaUrl}"</c:if> style="<c:if test="${empty signUp.diplomaUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
           </td>
         </tr>
         <tr>
           <td style="text-align: center">
-            <img id="photoImg5" <c:if test="${!empty signUp.xxwUrl}">src="${pageContext.request.contextPath}${signUp.xxwUrl}"</c:if> style="<c:if test="${empty signUp.xxwUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+            <img id="photoImg5" <c:if test="${!empty signUp.xxwUrl}">src="${signUp.xxwUrl}"</c:if> style="<c:if test="${empty signUp.xxwUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
           </td>
           <td>
-            <img id="photoImg6" <c:if test="${!empty signUp.ydsUrl}">src="${pageContext.request.contextPath}${signUp.ydsUrl}"</c:if> style="<c:if test="${empty signUp.ydsUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
+            <img id="photoImg6" <c:if test="${!empty signUp.ydsUrl}">src="${signUp.ydsUrl}"</c:if> style="<c:if test="${empty signUp.ydsUrl}">display: none;</c:if> width: 400px; height: 280px; " /><br/>
           </td>
         </tr>
       </table>

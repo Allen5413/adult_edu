@@ -38,7 +38,7 @@ public class AddSchoolServiceImpl implements AddSchoolService {
         if(!StringUtil.isEmpty(school.getLogo())) {
             //把上传的logo照片从临时目录剪切到正式目录，并把文件名改成id
             UpLoadFileUtil.custFile(request, school.getLogo(), configProp.getSchool().get("logoUrl"), school.getId() + ".png");
-            school.setLogo(configProp.getSchool().get("logoUrl") + school.getId() + ".png");
+            school.setLogo(configProp.getDomain().get("xiwang")+configProp.getSchool().get("logoUrl") + school.getId() + ".png");
             schoolDao.save(school);
         }
     }
