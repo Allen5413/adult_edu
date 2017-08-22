@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class ListUByWhereServiceImpl implements ListUByWhereService {
             throw new BusinessException("没有传入学习中心id");
         }
         params.put("centerId", centerId);
-        params.put("name", request.getParameter("name"));
+        params.put("name", StringUtil.getDecode(request, "name"));
         params.put("type", request.getParameter("type"));
         PageInfo pageInfo = new PageInfo();
         pageInfo.setCurrentPage(1);

@@ -24,7 +24,7 @@ public class AuditDCServiceImpl implements AuditDCService {
         JSONObject json = new JSONObject();
         String id = request.getParameter("id");
         String state = request.getParameter("state");
-        String refuseContent = request.getParameter("refuseContent");
+        String refuseContent = StringUtil.getDecode(request, "refuseContent");
         if(StringUtil.isEmpty(id)){
             throw new BusinessException("没有传入id");
         }

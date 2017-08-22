@@ -40,7 +40,7 @@ public class ListSServiceImpl implements ListSService {
         params.put("tp.term", StringUtil.isEmpty(request.getParameter("term")) ? null : Integer.parseInt(request.getParameter("term")));
         params.put("s.state", StringUtil.isEmpty(request.getParameter("state")) ? null : Integer.parseInt(request.getParameter("state")));
         params.put("s.fee_state", StringUtil.isEmpty(request.getParameter("feeState")) ? null : Integer.parseInt(request.getParameter("feeState")));
-        params.put("s.name", StringUtil.isEmpty(request.getParameter("name")) ? null : new Object[]{"%"+request.getParameter("name")+"%", "like"});
+        params.put("s.name", StringUtil.isEmpty(StringUtil.getDecode(request, "name")) ? null : new Object[]{"%"+StringUtil.getDecode(request, "name")+"%", "like"});
         PageInfo pageInfo = new PageInfo();
         pageInfo.setCurrentPage(StringUtil.isEmpty(request.getParameter("pageNum")) ? 1 : Integer.parseInt(request.getParameter("pageNum")));
         pageInfo.setCountOfCurrentPage(StringUtil.isEmpty(request.getParameter("pageSize")) ? 10 : Integer.parseInt(request.getParameter("pageSize")));
