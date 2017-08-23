@@ -7,7 +7,7 @@ import com.allen.entity.basic.SchoolTypeLevelSpec;
 import com.allen.entity.basic.Spec;
 import com.allen.service.basic.schooltypelevelspec.AddSchoolTypeLevelSpecService;
 import com.allen.service.basic.schooltypelevelspec.ImportSchoolTypeLevelSpecService;
-import com.allen.util.ExcelUtil;
+import com.allen.util.excel.ExcelUtil;
 import com.allen.util.StringUtil;
 import com.allen.util.UserUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;

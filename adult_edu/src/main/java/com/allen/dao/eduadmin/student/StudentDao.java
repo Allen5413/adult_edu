@@ -22,4 +22,13 @@ public interface StudentDao extends CrudRepository<Student, Long> {
      */
     @Query(nativeQuery = true, value = "select count(*) from student s where s.recruit_type_id = ?1")
     public BigInteger countNumByRtId(long rtId)throws Exception;
+
+    /**
+     * 统计一个学习中心下的人数
+     * @param centerId
+     * @return
+     * @throws Exception
+     */
+    @Query(nativeQuery = true, value = "select count(*) from student s where s.center_id = ?1")
+    public BigInteger countNumByCenterId(long centerId)throws Exception;
 }

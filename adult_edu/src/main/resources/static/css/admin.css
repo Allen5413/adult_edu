@@ -158,7 +158,8 @@ body{background: #ececec;}
 .input-txt-220{width: 220px;}
 .select-200{display: block; width: 200px; height: 32px; border: solid #e0e0e0 1px;}
 .btn-com{display: inline-block; height: 28px; font-weight: normal; font-size: 14px; border-radius: 3px; padding: 3px 15px; background-color: #4AA6FC; color: #fff; line-height: 30px;}
-
+.btn-com,.btn-com-bl{display: inline-block; height: 28px; font-weight: normal; font-size: 14px; border-radius: 3px; padding: 3px 15px; background-color: #4AA6FC; color: #fff; line-height: 30px;}
+.btn-com-bl{border: solid #4AA6FC 1px; color: #4AA6FC; background-color: #fff; padding: 2px 14px;}
 .btn-com-upload{display: inline-block; position: relative; padding: 3px 15px; overflow: hidden; border-radius: 4px; line-height: 1.5em; font-size: 14px; color: #fff; background: #4AA6FC;}
 .uploadfile{
 	position:absolute;
@@ -230,3 +231,17 @@ body{background: #ececec;}
 .set-table-info .textarea-intro{border: solid #d5d5d5 1px; resize: none; width: 540px;}
 
 .view-opr-info{padding: 20px; border-top: solid #c5c5c5 1px; background: #f6f6f6; margin: 40px 0 0;}
+
+.title-select{background: #f8f8f8; padding: 0 15px; border-bottom: solid #e5e5e5 1px;}
+.title-select select{display: block; min-width: 110px; height: 26px; border: solid #ddd 0px; background: none; font-size: 14px;}
+.title-select .inline-select{display: inline-block; padding: 10px 0; border-right: solid #ddd 1px;}
+.title-select .btn-com,.title-select .btn-com-bl{position: relative; top: 6px; margin-left: 15px;}
+
+.data-cols-list{padding:25px 15px;}
+.data-cols-list .col{float: left; width: 16%; border-left: solid #ddd 1px;}
+.data-cols-list .col:first-child{border: 0;}
+.data-cols-list .tit{padding: 15px; text-align: center;}
+.data-cols-list .tit p{padding: 5px 0; text-align: center;}
+.data-cols-list .tit .num{font-size: 28px;}
+.data-cols-list .txt{padding: 15px; max-width: 120px; margin: 0 auto;}
+

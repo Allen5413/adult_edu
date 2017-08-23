@@ -14,9 +14,9 @@ import java.util.Map;
 @Service
 public class FindStudentDao extends BaseQueryDao {
     public PageInfo findPage(PageInfo pageInfo, Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
-        String fields = "s.id, s.name, s.sex, s.code, sc.name scName, rt.name rtName, l.name lName, sp.name spName, s.state, tp.year, tp.term, s.phone, s.photo_url photoUrl";
-        String[] tableNames = {"student s, school sc, recruit_type rt, level l, spec sp, teach_plan tp, user u"};
-        String defaultWhere = "s.school_id = sc.id and s.recruit_type_id = rt.id and s.level_id = l.id and s.spec_id = sp.id and s.teach_plan_id = tp.id and s.user_id = u.id";
+        String fields = "s.id, s.name, s.sex, s.code, sc.name scName, rt.name rtName, l.name lName, sp.name spName, s.state, tp.year, tp.term, s.phone, s.photo_url photoUrl, u.name uName, s.sign_up_date signUpDate, u2.name scuName";
+        String[] tableNames = {"student s, school sc, recruit_type rt, level l, spec sp, teach_plan tp, user u, user u2"};
+        String defaultWhere = "s.school_id = sc.id and s.recruit_type_id = rt.id and s.level_id = l.id and s.spec_id = sp.id and s.teach_plan_id = tp.id and s.user_id = u.id and sc.user_id = u2.id";
         return super.findPageByNativeSqlToMap(pageInfo, fields, defaultWhere, tableNames,paramsMap, sortMap);
     }
 

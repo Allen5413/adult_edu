@@ -43,7 +43,7 @@
           <td class="tag-b">报读层次：</td>
           <td>${level.name}</td>
           <td class="tag-b">批次：</td>
-          <td>${tp.year}年${tp.term == 0 ? "春季":"秋季"}</td>
+          <td>${teachPlan.year}年${teachPlan.term == 0 ? "春季":"秋季"}</td>
         </tr>
         <tr>
           <td class="tag-b">报考类型：</td>

@@ -34,6 +34,15 @@ public interface SchoolDao extends CrudRepository<School, Long> {
     public BigInteger countNumByCenterId(long centerId)throws Exception;
 
     /**
+     * 统计一个学习中心下的有学生的高校数量
+     * @param centerId
+     * @return
+     * @throws Exception
+     */
+    @Query(nativeQuery = true, value = "select count(*) from (select DISTINCT sc.id from student s, school sc where s.school_id = sc.id and s.center_id = ?1) t")
+    public BigInteger countNumForStudentByCenterId(long centerId)throws Exception;
+
+    /**
      * 查询一个招生类型下关联的高校,发布了教学计划的
      * @param typeId
      * @return

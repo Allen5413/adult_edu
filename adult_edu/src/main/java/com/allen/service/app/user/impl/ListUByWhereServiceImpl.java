@@ -1,6 +1,7 @@
 package com.allen.service.app.user.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.allen.base.config.ConfigProp;
 import com.allen.base.exception.BusinessException;
 import com.allen.dao.PageInfo;
 import com.allen.dao.user.user.FindUserDao;
@@ -22,6 +23,8 @@ public class ListUByWhereServiceImpl implements ListUByWhereService {
 
     @Autowired
     private FindUserDao findUserDao;
+    @Autowired
+    private ConfigProp configProp;
 
     @Override
     public JSONObject find(HttpServletRequest request) throws Exception {
@@ -39,6 +42,7 @@ public class ListUByWhereServiceImpl implements ListUByWhereService {
         pageInfo.setCountOfCurrentPage(999999999);
         pageInfo = findUserDao.findPage(pageInfo, params, "u.name");
         jsonObject.put("list", pageInfo.getPageResults());
+        jsonObject.put("userLogo", configProp.getDomain().get("xiwang")+"/img/touxiang.png");
         jsonObject.put("status", 1);
         return jsonObject;
     }

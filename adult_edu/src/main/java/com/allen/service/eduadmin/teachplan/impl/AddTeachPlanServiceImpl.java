@@ -9,7 +9,7 @@ import com.allen.entity.eduadmin.TeachPlan;
 import com.allen.entity.eduadmin.TeachPlanCourse;
 import com.allen.service.eduadmin.teachplan.AddTeachPlanService;
 import com.allen.service.eduadmin.teachplancourse.AddTeachPlanCourseService;
-import com.allen.util.ExcelUtil;
+import com.allen.util.excel.ExcelUtil;
 import com.allen.util.StringUtil;
 import com.allen.util.UserUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;

@@ -17,7 +17,7 @@ import com.allen.entity.eduadmin.TeachPlan;
 import com.allen.entity.recruit.SignUp;
 import com.allen.service.eduadmin.student.AddStudentService;
 import com.allen.service.eduadmin.student.ImportStudentService;
-import com.allen.util.ExcelUtil;
+import com.allen.util.excel.ExcelUtil;
 import com.allen.util.StringUtil;
 import com.allen.util.UpLoadFileUtil;
 import com.allen.util.UserUtil;

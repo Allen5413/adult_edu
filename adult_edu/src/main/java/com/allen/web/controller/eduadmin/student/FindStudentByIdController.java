@@ -12,6 +12,7 @@ import com.allen.service.eduadmin.student.FindStudentByIdService;
 import com.allen.service.eduadmin.teachplan.FindTeachPlanByIdService;
 import com.allen.service.recruit.signup.FindSignUpByIdService;
 import com.allen.service.user.user.FindUserByIdService;
+import com.allen.util.StringUtil;
 import com.allen.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,7 +65,7 @@ public class FindStudentByIdController extends BaseController {
         request.setAttribute("spec", findSpecByIdService.find(student.getSpecId()));
         request.setAttribute("teachPlan", findTeachPlanByIdService.find(student.getTeachPlanId()));
         request.setAttribute("user", findUserByIdService.find(student.getUserId()));
-        request.setAttribute("reqParams", new String(reqParams.getBytes("iso-8859-1"), "gbk"));
+        request.setAttribute("reqParams", StringUtil.isEmpty(reqParams) ? "" : new String(reqParams.getBytes("iso-8859-1"), "gbk"));
         return "eduadmin/student/info";
     }
 }
