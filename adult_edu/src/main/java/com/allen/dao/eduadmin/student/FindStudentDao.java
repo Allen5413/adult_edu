@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 public class FindStudentDao extends BaseQueryDao {
     public PageInfo findPage(PageInfo pageInfo, Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
-        String fields = "s.id, s.name, s.sex, s.code, sc.name scName, rt.name rtName, l.name lName, sp.name spName, s.state, tp.year, tp.term, s.phone, s.photo_url photoUrl, u.name uName, s.sign_up_date signUpDate, u2.name scuName";
+        String fields = "s.id, s.name, s.sex, s.code, sc.name scName, rt.name rtName, l.name lName, sp.name spName, s.state, tp.year, tp.term, s.phone, s.photo_url photoUrl, u.name uName, s.sign_up_date signUpDate, u2.name scuName, s.fee_state feeState";
         String[] tableNames = {"student s, school sc, recruit_type rt, level l, spec sp, teach_plan tp, user u, user u2"};
         String defaultWhere = "s.school_id = sc.id and s.recruit_type_id = rt.id and s.level_id = l.id and s.spec_id = sp.id and s.teach_plan_id = tp.id and s.user_id = u.id and sc.user_id = u2.id";
         return super.findPageByNativeSqlToMap(pageInfo, fields, defaultWhere, tableNames,paramsMap, sortMap);
@@ -76,7 +76,7 @@ public class FindStudentDao extends BaseQueryDao {
 
 
     /**
-     * 统计一个中心下的各种状态的学生数量,包括总人数、在读人数、未缴费人数、未缴完人数
+     * 统计一个中心下的各种状态的学生数量,包括总人数、在读人数、休学人数、毕业人数、未缴费人数、未缴完人数
      * @param centerId
      * @return
      * @throws Exception
@@ -84,8 +84,12 @@ public class FindStudentDao extends BaseQueryDao {
     public List<Map> countNumForStateWhereByCenterIdAndUserId(Long centerId, Long userId)throws Exception{
         Map<String, Object> paramMaps = new HashMap<String, Object>();
         paramMaps.put("s.center_id", centerId);
-        paramMaps.put("s.user_id", userId);
-        String fields = "count(*) totalNum, ifnull((case when state = 0 then count(*) end), 0) zdNum, ifnull((case when fee_state = 0 then count(*) end), 0) notPayNum, ifnull((case when state = 1 then count(*) end), 0) notCleanNum";
+        if(null != userId && -2 == userId){
+            paramMaps.put("s.user_id", new Object[]{userId, "!="});
+        }else {
+            paramMaps.put("s.user_id", userId);
+        }
+        String fields = "count(*) totalNum, ifnull((case when state = 0 then count(*) end), 0) zdNum, ifnull((case when state = 1 then count(*) end), 0) xxNum, ifnull((case when state = 3 then count(*) end), 0) byNum, ifnull((case when fee_state = 0 then count(*) end), 0) notPayNum, ifnull((case when state = 1 then count(*) end), 0) notCleanNum";
         String[] tableNames = {"student s"};
         String defaultWhere = "1=1";
         return super.findListBySqlToMap(tableNames, fields, defaultWhere, paramMaps, null);

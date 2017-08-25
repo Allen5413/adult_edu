@@ -44,6 +44,9 @@ public class DownStudentServiceImpl implements DownStudentService {
         ExcelCell runCell_8 = new ExcelCell(index,(byte)7, "层次",false,"",30);
         ExcelCell runCell_9 = new ExcelCell(index,(byte)8, "专业",false,"",30);
         ExcelCell runCell_10 = new ExcelCell(index,(byte)9, "批次",false,"",30);
+        ExcelCell runCell_11 = new ExcelCell(index,(byte)10, "学籍状态",false,"",30);
+        ExcelCell runCell_12 = new ExcelCell(index,(byte)11, "缴费状态",false,"",30);
+        ExcelCell runCell_13 = new ExcelCell(index,(byte)12, "教务老师",false,"",30);
         runRow.addExcelCell(runCell_1);
         runRow.addExcelCell(runCell_2);
         runRow.addExcelCell(runCell_3);
@@ -54,26 +57,57 @@ public class DownStudentServiceImpl implements DownStudentService {
         runRow.addExcelCell(runCell_8);
         runRow.addExcelCell(runCell_9);
         runRow.addExcelCell(runCell_10);
+        runRow.addExcelCell(runCell_11);
+        runRow.addExcelCell(runCell_12);
+        runRow.addExcelCell(runCell_13);
         sheet.addExcelRow(runRow);
         index ++;
         if(null != data && data.size() > 0){
             for(int i = 0; i < data.size(); i++){
                 Map<String, Object> map = (Map<String, Object>) data.get(i);
                 ExcelRow runRow_2 = new ExcelRow(index);
-                ExcelCell runCell_11 = new ExcelCell(index,(byte)0, map.get("signUpDate").toString().substring(0,10),false,"",9);
-                ExcelCell runCell_12 = new ExcelCell(index,(byte)1, map.get("scName").toString(),false,"",9);
-                ExcelCell runCell_13 = new ExcelCell(index,(byte)2, map.get("uName").toString(),false,"", 9);
-                ExcelCell runCell_14 = new ExcelCell(index,(byte)3, map.get("name").toString(),false,"",9);
-                ExcelCell runCell_15 = new ExcelCell(index,(byte)4, map.get("code").toString(),false,"",9);
-                ExcelCell runCell_16 = new ExcelCell(index,(byte)5, map.get("phone").toString(),false,"",9);
-                ExcelCell runCell_17 = new ExcelCell(index,(byte)6, map.get("rtName").toString(),false,"",9);
-                ExcelCell runCell_18 = new ExcelCell(index,(byte)7, map.get("lName").toString(),false,"",9);
-                ExcelCell runCell_19 = new ExcelCell(index,(byte)8, map.get("spName").toString(),false,"",9);
-                ExcelCell runCell_20 = new ExcelCell(index,(byte)9, map.get("year").toString()+"年"+("0".equals(map.get("term").toString()) ? "春季":"秋季"),false,"",9);
+                ExcelCell runCell_14 = new ExcelCell(index,(byte)0, map.get("signUpDate").toString().substring(0,10),false,"",9);
+                ExcelCell runCell_15 = new ExcelCell(index,(byte)1, map.get("scName").toString(),false,"",9);
+                ExcelCell runCell_16 = new ExcelCell(index,(byte)2, map.get("uName").toString(),false,"", 9);
+                ExcelCell runCell_17 = new ExcelCell(index,(byte)3, map.get("name").toString(),false,"",9);
+                ExcelCell runCell_18 = new ExcelCell(index,(byte)4, map.get("code").toString(),false,"",9);
+                ExcelCell runCell_19 = new ExcelCell(index,(byte)5, map.get("phone").toString(),false,"",9);
+                ExcelCell runCell_20 = new ExcelCell(index,(byte)6, map.get("rtName").toString(),false,"",9);
+                ExcelCell runCell_21 = new ExcelCell(index,(byte)7, map.get("lName").toString(),false,"",9);
+                ExcelCell runCell_22 = new ExcelCell(index,(byte)8, map.get("spName").toString(),false,"",9);
+                ExcelCell runCell_23 = new ExcelCell(index,(byte)9, map.get("year").toString()+"年"+("0".equals(map.get("term").toString()) ? "春季":"秋季"),false,"",9);
 
-                runRow_2.addExcelCell(runCell_11);
-                runRow_2.addExcelCell(runCell_12);
-                runRow_2.addExcelCell(runCell_13);
+                String state = map.get("state").toString();
+                String stateStr = "";
+                if("0".equals(state)){
+                    stateStr = "在籍";
+                }
+                if("1".equals(state)){
+                    stateStr = "休学";
+                }
+                if("2".equals(state)){
+                    stateStr = "退学";
+                }
+                if("3".equals(state)){
+                    stateStr = "毕业";
+                }
+                ExcelCell runCell_24 = new ExcelCell(index,(byte)10, stateStr,false,"",9);
+
+                String feeState = map.get("feeState").toString();
+                String feeStateStr = "";
+                if("0".equals(feeState)){
+                    feeStateStr = "未缴费";
+                }
+                if("1".equals(feeState)){
+                    feeStateStr = "未缴清";
+                }
+                if("2".equals(feeState)){
+                    feeStateStr = "已结清";
+                }
+                ExcelCell runCell_25 = new ExcelCell(index,(byte)11, feeStateStr,false,"",9);
+                ExcelCell runCell_26 = new ExcelCell(index,(byte)12, map.get("scuName").toString(),false,"",9);
+
+
                 runRow_2.addExcelCell(runCell_14);
                 runRow_2.addExcelCell(runCell_15);
                 runRow_2.addExcelCell(runCell_16);
@@ -81,6 +115,12 @@ public class DownStudentServiceImpl implements DownStudentService {
                 runRow_2.addExcelCell(runCell_18);
                 runRow_2.addExcelCell(runCell_19);
                 runRow_2.addExcelCell(runCell_20);
+                runRow_2.addExcelCell(runCell_21);
+                runRow_2.addExcelCell(runCell_22);
+                runRow_2.addExcelCell(runCell_23);
+                runRow_2.addExcelCell(runCell_24);
+                runRow_2.addExcelCell(runCell_25);
+                runRow_2.addExcelCell(runCell_26);
 
                 sheet.addExcelRow(runRow_2);
 
@@ -101,6 +141,9 @@ public class DownStudentServiceImpl implements DownStudentService {
         columnWidthMap.put(7, 5000);
         columnWidthMap.put(8, 5000);
         columnWidthMap.put(9, 5000);
+        columnWidthMap.put(10, 5000);
+        columnWidthMap.put(11, 5000);
+        columnWidthMap.put(12, 5000);
         return ExcelUtil.writeExcelFile(exo, columnWidthMap, fileName);
     }
 }

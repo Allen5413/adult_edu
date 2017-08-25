@@ -44,7 +44,6 @@ public class FindUserDao extends BaseQueryDao {
         return super.pageSqlQueryByNativeSqlToMap(pageInfo, sql, fileds, paramsList.toArray());
     }
 
-
     /**
      * 查询一个学习中心下的通讯录，只要就是中心子账户和管理员
      * @param centerId
@@ -60,5 +59,18 @@ public class FindUserDao extends BaseQueryDao {
         String[] tableNames = {"user u", "user_group_user ugu", "user_group ug"};
         String defaultWhere = "u.id = ugu.user_id and ugu.user_group_id = ug.id";
         return super.findListBySqlToMap(tableNames, fields, defaultWhere, paramMaps, sortMaps);
+    }
+
+    /**
+     * 统计一个学习中心下的各个分销商的招生人数统计
+     * @return
+     * @throws Exception
+     */
+    public PageInfo findFxsStudentNumForByCenterIdPage(PageInfo pageInfo, Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
+        String fields = "u.name, u.phone, sc.name scName, rt.name rtName, l.name lName, sp.name spName, tp.year, tp.term, count(*) num";
+        String[] tableNames = {"user u", "student s", "school sc", "recruit_type rt", "level l", "spec sp", "teach_plan tp"};
+        String defaultWhere = "u.id = s.user_id and u.id != -1 and s.school_id = sc.id and s.recruit_type_id = rt.id and s.level_id = l.id and s.spec_id = sp.id and s.teach_plan_id = tp.id";
+        String groupBy = "u.name, u.phone, sc.name, rt.name, l.name, sp.name, tp.year, tp.term";
+        return super.findPageByNativeSqlToMap(pageInfo, fields, defaultWhere, tableNames, groupBy, paramsMap, sortMap);
     }
 }
