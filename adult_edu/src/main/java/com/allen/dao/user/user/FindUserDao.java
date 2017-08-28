@@ -67,10 +67,10 @@ public class FindUserDao extends BaseQueryDao {
      * @throws Exception
      */
     public PageInfo findFxsStudentNumForByCenterIdPage(PageInfo pageInfo, Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
-        String fields = "u.name, u.phone, sc.name scName, rt.name rtName, l.name lName, sp.name spName, tp.year, tp.term, count(*) num";
+        String fields = "u.id, u.name, u.phone, sc.id scId, sc.name scName, rt.id rtId, rt.name rtName, l.id lId, l.name lName, sp.id spId, sp.name spName, tp.id tpId, tp.year, tp.term, count(*) num";
         String[] tableNames = {"user u", "student s", "school sc", "recruit_type rt", "level l", "spec sp", "teach_plan tp"};
         String defaultWhere = "u.id = s.user_id and u.id != -1 and s.school_id = sc.id and s.recruit_type_id = rt.id and s.level_id = l.id and s.spec_id = sp.id and s.teach_plan_id = tp.id";
-        String groupBy = "u.name, u.phone, sc.name, rt.name, l.name, sp.name, tp.year, tp.term";
+        String groupBy = "u.id, u.name, u.phone, sc.id, sc.name, rt.id, rt.name, l.id, l.name, sp.id, sp.name, tp.id, tp.year, tp.term";
         return super.findPageByNativeSqlToMap(pageInfo, fields, defaultWhere, tableNames, groupBy, paramsMap, sortMap);
     }
 }

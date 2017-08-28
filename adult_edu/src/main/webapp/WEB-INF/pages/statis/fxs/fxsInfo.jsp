@@ -103,7 +103,7 @@
                 <td>${user.year}年${user.term == 0 ? "春季":"秋季"}</td>
                 <td>${user.num}</td>
                 <td>
-                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editFeeType/open.html?id=${feeType.id}&reqParams=${reqParams}');">查看学生列表</a>
+                  <a class="btn-opr" href="#" onclick="findStudent(${user.id}, ${user.scId}, ${user.rtId}, ${user.lId}, ${user.spId}, ${user.tpId});">查看学生列表</a>
                 </td>
               </tr>
             </c:forEach>
@@ -234,5 +234,9 @@
         open("${pageContext.request.contextPath}"+data);
       }
     });
+  }
+
+  function findStudent(userId, schoolId, rtId, levelId, specId, tpId){
+    app.clickResources("${pageContext.request.contextPath}/findStudentForFxsStatis/find.html?userId="+userId+"&schoolId="+schoolId+"&recruitTypeId="+rtId+"&levelId="+levelId+"&specId="+specId+"&teachPlanId="+tpId);
   }
 </script>
