@@ -42,6 +42,7 @@ public class FindCByIdServiceImpl implements FindCByIdService {
         json.put("remark", center.getRemark());
         json.put("logo", center.getLogo());
         json.put("list", list);
+        json.put("status", 1);
         return json;
     }
 }
