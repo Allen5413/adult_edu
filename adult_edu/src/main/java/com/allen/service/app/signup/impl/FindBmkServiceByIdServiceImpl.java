@@ -64,6 +64,7 @@ public class FindBmkServiceByIdServiceImpl implements FindBmkServiceByIdService 
         if(null != student){
             json.put("feeState", student.getFeeState());
             json.put("photoUrl", student.getPhotoUrl());
+            json.put("studentId", student.getId());
             json.put("studentName", student.getName());
             json.put("studentCode", student.getCode());
             json.put("studentState", student.getState());
