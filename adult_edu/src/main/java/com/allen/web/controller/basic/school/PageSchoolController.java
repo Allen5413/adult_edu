@@ -26,7 +26,7 @@ public class PageSchoolController extends BaseController {
     public String find(HttpServletRequest request) throws Exception {
         PageInfo pageInfo = super.getPageInfo(request);
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("s.centerId", Long.parseLong(UserUtil.getLoginUserForCenterId(request)+""));
+        params.put("s.center_id", Long.parseLong(UserUtil.getLoginUserForCenterId(request)+""));
         Map<String, Boolean> sortMap = new HashMap<String, Boolean>();
         sortMap.put("s.id", true);
         pageInfo = pageSchoolService.find(pageInfo, params, sortMap);

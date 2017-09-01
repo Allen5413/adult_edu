@@ -14,8 +14,10 @@ import java.util.Map;
 @Service
 public class FindSchoolDao extends BaseQueryDao {
     public PageInfo findPage(PageInfo pageInfo, Map<String, Object> paramsMap, Map<String, Boolean> sortMap)throws Exception{
-        String[] tableNames = {"School s"};
-        return super.findPageByJpal(pageInfo, tableNames, paramsMap, sortMap);
+        String fileds = "s.id, s.code, s.name, s.link_man linkMan, s.phone, u.name uName";
+        String[] tableNames = {"School s, User u"};
+        String defaultWhere = "s.user_id = u.id";
+        return super.findPageByNativeSqlToMap(pageInfo, fileds, defaultWhere, tableNames, paramsMap, sortMap);
     }
 
     /**

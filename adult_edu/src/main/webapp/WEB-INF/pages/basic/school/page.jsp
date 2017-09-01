@@ -40,7 +40,7 @@
                 <td>${school.code}</td>
                 <td>${school.linkMan}</td>
                 <td>${school.phone}</td>
-                <td>${school.userId}</td>
+                <td>${school.uName}</td>
                 <td>
                   <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editSchool/open.html?id=${school.id}&reqParams=${reqParams}');">编辑</a>
                 </td>
