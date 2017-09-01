@@ -22,7 +22,9 @@
         <a href="#">您好！${sessionScope.name}</a>
         <div class="navs-drop">
           <ul>
-            <li><a href="#" onclick="app.clickResources('${pageContext.request.contextPath}/findCneterById/open.html')">个人中心</a></li>
+            <c:if test="${sessionScope.type > 0}">
+              <li><a href="#" onclick="app.clickResources('${pageContext.request.contextPath}/findCneterById/open.html')">个人中心</a></li>
+            </c:if>
             <li><a href="${pageContext.request.contextPath}/logout.html">退出登录</a></li>
           </ul>
         </div>

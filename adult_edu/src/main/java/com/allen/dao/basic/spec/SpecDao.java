@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface SpecDao extends CrudRepository<Spec, Long> {
     public Spec findByCodeAndSchoolId(String code, long schoolId)throws Exception;
-    public List<Spec> findBySchoolId(long schoolId)throws Exception;
+    public List<Spec> findBySchoolIdOrderByCode(long schoolId)throws Exception;
 
     /**
      * 查询一个学校下关联了招生类型，层次下的专业

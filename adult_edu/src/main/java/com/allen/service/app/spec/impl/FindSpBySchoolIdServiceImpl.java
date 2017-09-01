@@ -28,7 +28,7 @@ public class FindSpBySchoolIdServiceImpl implements FindSpBySchoolIdService {
         if(StringUtil.isEmpty(schoolId)){
             throw new BusinessException("没有传入高校id");
         }
-        List<Spec> list = specDao.findBySchoolId(Long.parseLong(schoolId));
+        List<Spec> list = specDao.findBySchoolIdOrderByCode(Long.parseLong(schoolId));
         json.put("list", list);
         json.put("status", 1);
         return json;

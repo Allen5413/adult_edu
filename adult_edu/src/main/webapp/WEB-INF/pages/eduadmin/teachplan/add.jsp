@@ -182,7 +182,7 @@
             specObj.append($("<option value=''>全部</option>"));
             for(var i=0; i<data.specList.length; i++){
               var spec = data.specList[i];
-              specObj.append($("<option value='" + spec.id + "'>["+spec.code+"]" + spec.name + "</option>"));
+              specObj.append($("<option value='" + spec.sId + "'>["+spec.code+"]" + spec.name + "</option>"));
             }
           }else {
             app.msg(data.msg, 1);
