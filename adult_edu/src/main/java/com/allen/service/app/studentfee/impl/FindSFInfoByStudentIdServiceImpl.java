@@ -44,6 +44,7 @@ public class FindSFInfoByStudentIdServiceImpl implements FindSFInfoByStudentIdSe
         Student student = studentDao.findOne(Long.parseLong(id));
         json.put("fee", feeTypeDao.findTotalFeeBySchoolIdAndTypeIdAndLevelIdAndTpId(student.getSchoolId(), student.getRecruitTypeId(), student.getLevelId(), student.getTeachPlanId()));
         json.put("payFee", studentFeeDao.findTotalFeeByStudentId(student.getId()));
+        json.put("feeState", student.getFeeState());
         JSONObject feeJSON = findStudentFeeByStudentIdService.find(student.getId());
         List<JSONObject> feeList = new ArrayList<JSONObject>();
         Set<String> keys = feeJSON.keySet();
