@@ -47,7 +47,6 @@
                 <td>
                   <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editUser/open.html?id=${user.id}&reqParams=${reqParams}');">编辑</a>
                   <a class="btn-opr" href="#" onclick="del(${user.id});">删除</a>
-                  <a class="btn-opr" href="#" onclick="resetPwd('${user.login_name}')">重置密码</a>
                 </td>
               </tr>
             </c:forEach>
