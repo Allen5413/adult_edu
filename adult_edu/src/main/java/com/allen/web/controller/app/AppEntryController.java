@@ -116,8 +116,9 @@ public class AppEntryController extends BaseController {
     @Autowired
     private FindScAndSpByCenterIdService findScAndSpByCenterIdService;
     @Autowired
+    private EditSUService editSUService;
+    @Autowired
     private ConfigProp configProp;
-
 
     @RequestMapping(value = "/appEntry")
     public JSONObject entry(HttpServletRequest request) throws Exception {
@@ -282,6 +283,10 @@ public class AppEntryController extends BaseController {
         if(37 == methodId){
             //查询学生时，返回一个学习中心下的高校和专业信息
             jsonObject = findScAndSpByCenterIdService.find(request);
+        }
+        if(38 == methodId){
+            //编辑学生报名信息，这里只能学生自己编辑，所以不用提交到常校长那去审核
+            jsonObject = editSUService.edit(request);
         }
         return jsonObject;
     }
