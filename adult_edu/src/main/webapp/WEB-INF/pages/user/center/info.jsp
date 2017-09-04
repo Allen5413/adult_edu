@@ -22,7 +22,7 @@
             <td class="tag-b">banner：</td>
             <td>
               <c:if test="${empty center.banner}"><span style="color: #ff0000">还没有上传图片</span></c:if>
-              <c:if test="${!empty center.banner}"><img src="${pageContext.request.contextPath}${center.banner}?random=${random}" style="width: 600px; height: 300px;" /></c:if>
+              <c:if test="${!empty center.banner}"><img src="${pageContext.request.contextPath}${center.banner}?random=${random}" style="width: 200px; height: 200px;" /></c:if>
             </td>
             <td><a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editCenter/openEditBanner.html?id=${center.id}');">编辑</a></td>
           </tr>
