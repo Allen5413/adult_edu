@@ -39,6 +39,7 @@ public class EditSchoolServiceImpl implements EditSchoolService {
             school2 = schoolDao.findOne(school.getId());
         }
         school2.setLogo(school.getLogo());
+        school2.setName(school.getName());
         school2.setAddress(school.getAddress());
         school2.setLinkMan(school.getLinkMan());
         school2.setUserId(school.getUserId());

@@ -47,7 +47,7 @@
                       <a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />导入课程表</a>
                     </form>
                   </td>
-                  <td><a class="btn-com-upload" href="${pageContext.request.contextPath}/template/course.xlsx">导入课程表模板下载</a></td>
+                  <td><a class="btn-com-upload" href="${pageContext.request.contextPath}/template/course.xlsx">课程表模板下载</a></td>
                 </tr>
               </table>
             </td>
