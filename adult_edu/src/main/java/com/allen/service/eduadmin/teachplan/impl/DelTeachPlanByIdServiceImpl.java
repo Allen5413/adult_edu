@@ -1,5 +1,6 @@
-package com.allen.service.eduadmin.recruittype.impl;
+package com.allen.service.eduadmin.teachplan.impl;
 
+import com.allen.base.exception.BusinessException;
 import com.allen.dao.basic.level.LevelDao;
 import com.allen.dao.basic.school.SchoolDao;
 import com.allen.dao.basic.spec.SpecDao;
@@ -7,17 +8,21 @@ import com.allen.dao.datachange.DataChangeDao;
 import com.allen.dao.eduadmin.recruittype.RecruitTypeDao;
 import com.allen.dao.eduadmin.teachplan.TeachPlanDao;
 import com.allen.dao.eduadmin.teachplancourse.TeachPlanCourseDao;
+import com.allen.dao.recruit.signup.SignUpDao;
 import com.allen.entity.basic.Level;
 import com.allen.entity.basic.School;
 import com.allen.entity.basic.Spec;
 import com.allen.entity.datachange.DataChange;
 import com.allen.entity.eduadmin.RecruitType;
 import com.allen.entity.eduadmin.TeachPlan;
+import com.allen.entity.recruit.SignUp;
 import com.allen.entity.user.User;
 import com.allen.service.eduadmin.teachplan.DelTeachPlanByIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created by Allen on 2017/6/29.
@@ -39,10 +44,17 @@ public class DelTeachPlanByIdServiceImpl implements DelTeachPlanByIdService {
     private LevelDao levelDao;
     @Autowired
     private SpecDao specDao;
+    @Autowired
+    private SignUpDao signUpDao;
 
     @Override
     @Transactional
     public void del(long id, long centerId, int isAudit, long operateId, String editReson) throws Exception {
+        //查询是否有学生了，如果有学生报名了，就不能删除该教学计划
+        List<SignUp> list = signUpDao.findByTeachPlanId(id);
+        if(null != list && 0 < list.size()){
+            throw new BusinessException("该教学计划已经有学生报名了，不能被删除");
+        }
         //查询操作是否需要审核
         if(isAudit == User.ISOPERATEAUDIT_NOT) {
             teachPlanCourseDao.delByTeachPlanId(id);

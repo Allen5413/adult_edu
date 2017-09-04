@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface SignUpDao extends CrudRepository<SignUp, Long> {
     public List<SignUp> findByPhone(String phone)throws Exception;
+    public List<SignUp> findByTeachPlanId(long teachPlanId)throws Exception;
     public SignUp findByCenterIdAndSchoolIdAndRecruitTypeIdAndLevelIdAndSpecIdAndTeachPlanIdAndIdCard(long centerId, long schoolId, long recruitTypeId, long levelId, long specId, long tpId, String idCard)throws Exception;
     public SignUp findByCenterIdAndSchoolIdAndRecruitTypeIdAndLevelIdAndSpecIdAndTeachPlanIdAndPhone(long centerId, long schoolId, long recruitTypeId, long levelId, long specId, long tpId, String phone)throws Exception;
 
