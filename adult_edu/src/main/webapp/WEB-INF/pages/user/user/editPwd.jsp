@@ -55,7 +55,7 @@
       async: false,
       success: function(data) {
         if(data.state == 0){
-          location.href = "${pageContext.request.contextPath}";
+          location.href = "${pageContext.request.contextPath}/";
         }else{
           app.msg(data.msg, 1);
         }
