@@ -26,7 +26,7 @@
           </tr>
           <tr>
             <td class="tag-b">授权到期时间：</td>
-            <td><input type="text" id="date" name="date" style="height: 24px;" onfocus="WdatePicker({firstDayOfWeek:1})" class="Wdate" /></td>
+            <td><input type="text" id="date" name="date" style="height: 24px;" onfocus="WdatePicker({firstDayOfWeek:1,minDate:'%y-%M-%d'})" class="Wdate" /></td>
           </tr>
           <tr>
             <td class="tag-b">缴费状态：</td>

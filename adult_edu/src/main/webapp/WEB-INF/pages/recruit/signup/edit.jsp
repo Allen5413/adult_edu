@@ -290,7 +290,7 @@
               <a class="btn-com" href="#" onclick="edit(2)">审核通过</a>
               <a class="btn-com" href="#" onclick="edit(1)">审核不通过</a>
             </c:if>
-            <c:if test="${isZsUser eq '1'}">
+            <c:if test="${isZsUser eq '1' && signUp.state ne '1'}">
               <a class="btn-com" href="#" onclick="edit(0)">提交保存</a>
             </c:if>
           </td>
