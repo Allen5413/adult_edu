@@ -6,69 +6,71 @@
 <div class="container-view">
   <div class="mod-com-view">
     <div class="mod-content">
-      <table class="set-table-info">
-        <form id="form" name="form">
-        <tr>
-          <td class="tag-b">高校：</td>
-          <td>
-            <select id="schoolId" name="schoolId">
-              <c:forEach var="school" items="${schoolList}">
-                <option value="${school.id}">${school.name}</option>
-              </c:forEach>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="tag-b">招生类型：</td>
-          <td>
-            <select id="typeId" name="recruitTypeId">
-              <c:forEach var="type" items="${typeList}">
-                <option value="${type.id}">${type.name}</option>
-              </c:forEach>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="tag-b">层次：</td>
-          <td>
-            <select id="levelId" name="levelId">
-              <c:forEach var="level" items="${levelList}">
-                <option value="${level.id}">${level.name}</option>
-              </c:forEach>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="tag-b">专业编号：</td>
-          <td><input type="text" id="specCode" name="specCode" class="input-txt-220" /></td>
-        </tr>
-        <tr>
-          <td class="tag-b">专业名称：</td>
-          <td><input type="text" id="specName" name="specName" class="input-txt-220" /></td>
-        </tr>
-        </form>
-        <tr>
-          <td class="tag-b"></td>
-          <td>
-            <table>
-              <tr>
-                <td>
-                  <a class="btn-com-upload" href="#" onclick="add()">保存提交</a>
-                </td>
-                <td>
-                  <form id="importForm" name="importForm" action="${pageContext.request.contextPath}/importSchoolTypeLevelSpec.json" enctype="multipart/form-data" method="post">
+      <form id="form" name="form" action="${pageContext.request.contextPath}/addSchoolTypeLevelSpec/add.json" method="post">
+        <table class="set-table-info">
+          <tr>
+            <td class="tag-b">高校：</td>
+            <td>
+              <select id="schoolId" name="schoolId">
+                <c:forEach var="school" items="${schoolList}">
+                  <option value="${school.id}">${school.name}</option>
+                </c:forEach>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="tag-b">招生类型：</td>
+            <td>
+              <select id="typeId" name="recruitTypeId">
+                <c:forEach var="type" items="${typeList}">
+                  <option value="${type.id}">${type.name}</option>
+                </c:forEach>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="tag-b">层次：</td>
+            <td>
+              <select id="levelId" name="levelId">
+                <c:forEach var="level" items="${levelList}">
+                  <option value="${level.id}">${level.name}</option>
+                </c:forEach>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="tag-b">专业编号：</td>
+            <td><input type="text" id="specCode" name="specCode" class="input-txt-220" /></td>
+          </tr>
+          <tr>
+            <td class="tag-b">专业名称：</td>
+            <td><input type="text" id="specName" name="specName" class="input-txt-220" /></td>
+          </tr>
+        </table>
+      </form>
+      <form id="importForm" name="importForm" action="${pageContext.request.contextPath}/importSchoolTypeLevelSpec.json" enctype="multipart/form-data" method="post">
+        <table class="set-table-info">
+          <tr>
+            <td class="tag-b"></td>
+            <td>
+              <table>
+                <tr>
+                  <td>
+                    <a class="btn-com-upload" href="#" onclick="add()">保存提交</a>
+                  </td>
+                  <td>
                     <input type="hidden" id="schoolId2" name="schoolId"/>
                     <input type="hidden" id="typeId2" name="typeId"/>
                     <input type="hidden" id="levelId2" name="levelId"/>
                     <a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />导入专业表</a>
-                  </form>
-                </td>
-                <td><a class="btn-com-upload" href="${pageContext.request.contextPath}/template/spec.xlsx">导入专业表模板下载</a></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
+                  </td>
+                  <td><a class="btn-com-upload" href="${pageContext.request.contextPath}/template/spec.xlsx">专业表模板下载</a></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </form>
     </div>
   </div>
 </div>
