@@ -1,21 +1,22 @@
 package com.allen.service.basic.schooltypelevelspec.impl;
 
+import com.allen.base.exception.BusinessException;
 import com.allen.dao.basic.level.LevelDao;
 import com.allen.dao.basic.school.SchoolDao;
 import com.allen.dao.basic.schooltypelevelspec.SchoolTypeLevelSpecDao;
+import com.allen.dao.basic.schooltypelevelspeccourse.SchoolTypeLevelSpecCourseDao;
 import com.allen.dao.basic.spec.SpecDao;
 import com.allen.dao.datachange.DataChangeDao;
 import com.allen.dao.eduadmin.recruittype.RecruitTypeDao;
-import com.allen.entity.basic.Level;
-import com.allen.entity.basic.School;
-import com.allen.entity.basic.SchoolTypeLevelSpec;
-import com.allen.entity.basic.Spec;
+import com.allen.entity.basic.*;
 import com.allen.entity.datachange.DataChange;
 import com.allen.entity.eduadmin.RecruitType;
 import com.allen.entity.user.User;
 import com.allen.service.basic.schooltypelevelspec.DelSchoolTypeLevelSpecByIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Allen on 2017/7/10.
@@ -25,6 +26,8 @@ public class DelSchoolTypeLevelSpecByIdServiceImpl implements DelSchoolTypeLevel
 
     @Autowired
     private SchoolTypeLevelSpecDao schoolTypeLevelSpecDao;
+    @Autowired
+    private SchoolTypeLevelSpecCourseDao schoolTypeLevelSpecCourseDao;
     @Autowired
     private DataChangeDao dataChangeDao;
     @Autowired
@@ -38,6 +41,11 @@ public class DelSchoolTypeLevelSpecByIdServiceImpl implements DelSchoolTypeLevel
 
     @Override
     public void del(long id, long specId, long centerId, int isAudit, long operateId, String editReson) throws Exception {
+        //查询下面是否有关联的课程，有的话就不能删除
+        List<SchoolTypeLevelSpecCourse> list = schoolTypeLevelSpecCourseDao.findBySchoolTypeLevelSpecId(id);
+        if(null != list && 0 < list.size()){
+            throw new BusinessException("已经关联了课程信息，不能被删除");
+        }
         //查询操作是否需要审核
         if(isAudit == User.ISOPERATEAUDIT_NOT) {
             schoolTypeLevelSpecDao.delete(id);
