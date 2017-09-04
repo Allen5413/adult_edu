@@ -21,7 +21,7 @@
                 <a class="btn-com-upload" href="#"><input type="file" name="file" class="uploadfile" onchange="addImport()" />导入学生成绩表</a>
             </td>
             <td>
-              <a class="btn-com-upload" href="${pageContext.request.contextPath}/template/courseScore.xlsx">导入学生成绩表模板下载</a>
+              <a class="btn-com-upload" href="${pageContext.request.contextPath}/template/courseScore.xlsx">学生成绩表模板下载</a>
             </td>
           </tr>
         </table>
