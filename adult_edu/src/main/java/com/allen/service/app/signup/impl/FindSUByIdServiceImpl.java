@@ -113,11 +113,11 @@ public class FindSUByIdServiceImpl implements FindSUByIdService {
             Level level = levelDao.findOne(signUp.getLevelId());
             Spec spec = specDao.findOne(signUp.getSpecId());
             TeachPlan teachPlan = teachPlanDao.findOne(signUp.getTeachPlanId());
-            json.put("schoolName", school.getName());
-            json.put("recruitTypeName", recruitType.getName());
-            json.put("levelName", level.getName());
-            json.put("specName", spec.getName());
-            json.put("teachPlanName", teachPlan.getYear()+"年"+(TeachPlan.TERM_SPRING == teachPlan.getTerm() ? "春季":"秋季"));
+            json.put("schoolName", null == school ? "" : school.getName());
+            json.put("recruitTypeName", null == recruitType ? "" : recruitType.getName());
+            json.put("levelName", null == level ? "" : level.getName());
+            json.put("specName", null == spec ? "" : spec.getName());
+            json.put("teachPlanName", null == teachPlan ? "" : teachPlan.getYear()+"年"+(TeachPlan.TERM_SPRING == teachPlan.getTerm() ? "春季":"秋季"));
         }
         json.put("status", 1);
         return json;
