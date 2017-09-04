@@ -1,8 +1,10 @@
 package com.allen.service.datachange.impl;
 
 import com.allen.base.config.ConfigProp;
+import com.allen.dao.basic.schooltypelevelspec.SchoolTypeLevelSpecDao;
 import com.allen.dao.datachange.AuditDataChangeDao;
 import com.allen.dao.datachange.DataChangeDao;
+import com.allen.entity.basic.SchoolTypeLevelSpec;
 import com.allen.entity.datachange.DataChange;
 import com.allen.service.datachange.AuditDataChangeService;
 import com.allen.util.StringUtil;
@@ -24,6 +26,8 @@ public class AuditDataChangeServiceImpl implements AuditDataChangeService {
     @Autowired
     private AuditDataChangeDao auditDataChangeDao;
     @Autowired
+    private SchoolTypeLevelSpecDao schoolTypeLevelSpecDao;
+    @Autowired
     private ConfigProp configProp;
 
     @Override
@@ -41,7 +45,15 @@ public class AuditDataChangeServiceImpl implements AuditDataChangeService {
                     sql = "delete from teach_plan_course where teach_plan_id = "+dataChange.getChangeTableId();
                     auditDataChangeDao.auditPassOperate(sql);
                 }
-
+                if("school_type_level_spec".equals(dataChange.getChangeTable())){
+                    SchoolTypeLevelSpec schoolTypeLevelSpec = schoolTypeLevelSpecDao.findOne(dataChange.getChangeTableId());
+                    if(null != schoolTypeLevelSpec){
+                        sql = "delete from school_type_level_spec where id = "+dataChange.getChangeTableId();
+                        auditDataChangeDao.auditPassOperate(sql);
+                        String sql2 = "delete from spec where id = "+schoolTypeLevelSpec.getSpecId();
+                        auditDataChangeDao.auditPassOperate(sql2);
+                    }
+                }
             }
             if(dataChange.getType() == DataChange.TYPE_EDIT && !StringUtil.isEmpty(dataChange.getChangeTableField())){
                 //如果是修改报名表，那么报名表的上传照片的字段不需要修改，但是文件需要重新覆盖

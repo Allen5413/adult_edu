@@ -37,10 +37,11 @@ public class DelSchoolTypeLevelSpecByIdServiceImpl implements DelSchoolTypeLevel
     private SpecDao specDao;
 
     @Override
-    public void del(long id, long centerId, int isAudit, long operateId, String editReson) throws Exception {
+    public void del(long id, long specId, long centerId, int isAudit, long operateId, String editReson) throws Exception {
         //查询操作是否需要审核
         if(isAudit == User.ISOPERATEAUDIT_NOT) {
             schoolTypeLevelSpecDao.delete(id);
+            specDao.delete(specId);
         }else{
             SchoolTypeLevelSpec schoolTypeLevelSpec = schoolTypeLevelSpecDao.findOne(id);
             School school = schoolDao.findOne(schoolTypeLevelSpec.getSchoolId());

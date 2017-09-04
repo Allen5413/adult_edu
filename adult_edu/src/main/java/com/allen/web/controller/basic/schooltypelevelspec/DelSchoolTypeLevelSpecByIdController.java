@@ -23,10 +23,11 @@ public class DelSchoolTypeLevelSpecByIdController extends BaseController {
 
     @RequestMapping(value = "/delSchoolTypeLevelSpecById")
     public JSONObject del(@RequestParam("id")long id,
+                          @RequestParam("specId")long specId,
                           @RequestParam(value = "editReson", required = false)String editReson,
                           HttpServletRequest request) throws Exception {
         JSONObject jsonObject = new JSONObject();
-        delSchoolTypeLevelSpecByIdService.del(id, UserUtil.getLoginUserForCenterId(request), UserUtil.getLoginUserForIsOperateAudit(request), UserUtil.getLoginUserForLoginId(request), editReson);
+        delSchoolTypeLevelSpecByIdService.del(id, specId, UserUtil.getLoginUserForCenterId(request), UserUtil.getLoginUserForIsOperateAudit(request), UserUtil.getLoginUserForLoginId(request), editReson);
         jsonObject.put("state", 0);
         if(UserUtil.getLoginUserForIsOperateAudit(request) == User.ISOPERATEAUDIT_YES) {
             jsonObject.put("msg", "您的操作已经成功，请等待管理员进行审核！");

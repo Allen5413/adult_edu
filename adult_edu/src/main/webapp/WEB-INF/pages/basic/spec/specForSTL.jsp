@@ -31,7 +31,7 @@
                 <td>${spec.name}</td>
                 <td>
                   <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editSpec/open.html?id=${spec.sId}&reqParams=${reqParams}');">编辑</a>
-                  <a class="btn-opr" href="#" onclick="del(${spec.id})">删除</a>
+                  <a class="btn-opr" href="#" onclick="del(${spec.id}, ${spec.sId})">删除</a>
                   <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/findCourseBySTLSId/find.html?stlsId=${spec.id}');">查看课程</a>
                 </td>
               </tr>
@@ -47,7 +47,7 @@
     app.operator("您确定要重置密码？", "${pageContext.request.contextPath}/resetPwd.json", {"loginName":loginName});
   }
 
-  function del(id){
+  function del(id, sId){
     var isOperateAudit = "${sessionScope.isOperateAudit}";
     if(isOperateAudit == "1"){
       app.openDialog("${pageContext.request.contextPath}/addDataChangeForEditReson/open.html", "变更原因", 480, 200, function(index2){
@@ -82,14 +82,15 @@
           url:"${pageContext.request.contextPath}/delSchoolTypeLevelSpecById.json",
           method : 'POST',
           async:false,
-          data:{"id":id},
+          data:{"id":id, "specId":sId},
           success:function(data){
             if(data.state == 0){
-              if(data.msg != "" && "undefined" != typeof(data.msg)){
+              if("undefined" == typeof(data.msg) || 0 == data.msg.length){
+                layer.close(index);
+                app.clickResources('${pageContext.request.contextPath}/findSpecBySchoolIdAndTypeIdAndLevelId/find.html?schoolId=${param.schoolId}&typeId=${param.typeId}&levelId=${param.levelId}');
+              }else{
                 app.msg(data.msg, 0);
               }
-              layer.close(index);
-              app.clickResources('${pageContext.request.contextPath}/findSpecBySchoolIdAndTypeIdAndLevelId/find.html?schoolId=${param.sId}&typeId=${param.rtId}&levelId=${param.lId}');
             }else {
               app.msg(data.msg, 1);
             }
