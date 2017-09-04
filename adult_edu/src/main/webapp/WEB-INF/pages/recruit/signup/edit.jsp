@@ -202,18 +202,20 @@
             <td class="tag-b" >何时何地曾获过何种奖励：</td>
             <td colspan="4"><textarea name="reward" class="textarea-intro">${signUp.reward}</textarea></td>
           </tr>
-          <tr>
-            <td class="tag-b" >生源来源：</td>
-            <td colspan="4">
-              <select id="userId" name="userId" class="select-140">
-                <option value="">请选择</option>
-                <option value="-1">本部</option>
-                <c:forEach var="user" items="${userList}">
-                  <option value="${user.id}" <c:if test="${user.id == signUp.userId}">selected="selected"</c:if> >${user.name}</option>
-                </c:forEach>
-              </select><span style="color: #ff0000">*</span>
-            </td>
-          </tr>
+          <c:if test="${isZsUser ne '1'}">
+            <tr>
+              <td class="tag-b" >生源来源：</td>
+              <td colspan="4">
+                <select id="userId" name="userId" class="select-140">
+                  <option value="">请选择</option>
+                  <option value="-1">本部</option>
+                  <c:forEach var="user" items="${userList}">
+                    <option value="${user.id}" <c:if test="${user.id == signUp.userId}">selected="selected"</c:if> >${user.name}</option>
+                  </c:forEach>
+                </select><span style="color: #ff0000">*</span>
+              </td>
+            </tr>
+          </c:if>
           <tr>
             <td class="tag-b" >拒绝原因：</td>
             <td colspan="4"><textarea id="reason" name="reason" class="textarea-intro"></textarea></td>
@@ -284,8 +286,13 @@
         </tr>
         <tr>
           <td colspan="2">
-            <a class="btn-com" href="#" onclick="edit(2)">审核通过</a>
-            <a class="btn-com" href="#" onclick="edit(1)">审核不通过</a>
+            <c:if test="${isZsUser ne '1'}">
+              <a class="btn-com" href="#" onclick="edit(2)">审核通过</a>
+              <a class="btn-com" href="#" onclick="edit(1)">审核不通过</a>
+            </c:if>
+            <c:if test="${isZsUser eq '1'}">
+              <a class="btn-com" href="#" onclick="edit(0)">提交保存</a>
+            </c:if>
           </td>
         </tr>
       </table>
@@ -510,10 +517,12 @@
       app.alert("请输入生源备注！", 1);
       return false;
     }
-    if($("#userId").val().trim() == ""){
-      app.alert("请选择生源来源！", 1);
-      return false;
-    }
+    <c:if test="${isZsUser ne '1'}">
+      if($("#userId").val().trim() == ""){
+        app.alert("请选择生源来源！", 1);
+        return false;
+      }
+    </c:if>
     if($("#photoUrl").val().trim() == ""){
       app.alert("请上传照片！", 1);
       return false;

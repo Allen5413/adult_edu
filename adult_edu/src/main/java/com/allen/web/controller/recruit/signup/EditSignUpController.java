@@ -3,6 +3,7 @@ package com.allen.web.controller.recruit.signup;
 import com.alibaba.fastjson.JSONObject;
 import com.allen.entity.recruit.SignUp;
 import com.allen.entity.user.User;
+import com.allen.entity.user.UserGroupUser;
 import com.allen.service.basic.level.FindLevelBySchoolIdAndTypeIdForTeachPlanService;
 import com.allen.service.basic.school.FindSchoolByCenterIdForTeachPlanService;
 import com.allen.service.basic.spec.FindSpecBySchoolIdAndTypeIdAndLevelIdForTeachPlanService;
@@ -11,6 +12,7 @@ import com.allen.service.eduadmin.teachplan.FindTeachPlanBySchoolIdAndTypeIdAndL
 import com.allen.service.recruit.signup.EditSignUpService;
 import com.allen.service.recruit.signup.FindSignUpByIdService;
 import com.allen.service.user.user.FindUserByCenterIdAndTypeService;
+import com.allen.service.user.usergroupuser.FindUserGroupUserByUserIdService;
 import com.allen.util.DateUtil;
 import com.allen.util.UserUtil;
 import com.allen.web.controller.BaseController;
@@ -46,6 +48,8 @@ public class EditSignUpController extends BaseController {
     private FindTeachPlanBySchoolIdAndTypeIdAndLevelIdAndSpecIdService findTeachPlanBySchoolIdAndTypeIdAndLevelIdAndSpecIdService;
     @Autowired
     private FindUserByCenterIdAndTypeService findUserByCenterIdAndTypeService;
+    @Autowired
+    private FindUserGroupUserByUserIdService findUserGroupUserByUserIdService;
 
     /**
      * @return
@@ -69,6 +73,13 @@ public class EditSignUpController extends BaseController {
             request.setAttribute("isTimeOut", 1);
         }else{
             request.setAttribute("isTimeOut", 0);
+        }
+        //查询当前用户是不是招生用户，是的话，不能审核数据，只能编辑数据
+        UserGroupUser userGroupUser = findUserGroupUserByUserIdService.find(UserUtil.getLoginUserForLoginId(request));
+        if(userGroupUser.getUserGroupId() == 3){
+            request.setAttribute("isZsUser", 1);
+        }else{
+            request.setAttribute("isZsUser", 0);
         }
         return "recruit/signup/edit";
     }
