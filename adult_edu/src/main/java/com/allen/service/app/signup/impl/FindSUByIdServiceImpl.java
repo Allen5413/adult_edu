@@ -2,7 +2,17 @@ package com.allen.service.app.signup.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.allen.base.exception.BusinessException;
+import com.allen.dao.basic.level.LevelDao;
+import com.allen.dao.basic.school.SchoolDao;
+import com.allen.dao.basic.spec.SpecDao;
+import com.allen.dao.eduadmin.recruittype.RecruitTypeDao;
+import com.allen.dao.eduadmin.teachplan.TeachPlanDao;
 import com.allen.dao.recruit.signup.SignUpDao;
+import com.allen.entity.basic.Level;
+import com.allen.entity.basic.School;
+import com.allen.entity.basic.Spec;
+import com.allen.entity.eduadmin.RecruitType;
+import com.allen.entity.eduadmin.TeachPlan;
 import com.allen.entity.recruit.SignUp;
 import com.allen.service.app.signup.FindSUByIdService;
 import com.allen.util.StringUtil;
@@ -19,6 +29,16 @@ public class FindSUByIdServiceImpl implements FindSUByIdService {
 
     @Autowired
     private SignUpDao signUpDao;
+    @Autowired
+    private SchoolDao schoolDao;
+    @Autowired
+    private RecruitTypeDao recruitTypeDao;
+    @Autowired
+    private LevelDao levelDao;
+    @Autowired
+    private SpecDao specDao;
+    @Autowired
+    private TeachPlanDao teachPlanDao;
 
     @Override
     public JSONObject find(HttpServletRequest request) throws Exception {
@@ -87,6 +107,17 @@ public class FindSUByIdServiceImpl implements FindSUByIdService {
             json.put("diplomaUrl", signUp.getDiplomaUrl());
             json.put("xxwUrl", signUp.getXxwUrl());
             json.put("ydsUrl", signUp.getYdsUrl());
+
+            School school = schoolDao.findOne(signUp.getSchoolId());
+            RecruitType recruitType = recruitTypeDao.findOne(signUp.getRecruitTypeId());
+            Level level = levelDao.findOne(signUp.getLevelId());
+            Spec spec = specDao.findOne(signUp.getSpecId());
+            TeachPlan teachPlan = teachPlanDao.findOne(signUp.getTeachPlanId());
+            json.put("schoolName", school.getName());
+            json.put("recruitTypeName", recruitType.getName());
+            json.put("levelName", level.getName());
+            json.put("specName", spec.getName());
+            json.put("teachPlanName", teachPlan.getYear()+"年"+(TeachPlan.TERM_SPRING == teachPlan.getTerm() ? "春季":"秋季"));
         }
         json.put("status", 1);
         return json;

@@ -37,9 +37,11 @@ public class FindSCDetailByStudentIdAndCourseIdServiceImpl implements FindSCDeta
         }
         Student student = studentDao.findOne(Long.parseLong(id));
         TeachPlanCourse teachPlanCourse = teachPlanCourseDao.findByTeachPlanIdAndCourseId(student.getTeachPlanId(), Long.parseLong(courseId));
-        jsonObject.put("xf", teachPlanCourse.getScore());
-        jsonObject.put("courseDate", teachPlanCourse.getCourseDate());
-        jsonObject.put("type", teachPlanCourse.getType());
+        if(null != teachPlanCourse){
+            jsonObject.put("xf", teachPlanCourse.getScore());
+            jsonObject.put("courseDate", teachPlanCourse.getCourseDate());
+            jsonObject.put("type", teachPlanCourse.getType());
+        }
         jsonObject.put("status", 1);
         return jsonObject;
     }
