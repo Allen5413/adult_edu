@@ -72,7 +72,7 @@
                   <c:if test="${signUp.state != 2 && signUp.state != 4}">
                     <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editSignUp/open.html?id=${signUp.id}&reqParams=${reqParams}');">编辑</a>
                   </c:if>
-                  <c:if test="${signUp.state == 1}">
+                  <c:if test="${signUp.state == 2}">
                     <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editSignUp/open.html?id=${signUp.id}&reqParams=${reqParams}');">查看</a>
                   </c:if>
                 </td>
