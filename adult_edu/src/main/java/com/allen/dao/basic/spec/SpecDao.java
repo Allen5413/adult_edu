@@ -40,6 +40,6 @@ public interface SpecDao extends CrudRepository<Spec, Long> {
      * @return
      * @throws Exception
      */
-    @Query(nativeQuery = true, value = "select DISTINCT sp.name from school s, spec sp where s.id = sp.school_id and s.center_id = ?1")
+    @Query(nativeQuery = true, value = "select DISTINCT sp.name from teach_plan tp, spec sp where tp.spec_id = sp.id and tp.center_id = ?1")
     public List<String> findForNameByCenterId(long centerId)throws Exception;
 }
