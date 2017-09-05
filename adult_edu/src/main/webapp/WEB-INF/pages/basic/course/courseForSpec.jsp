@@ -7,7 +7,6 @@
   <div class="mod-com-view">
     <div class="title-tabs">
       <a href="#">课程列表</a>
-      <a class="btn-com f-r" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/addSchoolTypeLevelSpecCourse/open.html?reqParams=${reqParams}&stlsId=${param.stlsId}');">添加课程</a>
     </div>
     <div class="mod-content">
       <div class="data-table-list">
@@ -16,7 +15,6 @@
             <th>序号</th>
             <th>课程编码</th>
             <th>课程名称</th>
-            <th width="140">操作</th>
           </tr>
           <c:if test="${empty courseList}">
             <tr>
@@ -29,10 +27,6 @@
                 <td>${status.index+1}</td>
                 <td>${course.code}</td>
                 <td>${course.name}</td>
-                <td>
-                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editCourse/open.html?id=${course.cId}&reqParams=${reqParams}');">编辑</a>
-                  <a class="btn-opr" href="#" onclick="del(${course.id})">删除</a>
-                </td>
               </tr>
             </c:forEach>
           </c:if>

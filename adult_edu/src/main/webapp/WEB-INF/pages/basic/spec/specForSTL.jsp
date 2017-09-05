@@ -32,7 +32,7 @@
                 <td>
                   <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editSpec/open.html?id=${spec.sId}&reqParams=${reqParams}');">编辑</a>
                   <a class="btn-opr" href="#" onclick="del(${spec.id}, ${spec.sId})">删除</a>
-                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/findCourseBySTLSId/find.html?stlsId=${spec.id}');">查看课程</a>
+                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/findCourseBySpecId/open.html?specId=${spec.sId}');">查看课程</a>
                 </td>
               </tr>
             </c:forEach>
