@@ -41,9 +41,9 @@ public class CountPeopleNumByRtIdAndYearAndTermServiceImpl implements CountPeopl
         //查询共计招生人数,分销商人数，本部人数
         List<Map> list = findSignUpDao.countByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term));
         Map map = list.get(0);
-        json.put("totalNum", map.get("totalNum"));
-        json.put("fxsNum", map.get("fxsNum"));
-        json.put("centerNum", map.get("centerNum"));
+        json.put("totalNum", null == map.get("totalNum") ? 0 : map.get("totalNum"));
+        json.put("fxsNum", null == map.get("fxsNum") ? 0 : map.get("fxsNum"));
+        json.put("centerNum", null == map.get("centerNum") ? 0 : map.get("centerNum"));
         //查询各分销商招生人数
         List<Map> list2 = findSignUpDao.countForFXSByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term));
         json.put("list", list2);

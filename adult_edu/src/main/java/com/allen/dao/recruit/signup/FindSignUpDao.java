@@ -2,8 +2,10 @@ package com.allen.dao.recruit.signup;
 
 import com.allen.dao.BaseQueryDao;
 import com.allen.dao.PageInfo;
+import com.allen.util.StringUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +27,15 @@ public class FindSignUpDao extends BaseQueryDao {
      * @throws Exception
      */
     public List<Map> countForLevelByRtId(long rtId)throws Exception{
-        Map<String, Object> paramMaps = new HashMap<String, Object>();
-        paramMaps.put("su.recruit_type_id", rtId);
-        String fields = "l.name, count(*) num";
-        String[] tableNames = {"sign_up su", "level l"};
-        String defaultWhere = "su.level_id = l.id";
-        String groupBy = "l.name";
-        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
+        List<Object> paramsList = new ArrayList<Object>();
+        String sql = "select le.name, ifnull(t.num, 0) num from level le LEFT JOIN ";
+        sql += "(SELECT l.name, count(*) num FROM level l, sign_up su " +
+                "where su.level_id = l.id and su.recruit_type_id = ? " +
+                "group by l.name) t ";
+        sql += "on le.name = t.name ";
+        sql += "GROUP BY name, num";
+        paramsList.add(rtId);
+        return super.sqlQueryByNativeSqlToMap(sql, paramsList.toArray());
     }
 
     /**
@@ -78,10 +82,10 @@ public class FindSignUpDao extends BaseQueryDao {
         paramMaps.put("su.recruit_type_id", rtId);
         paramMaps.put("tp.year", year);
         paramMaps.put("tp.term", term);
-        String fields = "u.name, count(*) num";
+        String fields = "u.id, u.name, count(*) num";
         String[] tableNames = {"sign_up su", "user u", "teach_plan tp"};
         String defaultWhere = "su.user_id = u.id and su.user_id > -1 and su.teach_plan_id = tp.id";
-        String groupBy = "u.name";
+        String groupBy = "u.id, u.name";
         return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
     }
 
