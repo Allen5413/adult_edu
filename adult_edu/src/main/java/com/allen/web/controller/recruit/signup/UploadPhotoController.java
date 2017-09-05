@@ -26,7 +26,7 @@ public class UploadPhotoController {
         String url = configProp.getSignUp().get("tempUrl");
         String saveFileName = idCard+"_photo";
         //处理上传图片
-        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 10240, 10, url, saveFileName);
+        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 1024, 10, url, saveFileName);
         jsonObject.put("url", filePath);
         jsonObject.put("state", 0);
         return jsonObject;
@@ -39,7 +39,7 @@ public class UploadPhotoController {
         String url = configProp.getSignUp().get("tempUrl");
         String saveFileName = idCard+"_idCardFront";
         //处理上传图片
-        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 10240, 10, url, saveFileName);
+        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 1024, 10, url, saveFileName);
         jsonObject.put("url", filePath);
         jsonObject.put("state", 0);
         return jsonObject;
@@ -52,7 +52,7 @@ public class UploadPhotoController {
         String url = configProp.getSignUp().get("tempUrl");
         String saveFileName = idCard+"_idCardBack";
         //处理上传图片
-        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 10240, 10, url, saveFileName);
+        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 1024, 10, url, saveFileName);
         jsonObject.put("url", filePath);
         jsonObject.put("state", 0);
         return jsonObject;
@@ -65,7 +65,7 @@ public class UploadPhotoController {
         String url = configProp.getSignUp().get("tempUrl");
         String saveFileName = idCard+"_diploma";
         //处理上传图片
-        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 10240, 10, url, saveFileName);
+        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 1024, 10, url, saveFileName);
         jsonObject.put("url", filePath);
         jsonObject.put("state", 0);
         return jsonObject;
@@ -78,7 +78,7 @@ public class UploadPhotoController {
         String url = configProp.getSignUp().get("tempUrl");
         String saveFileName = idCard+"_xxw";
         //处理上传图片
-        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 10240, 10, url, saveFileName);
+        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 1024, 10, url, saveFileName);
         jsonObject.put("url", filePath);
         jsonObject.put("state", 0);
         return jsonObject;
@@ -91,7 +91,7 @@ public class UploadPhotoController {
         String url = configProp.getSignUp().get("tempUrl");
         String saveFileName = idCard+"_yds";
         //处理上传图片
-        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 10240, 10, url, saveFileName);
+        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 1024, 10, url, saveFileName);
         jsonObject.put("url", filePath);
         jsonObject.put("state", 0);
         return jsonObject;

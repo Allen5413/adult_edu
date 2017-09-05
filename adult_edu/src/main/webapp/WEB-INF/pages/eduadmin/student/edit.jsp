@@ -2,7 +2,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="tit-top-fixed" class="pos-rev-cell">
-  <div class="title">编辑报名信息</div>
+  <div class="title">编辑学生信息</div>
 </div>
 <div class="container-view">
   <div class="mod-com-view">

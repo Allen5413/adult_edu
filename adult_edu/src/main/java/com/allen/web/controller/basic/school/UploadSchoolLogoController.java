@@ -27,7 +27,7 @@ public class UploadSchoolLogoController {
         String url = configProp.getSchool().get("tempUrl");
         String saveFileName = UUID.randomUUID().toString()+"_logo";
         //处理上传图片
-        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 10240, 10, url, saveFileName);
+        String filePath = UpLoadFileUtil.uploadImg(request, mulReu.getFiles("img"), "jpg|png|jpeg", 1024, 10, url, saveFileName);
         jsonObject.put("url", filePath);
         jsonObject.put("state", 0);
         return jsonObject;

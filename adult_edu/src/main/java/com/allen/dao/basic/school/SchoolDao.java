@@ -21,7 +21,7 @@ public interface SchoolDao extends CrudRepository<School, Long> {
      * @return
      * @throws Exception
      */
-    @Query("select s from School s, TeachPlan tp where s.centerId = ?1 and s.centerId = tp.centerId and s.id = tp.schoolId and NOW() BETWEEN tp.beginDate and tp.endDate order by s.code")
+    @Query("select DISTINCT s from School s, TeachPlan tp where s.centerId = ?1 and s.centerId = tp.centerId and s.id = tp.schoolId and NOW() BETWEEN tp.beginDate and tp.endDate order by s.code")
     public List<School> findByCenterIdForTeachPlan(long centerId)throws Exception;
 
     /**
