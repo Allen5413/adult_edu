@@ -24,6 +24,8 @@ public class FindUByPhoneServiceImpl implements FindUByPhoneService{
         if(null == user){
             json.put("type", User.TYPE_STUDENT);
             json.put("phone", phone);
+            //目前只有一个学习中心，所以写死
+            json.put("centerId", 7);
         }else{
             json.put("id", user.getId());
             json.put("name", user.getName());

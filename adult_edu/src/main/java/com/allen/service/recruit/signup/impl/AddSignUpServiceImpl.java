@@ -68,6 +68,11 @@ public class AddSignUpServiceImpl implements AddSignUpService {
         signUp.setIdCardBackUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("idCardBackUrl") + signUp.getId() + ".png");
         signUp.setDiplomaUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("diplomaUrl") + signUp.getId() + ".png");
 
+//        signUp.setPhotoUrl(configProp.getDomain().get("localhost")+configProp.getSignUp().get("photoUrl")+signUp.getId()+".png");
+//        signUp.setIdCardFrontUrl(configProp.getDomain().get("localhost")+configProp.getSignUp().get("idCardFrontUrl") + signUp.getId() + ".png");
+//        signUp.setIdCardBackUrl(configProp.getDomain().get("localhost")+configProp.getSignUp().get("idCardBackUrl") + signUp.getId() + ".png");
+//        signUp.setDiplomaUrl(configProp.getDomain().get("localhost")+configProp.getSignUp().get("diplomaUrl") + signUp.getId() + ".png");
+
         if(!StringUtil.isEmpty(xxwUrl)){
             UpLoadFileUtil.custFile(request, xxwUrl, configProp.getSignUp().get("xxwUrl"), signUp.getId()+".png");
             signUp.setXxwUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("xxwUrl") + signUp.getId() + ".png");
