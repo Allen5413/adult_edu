@@ -24,6 +24,7 @@ public class AddSUServiceImpl implements AddSUService {
     public JSONObject add(HttpServletRequest request) throws Exception {
         SignUp signUp = new SignUp();
         JSONObject json = new JSONObject();
+        String centerId = request.getParameter("centerId");
         String name = StringUtil.getDecode(request, "name");
         String sex = request.getParameter("sex");
         String idCard = request.getParameter("idCard");
@@ -35,6 +36,9 @@ public class AddSUServiceImpl implements AddSUService {
         String specId = request.getParameter("specId");
         String teachPlanId = request.getParameter("teachPlanId");
         String sourceRemark = StringUtil.getDecode(request, "sourceRemark");
+        if(StringUtil.isEmpty(centerId)){
+            throw new BusinessException("学习中心id不能为空");
+        }
         if(StringUtil.isEmpty(name)){
             throw new BusinessException("姓名不能为空");
         }
@@ -68,6 +72,7 @@ public class AddSUServiceImpl implements AddSUService {
         if(StringUtil.isEmpty(sourceRemark)){
             throw new BusinessException("生源备注不能为空");
         }
+        signUp.setCenterId(Long.parseLong(centerId));
         signUp.setName(name);
         signUp.setSex(Integer.parseInt(sex));
         signUp.setIdCard(idCard);
