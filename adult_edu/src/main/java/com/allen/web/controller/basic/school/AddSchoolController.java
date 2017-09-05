@@ -1,6 +1,7 @@
 package com.allen.web.controller.basic.school;
 
 import com.alibaba.fastjson.JSONObject;
+import com.allen.base.exception.BusinessException;
 import com.allen.entity.basic.School;
 import com.allen.service.basic.school.AddSchoolService;
 import com.allen.service.user.user.FindUserByCenterIdAndUgIdService;
@@ -45,6 +46,9 @@ public class AddSchoolController extends BaseController {
     public JSONObject add(HttpServletRequest request, School school) throws Exception {
         JSONObject jsonObject = new JSONObject();
         if(null != school) {
+            if(1 > school.getUserId()){
+                throw new BusinessException("请选择教务负责人，如果没有请先添加教务负责人");
+            }
             school.setCenterId(UserUtil.getLoginUserForCenterId(request));
             school.setCerator(UserUtil.getLoginUserForName(request));
             school.setOperator(UserUtil.getLoginUserForName(request));

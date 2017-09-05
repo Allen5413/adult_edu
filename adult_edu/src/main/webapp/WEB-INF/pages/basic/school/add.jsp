@@ -46,7 +46,7 @@
           <tr>
             <td class="tag-b">教务负责人：</td>
             <td>
-              <select name="userId">
+              <select id="userId" name="userId">
                 <c:forEach var="user" items="${userList}">
                   <option value="${user.id}">${user.name}</option>
                 </c:forEach>
@@ -92,6 +92,10 @@
     }
     if($("#phone").val() == ""){
       app.alert("请输入联系电话！", 1);
+      return false;
+    }
+    if($("#userId").val() == ""){
+      app.alert("请选择教务负责人，如果没有请先去添加教务负责人！", 1);
       return false;
     }
     app.add("${pageContext.request.contextPath}/addSchool/add.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageSchool/page.html", ${reqParams});
