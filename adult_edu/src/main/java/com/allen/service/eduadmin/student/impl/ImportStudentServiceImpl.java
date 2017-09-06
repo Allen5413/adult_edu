@@ -105,6 +105,7 @@ public class ImportStudentServiceImpl implements ImportStudentService {
                     student.setSex(signUp.getSex());
                     student.setIdCard(signUp.getIdCard());
                     student.setEmail(signUp.getEmail());
+                    student.setQq(signUp.getQq());
                     student.setBirthday(signUp.getIdCard().substring(6, 10) + "-" + signUp.getIdCard().substring(10, 12) + "-" + signUp.getIdCard().substring(12, 14));
                     student.setSignUpDate(Timestamp.valueOf(signUp.getCreateTime().toString()));
                     student.setStudyType(signUp.getStudyType());

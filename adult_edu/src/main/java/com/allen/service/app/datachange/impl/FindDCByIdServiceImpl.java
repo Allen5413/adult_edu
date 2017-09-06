@@ -31,7 +31,7 @@ public class FindDCByIdServiceImpl implements FindDCByIdService {
             throw new BusinessException("没有传入id");
         }
         DataChange dataChange = dataChangeDao.findOne(Long.parseLong(id));
-        User user = userDao.findOne(dataChange.getCenterId());
+        User user = userDao.findOne(dataChange.getCreatorId());
         json.put("id", dataChange.getId());
         json.put("userName", null == user ? "" : user.getName());
         json.put("phone", null == user ? "" : user.getPhone());
