@@ -215,10 +215,12 @@
       app.alert("请输入正确的手机号码！", 1);
       return false;
     }
-    if($("#editReson").val().trim() == ""){
-      app.alert("请输入变更原因！", 1);
-      return false;
-    }
+    <c:if test="${sessionScope.isOperateAudit == 1}">
+      if($("#editReson").val() == "" || $("#editReson").val().length > 30){
+        app.alert("请输入变更原因，不能超过30个字！", 1);
+        return false;
+      }
+    </c:if>
     app.edit("${pageContext.request.contextPath}/editStudent/editor.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageStudent/page.html", ${reqParams});
   }
 </script>

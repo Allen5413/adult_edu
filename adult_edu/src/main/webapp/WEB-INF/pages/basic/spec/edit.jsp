@@ -46,8 +46,8 @@
       return false;
     }
     <c:if test="${sessionScope.isOperateAudit == 1}">
-      if($("#editReson").val() == ""){
-        app.alert("请输入变更原因！", 1);
+      if($("#editReson").val() == "" || $("#editReson").val().length > 30){
+        app.alert("请输入变更原因，不能超过30个字！", 1);
         return false;
       }
     </c:if>

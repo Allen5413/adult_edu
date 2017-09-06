@@ -543,6 +543,12 @@
       app.alert("请填写拒绝原因！", 1);
       return false;
     }
+    <c:if test="${sessionScope.isOperateAudit == 1}">
+      if($("#editReson").val().length > 30){
+        app.alert("变更原因不能超过30个字！", 1);
+        return false;
+      }
+    </c:if>
     $("#state").val(flag);
     app.edit("${pageContext.request.contextPath}/editSignUp/editor.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageSignUp/page.html", ${reqParams});
   }

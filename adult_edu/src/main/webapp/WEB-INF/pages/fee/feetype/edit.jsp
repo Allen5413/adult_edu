@@ -168,10 +168,12 @@
       app.alert("请选择层次！", 1);
       return false;
     }
-    if($("#editReson").val() == ""){
-      app.alert("请输入变更原因！", 1);
-      return false;
-    }
+    <c:if test="${sessionScope.isOperateAudit == 1}">
+      if($("#editReson").val() == "" || $("#editReson").val().length > 30){
+        app.alert("请输入变更原因，不能超过30个字！", 1);
+        return false;
+      }
+    </c:if>
     app.add("${pageContext.request.contextPath}/editFeeType/editor.json", $("#form").serialize(), "${pageContext.request.contextPath}/pageFeeType/page.html", ${reqParams});
   }
 </script>
