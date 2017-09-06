@@ -35,7 +35,7 @@ public class FindStudentCourseDao extends BaseQueryDao {
                 "INNER JOIN teach_plan tp on s.teach_plan_id = tp.id " +
                 "INNER JOIN teach_plan_course tpc on s.teach_plan_id = tpc.teach_plan_id " +
                 "INNER JOIN course c on c.id = tpc.course_id " +
-                "LEFT JOIN student_course scc on tpc.course_id = scc.course_id " +
+                "LEFT JOIN student_course scc on tpc.course_id = scc.course_id and s.id = scc.student_id " +
                 "where s.center_id = ? ";
         paramsList.add(Long.parseLong(centerId));
         if(!StringUtil.isEmpty(name)){
