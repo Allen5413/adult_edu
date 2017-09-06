@@ -8,9 +8,11 @@ import com.allen.dao.basic.schooltypelevelspeccourse.SchoolTypeLevelSpecCourseDa
 import com.allen.dao.basic.spec.SpecDao;
 import com.allen.dao.datachange.DataChangeDao;
 import com.allen.dao.eduadmin.recruittype.RecruitTypeDao;
+import com.allen.dao.eduadmin.student.StudentDao;
 import com.allen.entity.basic.*;
 import com.allen.entity.datachange.DataChange;
 import com.allen.entity.eduadmin.RecruitType;
+import com.allen.entity.eduadmin.Student;
 import com.allen.entity.user.User;
 import com.allen.service.basic.schooltypelevelspec.DelSchoolTypeLevelSpecByIdService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +40,21 @@ public class DelSchoolTypeLevelSpecByIdServiceImpl implements DelSchoolTypeLevel
     private LevelDao levelDao;
     @Autowired
     private SpecDao specDao;
+    @Autowired
+    private StudentDao studentDao;
 
     @Override
     public void del(long id, long specId, long centerId, int isAudit, long operateId, String editReson) throws Exception {
         //查询下面是否有关联的课程，有的话就不能删除
         List<SchoolTypeLevelSpecCourse> list = schoolTypeLevelSpecCourseDao.findBySchoolTypeLevelSpecId(id);
         if(null != list && 0 < list.size()){
-            throw new BusinessException("已经关联了课程信息，不能被删除");
+            throw new BusinessException("该专业下已经关联了课程信息，不能被删除");
+        }
+        //查询高效招生类型层次专业下是否有学生，有的话就不能删除
+        SchoolTypeLevelSpec schoolTypeLevelSpec2 = schoolTypeLevelSpecDao.findOne(id);
+        List<Student> studentList = studentDao.findBySchoolIdAndRecruitTypeIdAndLevelIdAndSpecId(schoolTypeLevelSpec2.getSchoolId(), schoolTypeLevelSpec2.getRecruitTypeId(), schoolTypeLevelSpec2.getLevelId(), schoolTypeLevelSpec2.getSpecId());
+        if(null != studentList && 0 < studentList.size()){
+            throw new BusinessException("该专业下已经关联了学生，不能被删除");
         }
         //查询操作是否需要审核
         if(isAudit == User.ISOPERATEAUDIT_NOT) {
