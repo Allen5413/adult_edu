@@ -27,15 +27,13 @@ public class FindSignUpDao extends BaseQueryDao {
      * @throws Exception
      */
     public List<Map> countForLevelByRtId(long rtId)throws Exception{
-        List<Object> paramsList = new ArrayList<Object>();
-        String sql = "select le.name, ifnull(t.num, 0) num from level le LEFT JOIN ";
-        sql += "(SELECT l.name, count(*) num FROM level l, sign_up su " +
-                "where su.level_id = l.id and su.recruit_type_id = ? " +
-                "group by l.name) t ";
-        sql += "on le.name = t.name ";
-        sql += "GROUP BY name, num";
-        paramsList.add(rtId);
-        return super.sqlQueryByNativeSqlToMap(sql, paramsList.toArray());
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        String fields = "l.name, count(*) num";
+        String[] tableNames = {"sign_up su", "level l"};
+        String defaultWhere = "su.level_id = l.id";
+        String groupBy = "l.name";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
     }
 
     /**
