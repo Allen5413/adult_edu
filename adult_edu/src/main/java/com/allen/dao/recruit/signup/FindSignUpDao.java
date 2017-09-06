@@ -37,6 +37,23 @@ public class FindSignUpDao extends BaseQueryDao {
     }
 
     /**
+     * 统计一个招生类型下的各个层次报名人数（分销商）
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countForLevelByRtIdAndUserId(long rtId, long userId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        paramMaps.put("su.user_id", userId);
+        String fields = "l.name, count(*) num";
+        String[] tableNames = {"sign_up su", "level l"};
+        String defaultWhere = "su.level_id = l.id";
+        String groupBy = "l.name";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
+    }
+
+    /**
      * 统计一个招生类型下的各个批次报名人数
      * @param rtId
      * @return
@@ -45,6 +62,23 @@ public class FindSignUpDao extends BaseQueryDao {
     public List<Map> countForTPByRtId(long rtId)throws Exception{
         Map<String, Object> paramMaps = new HashMap<String, Object>();
         paramMaps.put("su.recruit_type_id", rtId);
+        String fields = "tp.year, tp.term, count(*) num";
+        String[] tableNames = {"sign_up su", "teach_plan tp"};
+        String defaultWhere = "su.teach_plan_id = tp.id";
+        String groupBy = "tp.year, tp.term";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
+    }
+
+    /**
+     * 统计一个招生类型下的各个批次报名人数
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countForTPByRtIdAndUserId(long rtId, long userId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        paramMaps.put("su.user_id", userId);
         String fields = "tp.year, tp.term, count(*) num";
         String[] tableNames = {"sign_up su", "teach_plan tp"};
         String defaultWhere = "su.teach_plan_id = tp.id";

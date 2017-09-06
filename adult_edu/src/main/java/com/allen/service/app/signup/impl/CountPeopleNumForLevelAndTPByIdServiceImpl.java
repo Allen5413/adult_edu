@@ -29,18 +29,32 @@ public class CountPeopleNumForLevelAndTPByIdServiceImpl implements CountPeopleNu
     public JSONObject find(HttpServletRequest request) throws Exception {
         JSONObject json = new JSONObject();
         String recruitTypeId = request.getParameter("recruitTypeId");
+        String fxsId = request.getParameter("fxsId");
         if(StringUtil.isEmpty(recruitTypeId)){
             throw new BusinessException("没有传入招生类型id");
         }
         long rtId = Long.parseLong(recruitTypeId);
-        //查询招生类型下一共招生人数
-        BigInteger totalNum = signUpDao.countByRtId(rtId);
-        //查询各层次招生人数统计
-        List<Map> levelList = findSignUpDao.countForLevelByRtId(rtId);
-        //查询各批次招生人数统计
-        List<Map> teachPlanList = findSignUpDao.countForTPByRtId(rtId);
+        BigInteger totalNum = null;
+        List<Map> levelList = null;
+        List<Map> teachPlanList = null;
 
-        json.put("totalNum", totalNum);
+        if(StringUtil.isEmpty(fxsId)){
+            //查询招生类型下一共招生人数
+            totalNum = signUpDao.countByRtId(rtId);
+            //查询各层次招生人数统计
+            levelList = findSignUpDao.countForLevelByRtId(rtId);
+            //查询各批次招生人数统计
+            teachPlanList = findSignUpDao.countForTPByRtId(rtId);
+        }else{
+            //查询招生类型下一共招生人数
+            totalNum = signUpDao.countByRtIdAndUserId(rtId, Long.parseLong(fxsId));
+            //查询各层次招生人数统计
+            levelList = findSignUpDao.countForLevelByRtIdAndUserId(rtId, Long.parseLong(fxsId));
+            //查询各批次招生人数统计
+            teachPlanList = findSignUpDao.countForTPByRtIdAndUserId(rtId, Long.parseLong(fxsId));
+        }
+
+        json.put("totalNum", null == totalNum ? 0 : totalNum);
         json.put("levelList", levelList);
         json.put("teachPlanList", teachPlanList);
         json.put("status", 1);
