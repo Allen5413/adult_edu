@@ -104,6 +104,7 @@
                 <td>${teachPlan.year}年<c:if test="${teachPlan.term == 0}">春季</c:if><c:if test="${teachPlan.term == 1}">秋季</c:if></td>
                 <td>${fn:substring(teachPlan.begin_date, 0, 11)} 到 ${fn:substring(teachPlan.end_date, 0, 11)}</td>
                 <td>
+                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/importTeachPlanCourse/open.html?reqParams=${reqParams}&id=${teachPlan.id}');">导入课程</a>
                   <a class="btn-opr" href="#" onclick="searchCourse(${teachPlan.id});">查看课程</a>
                   <a class="btn-opr" href="#" onclick="del(${teachPlan.id});">删除</a>
                 </td>
