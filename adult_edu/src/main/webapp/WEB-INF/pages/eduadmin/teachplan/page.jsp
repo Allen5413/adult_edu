@@ -86,7 +86,7 @@
             <th>专业</th>
             <th>批次</th>
             <th>报名起止时间</th>
-            <th width="140">操作</th>
+            <th width="240">操作</th>
           </tr>
           <c:if test="${empty pageInfo.pageResults}">
             <tr>
