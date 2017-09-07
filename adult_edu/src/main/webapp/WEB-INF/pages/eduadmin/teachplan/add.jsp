@@ -54,7 +54,7 @@
                 <option value="">全部</option>
                 <c:if test="${!empty specList}">
                   <c:forEach var="spec" items="${specList}">
-                    <option value="${spec.id}" <c:if test="${param.specId == spec.id}">selected="selected"</c:if>>[${spec.code}]${spec.name}</option>
+                    <option value="${spec.sId}" <c:if test="${param.specId == spec.sId}">selected="selected"</c:if>>[${spec.code}]${spec.name}</option>
                   </c:forEach>
                 </c:if>
               </select>
