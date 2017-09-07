@@ -60,7 +60,7 @@
             url:"${pageContext.request.contextPath}/delSchoolTypeLevelSpecById.json",
             method : 'POST',
             async:false,
-            data:{"id":id, "editReson":$("#editReson").val()},
+            data:{"id":id, "specId":sId, "editReson":$("#editReson").val()},
             success:function(data){
               if(data.state == 0){
                 if(data.msg != "" && "undefined" != typeof(data.msg)){
@@ -68,7 +68,7 @@
                 }
                 layer.close(index);
                 layer.close(index2);
-                app.clickResources('${pageContext.request.contextPath}/findSpecBySchoolIdAndTypeIdAndLevelId/find.html?schoolId=${param.sId}&typeId=${param.rtId}&levelId=${param.lId}');
+                app.clickResources('${pageContext.request.contextPath}/findSpecBySchoolIdAndTypeIdAndLevelId/find.html?schoolId=${param.schoolId}&typeId=${param.typeId}&levelId=${param.levelId}');
               }else {
                 app.msg(data.msg, 1);
               }
