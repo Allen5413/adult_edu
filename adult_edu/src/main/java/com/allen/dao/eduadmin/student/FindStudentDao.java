@@ -55,6 +55,72 @@ public class FindStudentDao extends BaseQueryDao {
     }
 
     /**
+     * 统计一个招生类型下的各个层次学生人数
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countNumForLevelByRtId(long rtId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        String fields = "l.name, count(*) num";
+        String[] tableNames = {"student su", "level l"};
+        String defaultWhere = "su.level_id = l.id";
+        String groupBy = "l.name";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
+    }
+
+    /**
+     * 统计一个招生类型下的各个层次学生人数（分销商）
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countNumForLevelByRtIdAndUserId(long rtId, long userId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        paramMaps.put("su.user_id", userId);
+        String fields = "l.name, count(*) num";
+        String[] tableNames = {"student su", "level l"};
+        String defaultWhere = "su.level_id = l.id";
+        String groupBy = "l.name";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
+    }
+
+    /**
+     * 统计一个招生类型下的各个批次学生人数
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countNumForTPByRtId(long rtId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        String fields = "tp.year, tp.term, count(*) num";
+        String[] tableNames = {"student su", "teach_plan tp"};
+        String defaultWhere = "su.teach_plan_id = tp.id";
+        String groupBy = "tp.year, tp.term";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
+    }
+
+    /**
+     * 统计一个招生类型下的各个批次学生人数（分销商）
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countNumForTPByRtIdAndUserId(long rtId, long userId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        paramMaps.put("su.user_id", userId);
+        String fields = "tp.year, tp.term, count(*) num";
+        String[] tableNames = {"student su", "teach_plan tp"};
+        String defaultWhere = "su.teach_plan_id = tp.id";
+        String groupBy = "tp.year, tp.term";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
+    }
+
+    /**
      * 统计一个招生类型下的各个批次的在读学生人数
      * @param rtId
      * @return

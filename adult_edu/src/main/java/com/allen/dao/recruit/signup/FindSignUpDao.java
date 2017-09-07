@@ -70,7 +70,7 @@ public class FindSignUpDao extends BaseQueryDao {
     }
 
     /**
-     * 统计一个招生类型下的各个批次报名人数
+     * 统计一个招生类型下的各个批次报名人数（分销商）
      * @param rtId
      * @return
      * @throws Exception

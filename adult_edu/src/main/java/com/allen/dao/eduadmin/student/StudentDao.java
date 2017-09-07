@@ -26,6 +26,15 @@ public interface StudentDao extends CrudRepository<Student, Long> {
     public BigInteger countNumByRtId(long rtId)throws Exception;
 
     /**
+     * 统计一个招生类型下的一个分销商的报名人数
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    @Query(nativeQuery = true, value = "select count(*) from student s where s.recruit_type_id = ?1 and s.user_id = ?2")
+    public BigInteger countNumByRtIdAndUserId(long rtId, long userId)throws Exception;
+
+    /**
      * 统计一个学习中心下的人数
      * @param centerId
      * @return

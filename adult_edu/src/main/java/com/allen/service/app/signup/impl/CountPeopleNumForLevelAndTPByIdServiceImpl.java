@@ -2,6 +2,8 @@ package com.allen.service.app.signup.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.allen.base.exception.BusinessException;
+import com.allen.dao.eduadmin.student.FindStudentDao;
+import com.allen.dao.eduadmin.student.StudentDao;
 import com.allen.dao.recruit.signup.FindSignUpDao;
 import com.allen.dao.recruit.signup.SignUpDao;
 import com.allen.service.app.signup.CountPeopleNumForLevelAndTPByIdService;
@@ -21,9 +23,9 @@ import java.util.Map;
 public class CountPeopleNumForLevelAndTPByIdServiceImpl implements CountPeopleNumForLevelAndTPByIdService {
 
     @Autowired
-    private SignUpDao signUpDao;
+    private StudentDao studentDao;
     @Autowired
-    private FindSignUpDao findSignUpDao;
+    private FindStudentDao findStudentDao;
 
     @Override
     public JSONObject find(HttpServletRequest request) throws Exception {
@@ -39,19 +41,19 @@ public class CountPeopleNumForLevelAndTPByIdServiceImpl implements CountPeopleNu
         List<Map> teachPlanList = null;
 
         if(StringUtil.isEmpty(fxsId)){
-            //查询招生类型下一共招生人数
-            totalNum = signUpDao.countByRtId(rtId);
-            //查询各层次招生人数统计
-            levelList = findSignUpDao.countForLevelByRtId(rtId);
-            //查询各批次招生人数统计
-            teachPlanList = findSignUpDao.countForTPByRtId(rtId);
+            //查询招生类型下一共学生人数
+            totalNum = studentDao.countNumByRtId(rtId);
+            //查询各层次学生人数统计
+            levelList = findStudentDao.countNumForLevelByRtId(rtId);
+            //查询各批次学生人数统计
+            teachPlanList = findStudentDao.countNumForTPByRtId(rtId);
         }else{
-            //查询招生类型下一共招生人数
-            totalNum = signUpDao.countByRtIdAndUserId(rtId, Long.parseLong(fxsId));
-            //查询各层次招生人数统计
-            levelList = findSignUpDao.countForLevelByRtIdAndUserId(rtId, Long.parseLong(fxsId));
-            //查询各批次招生人数统计
-            teachPlanList = findSignUpDao.countForTPByRtIdAndUserId(rtId, Long.parseLong(fxsId));
+            //查询招生类型下一共学生人数
+            totalNum = studentDao.countNumByRtIdAndUserId(rtId, Long.parseLong(fxsId));
+            //查询各层次学生人数统计
+            levelList = findStudentDao.countNumForLevelByRtIdAndUserId(rtId, Long.parseLong(fxsId));
+            //查询各批次学生人数统计
+            teachPlanList = findStudentDao.countNumForTPByRtIdAndUserId(rtId, Long.parseLong(fxsId));
         }
 
         json.put("totalNum", null == totalNum ? 0 : totalNum);
