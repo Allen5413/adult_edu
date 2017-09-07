@@ -52,7 +52,7 @@ public class EditSignUpServiceImpl implements EditSignUpService {
     private UserDao userDao;
 
     @Override
-    public void edit(HttpServletRequest request, SignUp signUp, long centerId, int isAudit, long operateId, String editReson, int isTimeOut) throws Exception {
+    public void edit(HttpServletRequest request, SignUp signUp, long centerId, int isAudit, long operateId, String editReson, int isTimeOut, int isAppOperate) throws Exception {
         SignUp signUp2 = signUpDao.findByCenterIdAndSchoolIdAndRecruitTypeIdAndLevelIdAndSpecIdAndTeachPlanIdAndIdCard(signUp.getCenterId(), signUp.getSchoolId(), signUp.getRecruitTypeId(), signUp.getLevelId(), signUp.getSpecId(), signUp.getTeachPlanId(), signUp.getIdCard());
         if(null != signUp2 && signUp2.getId() != signUp.getId()){
             throw new BusinessException("身份证号码在同一个学校、招生类型、层次、专业、批次下已存在！");
@@ -76,45 +76,63 @@ public class EditSignUpServiceImpl implements EditSignUpService {
                 if (StringUtil.isEmpty(photoUrl)) {
                     throw new BusinessException("请上传照片");
                 }else{
-                    //把上传的照片从临时目录剪切到正式目录，并把文件名改成id
-                    UpLoadFileUtil.custFile(request, photoUrl, configProp.getSignUp().get("photoUrl"), signUp.getId() + ".png");
+                    //如果不是app上操作的，说明是pc端操作的，图片存在pc端服务器上，需要以下操作
+                    if(1 != isAppOperate) {
+                        //把上传的照片从临时目录剪切到正式目录，并把文件名改成id
+                        UpLoadFileUtil.custFile(request, photoUrl, configProp.getSignUp().get("photoUrl"), signUp.getId() + ".png");
+                    }
                 }
             }
             if(!idCardFrontUrl.equals(signUp2.getIdCardFrontUrl())) {
                 if (StringUtil.isEmpty(idCardFrontUrl)) {
                     throw new BusinessException("请上传身份证正面照");
                 }else{
-                    UpLoadFileUtil.custFile(request, idCardFrontUrl, configProp.getSignUp().get("idCardFrontUrl"), signUp.getId()+".png");
+                    //如果不是app上操作的，说明是pc端操作的，图片存在pc端服务器上，需要以下操作
+                    if(1 != isAppOperate) {
+                        UpLoadFileUtil.custFile(request, idCardFrontUrl, configProp.getSignUp().get("idCardFrontUrl"), signUp.getId() + ".png");
+                    }
                 }
             }
             if(!idCardBackUrl.equals(signUp2.getIdCardBackUrl())) {
                 if (StringUtil.isEmpty(idCardBackUrl)) {
                     throw new BusinessException("请上传身份证背面照");
                 }else{
-                    UpLoadFileUtil.custFile(request, idCardBackUrl, configProp.getSignUp().get("idCardBackUrl"), signUp.getId()+".png");
+                    //如果不是app上操作的，说明是pc端操作的，图片存在pc端服务器上，需要以下操作
+                    if(1 != isAppOperate) {
+                        UpLoadFileUtil.custFile(request, idCardBackUrl, configProp.getSignUp().get("idCardBackUrl"), signUp.getId() + ".png");
+                    }
                 }
             }
             if(!diplomaUrl.equals(signUp2.getDiplomaUrl())) {
                 if (StringUtil.isEmpty(diplomaUrl)) {
                     throw new BusinessException("请上传学历证书照");
                 }else{
-                    UpLoadFileUtil.custFile(request, diplomaUrl, configProp.getSignUp().get("diplomaUrl"), signUp.getId()+".png");
+                    //如果不是app上操作的，说明是pc端操作的，图片存在pc端服务器上，需要以下操作
+                    if(1 != isAppOperate) {
+                        UpLoadFileUtil.custFile(request, diplomaUrl, configProp.getSignUp().get("diplomaUrl"), signUp.getId() + ".png");
+                    }
                 }
             }
             if(!xxwUrl.equals(signUp2.getXxwUrl())){
                 if (StringUtil.isEmpty(xxwUrl)) {
                     signUp.setXxwUrl("");
                 }else{
-                    UpLoadFileUtil.custFile(request, xxwUrl, configProp.getSignUp().get("xxwUrl"), signUp.getId()+".png");
-                    signUp.setXxwUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("xxwUrl") + signUp.getId() + ".png");
+                    //如果不是app上操作的，说明是pc端操作的，图片存在pc端服务器上，需要以下操作
+                    if(1 != isAppOperate) {
+                        UpLoadFileUtil.custFile(request, xxwUrl, configProp.getSignUp().get("xxwUrl"), signUp.getId() + ".png");
+                        signUp.setXxwUrl(configProp.getDomain().get("xiwang") + configProp.getSignUp().get("xxwUrl") + signUp.getId() + ".png");
+                    }
                 }
             }
             if(!ydsUrl.equals(signUp2.getYdsUrl())){
                 if (StringUtil.isEmpty(ydsUrl)) {
                     signUp.setYdsUrl("");
                 }else{
-                    UpLoadFileUtil.custFile(request, ydsUrl, configProp.getSignUp().get("ydsUrl"), signUp.getId()+".png");
-                    signUp.setYdsUrl(configProp.getDomain().get("xiwang")+configProp.getSignUp().get("ydsUrl") + signUp.getId() + ".png");
+                    //如果不是app上操作的，说明是pc端操作的，图片存在pc端服务器上，需要以下操作
+                    if(1 != isAppOperate) {
+                        UpLoadFileUtil.custFile(request, ydsUrl, configProp.getSignUp().get("ydsUrl"), signUp.getId() + ".png");
+                        signUp.setYdsUrl(configProp.getDomain().get("xiwang") + configProp.getSignUp().get("ydsUrl") + signUp.getId() + ".png");
+                    }
                 }
             }
 

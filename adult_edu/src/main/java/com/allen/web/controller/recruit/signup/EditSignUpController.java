@@ -94,7 +94,7 @@ public class EditSignUpController extends BaseController {
         JSONObject jsonObject = new JSONObject();
         if(null != signUp) {
             signUp.setOperator(UserUtil.getLoginUserForName(request));
-            editSignUpService.edit(request, signUp, UserUtil.getLoginUserForCenterId(request), UserUtil.getLoginUserForIsOperateAudit(request), UserUtil.getLoginUserForLoginId(request), editReson, isTimeOut);
+            editSignUpService.edit(request, signUp, UserUtil.getLoginUserForCenterId(request), UserUtil.getLoginUserForIsOperateAudit(request), UserUtil.getLoginUserForLoginId(request), editReson, isTimeOut, 0);
         }
         jsonObject.put("state", 0);
         if(UserUtil.getLoginUserForIsOperateAudit(request) == User.ISOPERATEAUDIT_YES) {

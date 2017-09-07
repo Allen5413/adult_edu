@@ -131,7 +131,7 @@ public class EditSUServiceImpl implements EditSUService {
         signUp.setXxwUrl(request.getParameter("xxwUrl"));
         signUp.setYdsUrl(request.getParameter("ydsUrl"));
 
-        editSignUpService.edit(request, signUp, -1, User.ISOPERATEAUDIT_NOT, -1, "", 0);
+        editSignUpService.edit(request, signUp, -1, User.ISOPERATEAUDIT_NOT, -1, "", 0, 1);
         json.put("status", 1);
         return json;
     }

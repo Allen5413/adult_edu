@@ -118,34 +118,64 @@ public class ImportStudentServiceImpl implements ImportStudentService {
                     addStudentService.add(student);
 
                     if(!StringUtil.isEmpty(signUp.getPhotoUrl())){
-                        UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("photoUrl")+signUp.getId()+".png", configProp.getStudent().get("photoUrl"), student.getId()+".png");
-                        student.setPhotoUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("photoUrl")+student.getId()+".png");
-                        //student.setPhotoUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("photoUrl")+student.getId()+".png");
+                        //说明是app上传的，图片保存在至善服务器
+                        if(signUp.getPhotoUrl().indexOf("dangupload/img/app") > -1){
+                            student.setPhotoUrl(signUp.getPhotoUrl());
+                        }else {
+                            UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("photoUrl") + signUp.getId() + ".png", configProp.getStudent().get("photoUrl"), student.getId() + ".png");
+                            student.setPhotoUrl(configProp.getDomain().get("xiwang") + configProp.getStudent().get("photoUrl") + student.getId() + ".png");
+                            //student.setPhotoUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("photoUrl")+student.getId()+".png");
+                        }
                     }
                     if(!StringUtil.isEmpty(signUp.getIdCardFrontUrl())){
-                        UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("idCardFrontUrl")+signUp.getId()+".png", configProp.getStudent().get("idCardFrontUrl"), student.getId()+".png");
-                        student.setIdCardFrontUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("idCardFrontUrl") + student.getId() + ".png");
-                        //student.setIdCardFrontUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("idCardFrontUrl") + student.getId() + ".png");
+                        //说明是app上传的，图片保存在至善服务器
+                        if(signUp.getIdCardFrontUrl().indexOf("dangupload/img/app") > -1){
+                            student.setIdCardFrontUrl(signUp.getIdCardFrontUrl());
+                        }else {
+                            UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("idCardFrontUrl") + signUp.getId() + ".png", configProp.getStudent().get("idCardFrontUrl"), student.getId() + ".png");
+                            student.setIdCardFrontUrl(configProp.getDomain().get("xiwang") + configProp.getStudent().get("idCardFrontUrl") + student.getId() + ".png");
+                            //student.setIdCardFrontUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("idCardFrontUrl") + student.getId() + ".png");
+                        }
                     }
                     if(!StringUtil.isEmpty(signUp.getIdCardBackUrl())){
-                        UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("idCardBackUrl")+signUp.getId()+".png", configProp.getStudent().get("idCardBackUrl"), student.getId()+".png");
-                        student.setIdCardBackUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("idCardBackUrl") + student.getId() + ".png");
-                        //student.setIdCardBackUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("idCardBackUrl") + student.getId() + ".png");
+                        //说明是app上传的，图片保存在至善服务器
+                        if(signUp.getIdCardBackUrl().indexOf("dangupload/img/app") > -1){
+                            student.setIdCardBackUrl(signUp.getIdCardBackUrl());
+                        }else {
+                            UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("idCardBackUrl") + signUp.getId() + ".png", configProp.getStudent().get("idCardBackUrl"), student.getId() + ".png");
+                            student.setIdCardBackUrl(configProp.getDomain().get("xiwang") + configProp.getStudent().get("idCardBackUrl") + student.getId() + ".png");
+                            //student.setIdCardBackUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("idCardBackUrl") + student.getId() + ".png");
+                        }
                     }
                     if(!StringUtil.isEmpty(signUp.getDiplomaUrl())){
-                        UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("diplomaUrl")+signUp.getId()+".png", configProp.getStudent().get("diplomaUrl"), student.getId()+".png");
-                        student.setDiplomaUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("diplomaUrl") + student.getId() + ".png");
-                        //student.setDiplomaUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("diplomaUrl") + student.getId() + ".png");
+                        //说明是app上传的，图片保存在至善服务器
+                        if(signUp.getDiplomaUrl().indexOf("dangupload/img/app") > -1){
+                            student.setDiplomaUrl(signUp.getDiplomaUrl());
+                        }else {
+                            UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("diplomaUrl") + signUp.getId() + ".png", configProp.getStudent().get("diplomaUrl"), student.getId() + ".png");
+                            student.setDiplomaUrl(configProp.getDomain().get("xiwang") + configProp.getStudent().get("diplomaUrl") + student.getId() + ".png");
+                            //student.setDiplomaUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("diplomaUrl") + student.getId() + ".png");
+                        }
                     }
                     if(!StringUtil.isEmpty(signUp.getXxwUrl())){
-                        UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("xxwUrl")+signUp.getId()+".png", configProp.getStudent().get("xxwUrl"), student.getId()+".png");
-                        student.setXxwUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("xxwUrl") + student.getId() + ".png");
-                        //student.setXxwUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("xxwUrl") + student.getId() + ".png");
+                        //说明是app上传的，图片保存在至善服务器
+                        if(signUp.getXxwUrl().indexOf("dangupload/img/app") > -1){
+                            student.setXxwUrl(signUp.getXxwUrl());
+                        }else {
+                            UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("xxwUrl") + signUp.getId() + ".png", configProp.getStudent().get("xxwUrl"), student.getId() + ".png");
+                            student.setXxwUrl(configProp.getDomain().get("xiwang") + configProp.getStudent().get("xxwUrl") + student.getId() + ".png");
+                            //student.setXxwUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("xxwUrl") + student.getId() + ".png");
+                        }
                     }
                     if(!StringUtil.isEmpty(signUp.getYdsUrl())){
-                        UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("ydsUrl")+signUp.getId()+".png", configProp.getStudent().get("ydsUrl"), student.getId()+".png");
-                        student.setYdsUrl(configProp.getDomain().get("xiwang")+configProp.getStudent().get("ydsUrl") + student.getId() + ".png");
-                        //student.setYdsUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("ydsUrl") + student.getId() + ".png");
+                        //说明是app上传的，图片保存在至善服务器
+                        if(signUp.getYdsUrl().indexOf("dangupload/img/app") > -1){
+                            student.setYdsUrl(signUp.getYdsUrl());
+                        }else {
+                            UpLoadFileUtil.copyFile(request, configProp.getSignUp().get("ydsUrl") + signUp.getId() + ".png", configProp.getStudent().get("ydsUrl"), student.getId() + ".png");
+                            student.setYdsUrl(configProp.getDomain().get("xiwang") + configProp.getStudent().get("ydsUrl") + student.getId() + ".png");
+                            //student.setYdsUrl(configProp.getDomain().get("localhost")+configProp.getStudent().get("ydsUrl") + student.getId() + ".png");
+                        }
                     }
                     studentDao.save(student);
 

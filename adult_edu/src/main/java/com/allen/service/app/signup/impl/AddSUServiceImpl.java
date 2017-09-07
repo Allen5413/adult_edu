@@ -2,6 +2,7 @@ package com.allen.service.app.signup.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.allen.base.exception.BusinessException;
+import com.allen.dao.recruit.signup.SignUpDao;
 import com.allen.entity.recruit.SignUp;
 import com.allen.service.app.signup.AddSUService;
 import com.allen.service.recruit.signup.AddSignUpService;
@@ -19,6 +20,8 @@ public class AddSUServiceImpl implements AddSUService {
 
     @Autowired
     private AddSignUpService addSignUpService;
+    @Autowired
+    private SignUpDao signUpDao;
 
     @Override
     public JSONObject add(HttpServletRequest request) throws Exception {
@@ -36,6 +39,10 @@ public class AddSUServiceImpl implements AddSUService {
         String specId = request.getParameter("specId");
         String teachPlanId = request.getParameter("teachPlanId");
         String sourceRemark = StringUtil.getDecode(request, "sourceRemark");
+        String photoUrl = request.getParameter("photoUrl");
+        String idCardFrontUrl = request.getParameter("idCardFrontUrl");
+        String idCardBackUrl = request.getParameter("idCardBackUrl");
+        String diplomaUrl = request.getParameter("diplomaUrl");
         if(StringUtil.isEmpty(centerId)){
             throw new BusinessException("学习中心id不能为空");
         }
@@ -72,6 +79,19 @@ public class AddSUServiceImpl implements AddSUService {
         if(StringUtil.isEmpty(sourceRemark)){
             throw new BusinessException("生源备注不能为空");
         }
+        if(StringUtil.isEmpty(photoUrl)){
+            throw new BusinessException("请上传照片");
+        }
+        if(StringUtil.isEmpty(idCardFrontUrl)){
+            throw new BusinessException("请上传身份证正面照");
+        }
+        if(StringUtil.isEmpty(idCardBackUrl)){
+            throw new BusinessException("请上传身份证背面照");
+        }
+        if(StringUtil.isEmpty(diplomaUrl)){
+            throw new BusinessException("请上传学历证书照");
+        }
+
         signUp.setCenterId(Long.parseLong(centerId));
         signUp.setName(name);
         signUp.setSex(Integer.parseInt(sex));
@@ -130,7 +150,16 @@ public class AddSUServiceImpl implements AddSUService {
         signUp.setXxwUrl(request.getParameter("xxwUrl"));
         signUp.setYdsUrl(request.getParameter("ydsUrl"));
 
-        addSignUpService.add(request, signUp);
+        SignUp signUp2 = signUpDao.findByCenterIdAndSchoolIdAndRecruitTypeIdAndLevelIdAndSpecIdAndTeachPlanIdAndIdCard(signUp.getCenterId(), signUp.getSchoolId(), signUp.getRecruitTypeId(), signUp.getLevelId(), signUp.getSpecId(), signUp.getTeachPlanId(), signUp.getIdCard());
+        if(null != signUp2 && !StringUtil.isEmpty(signUp2.getName())){
+            throw new BusinessException("身份证号码在同一个学校、招生类型、层次、专业、批次下已存在！");
+        }
+        signUp2 = signUpDao.findByCenterIdAndSchoolIdAndRecruitTypeIdAndLevelIdAndSpecIdAndTeachPlanIdAndPhone(signUp.getCenterId(), signUp.getSchoolId(), signUp.getRecruitTypeId(), signUp.getLevelId(), signUp.getSpecId(), signUp.getTeachPlanId(), signUp.getPhone());
+        if(null != signUp2 && !StringUtil.isEmpty(signUp2.getName())){
+            throw new BusinessException("手机号码在同一个学校、招生类型、层次、专业、批次下已存在！");
+        }
+
+        signUpDao.save(signUp);
         json.put("status", 1);
         return json;
     }
