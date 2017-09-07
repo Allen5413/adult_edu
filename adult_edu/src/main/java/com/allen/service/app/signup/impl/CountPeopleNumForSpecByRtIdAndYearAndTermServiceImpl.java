@@ -2,8 +2,8 @@ package com.allen.service.app.signup.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.allen.base.exception.BusinessException;
-import com.allen.dao.recruit.signup.FindSignUpDao;
-import com.allen.dao.recruit.signup.SignUpDao;
+import com.allen.dao.eduadmin.student.FindStudentDao;
+import com.allen.dao.eduadmin.student.StudentDao;
 import com.allen.service.app.signup.CountPeopleNumForSpecByRtIdAndYearAndTermService;
 import com.allen.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ import java.util.Map;
 public class CountPeopleNumForSpecByRtIdAndYearAndTermServiceImpl implements CountPeopleNumForSpecByRtIdAndYearAndTermService {
 
     @Autowired
-    private SignUpDao signUpDao;
+    private StudentDao studentDao;
     @Autowired
-    private FindSignUpDao findSignUpDao;
+    private FindStudentDao findStudentDao;
 
     @Override
     public JSONObject find(HttpServletRequest request) throws Exception {
@@ -43,11 +43,11 @@ public class CountPeopleNumForSpecByRtIdAndYearAndTermServiceImpl implements Cou
         }
         long rtId = Long.parseLong(recruitTypeId);
         //查询招生类型下一共招生人数
-        BigInteger totalNum = StringUtil.isEmpty(userId) ? signUpDao.countByRtId(rtId) : signUpDao.countByRtIdAndUserId(rtId, Long.parseLong(userId));
+        BigInteger totalNum = StringUtil.isEmpty(userId) ? studentDao.countNumByRtId(rtId) : studentDao.countNumByRtIdAndUserId(rtId, Long.parseLong(userId));
         //查询各层次招生人数统计
-        List<Map> levelList = findSignUpDao.countForLevelByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term), StringUtil.isEmpty(userId) ? null : Long.parseLong(userId));
+        List<Map> levelList = findStudentDao.countForLevelByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term), StringUtil.isEmpty(userId) ? null : Long.parseLong(userId));
         //查询各专业招生人数统计
-        List<Map> specList = findSignUpDao.countForSpecByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term), StringUtil.isEmpty(userId) ? null : Long.parseLong(userId));
+        List<Map> specList = findStudentDao.countForSpecByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term), StringUtil.isEmpty(userId) ? null : Long.parseLong(userId));
 
         json.put("totalNum", totalNum);
         json.put("levelList", levelList);

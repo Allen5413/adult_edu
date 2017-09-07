@@ -97,7 +97,7 @@ public class EditSignUpController extends BaseController {
             editSignUpService.edit(request, signUp, UserUtil.getLoginUserForCenterId(request), UserUtil.getLoginUserForIsOperateAudit(request), UserUtil.getLoginUserForLoginId(request), editReson, isTimeOut, 0);
         }
         jsonObject.put("state", 0);
-        if(UserUtil.getLoginUserForIsOperateAudit(request) == User.ISOPERATEAUDIT_YES) {
+        if(UserUtil.getLoginUserForIsOperateAudit(request) == User.ISOPERATEAUDIT_YES && isTimeOut == 1) {
             jsonObject.put("msg", "您的操作已经成功，请等待管理员进行审核！");
         }
         return jsonObject;

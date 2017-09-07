@@ -216,10 +216,12 @@
               </td>
             </tr>
           </c:if>
-          <tr>
-            <td class="tag-b" >拒绝原因：</td>
-            <td colspan="4"><textarea id="reason" name="reason" class="textarea-intro"></textarea></td>
-          </tr>
+          <c:if test="${isZsUser ne '1' && signUp.state ne '2'}">
+            <tr>
+              <td class="tag-b" >拒绝原因：</td>
+              <td colspan="4"><textarea id="reason" name="reason" class="textarea-intro"></textarea></td>
+            </tr>
+          </c:if>
           <c:if test="${sessionScope.isOperateAudit == 1 && isTimeOut == 1}">
             <tr>
               <td class="tag-b">变更原因：</td>
@@ -477,6 +479,7 @@
   }
 
   function edit(flag){
+    debugger;
     if($("#schoolId").val() == ""){
       app.alert("请选择学校！", 1);
       return false;
@@ -544,7 +547,7 @@
       return false;
     }
     <c:if test="${sessionScope.isOperateAudit == 1}">
-      if($("#editReson").val().length > 30){
+      if("undefined" != typeof ($("#editReson").val()) && $("#editReson").val().length > 30){
         app.alert("变更原因不能超过30个字！", 1);
         return false;
       }

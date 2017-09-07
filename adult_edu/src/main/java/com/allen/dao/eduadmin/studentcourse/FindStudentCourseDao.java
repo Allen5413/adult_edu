@@ -43,7 +43,7 @@ public class FindStudentCourseDao extends BaseQueryDao {
             paramsList.add("%"+name+"%");
         }
         if(!StringUtil.isEmpty(courseName)){
-            sql += "and c.name = ? ";
+            sql += "and c.name like ? ";
             paramsList.add("%"+courseName+"%");
         }
         if(!StringUtil.isEmpty(score)){

@@ -57,8 +57,6 @@ public class ImportTeachPlanCourseServiceImpl implements ImportTeachPlanCourseSe
         if(null != studentCourseList && 0 < studentCourseList.size()){
             throw new BusinessException("该批次下已经有学生录入了课程成绩了，不能再重新导入课程！");
         }
-        //删除掉之前的课程信息
-        teachPlanCourseDao.delByTeachPlanId(id);
 
         //得到批次信息
         TeachPlan teachPlan = teachPlanDao.findOne(id);
@@ -85,6 +83,8 @@ public class ImportTeachPlanCourseServiceImpl implements ImportTeachPlanCourseSe
             msg = readXls(inputStream, is2007, msg, teachPlan.getSchoolId(), courseList);
             returnJSON.put("msg", msg);
             if(StringUtil.isEmpty(msg)){
+                //删除掉之前的课程信息
+                teachPlanCourseDao.delByTeachPlanId(id);
                 for (JSONObject jsonObject : courseList) {
                     TeachPlanCourse teachPlanCourse = new TeachPlanCourse();
                     teachPlanCourse.setTeachPlanId(teachPlan.getId());
@@ -98,7 +98,6 @@ public class ImportTeachPlanCourseServiceImpl implements ImportTeachPlanCourseSe
                 }
                 returnJSON.put("state", 0);
             }else{
-                teachPlanDao.delete(teachPlan.getId());
                 returnJSON.put("state", 1);
             }
         }

@@ -545,6 +545,8 @@ App.prototype.edit = function(url, params, url2, params2){
             if(data.state == 0){
                 if("undefined" != typeof (data.msg) && "" != data.msg){
                     app.msg(data.msg, 0);
+                }else{
+                    app.msg("操作成功！", 0);
                 }
                 app.clickResources(url2, params2);
             }else{

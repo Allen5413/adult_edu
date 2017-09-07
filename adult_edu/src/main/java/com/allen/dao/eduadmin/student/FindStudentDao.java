@@ -121,6 +121,63 @@ public class FindStudentDao extends BaseQueryDao {
     }
 
     /**
+     * 统计一个招生类型下的一个批次下的各个层次学生人数
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countForLevelByRtIdAndYearAndTerm(long rtId, int year, int term, Long userId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        paramMaps.put("tp.year", year);
+        paramMaps.put("tp.term", term);
+        paramMaps.put("su.user_id", userId);
+        String fields = "l.name, count(*) num";
+        String[] tableNames = {"student su", "level l", "teach_plan tp"};
+        String defaultWhere = "su.level_id = l.id and su.teach_plan_id = tp.id";
+        String groupBy = "l.name";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
+    }
+
+    /**
+     * 统计一个招生类型下的一个批次下的各个高校学生人数
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countForSchoolByRtIdAndYearAndTerm(long rtId, int year, int term, Long userId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        paramMaps.put("tp.year", year);
+        paramMaps.put("tp.term", term);
+        paramMaps.put("su.user_id", userId);
+        String fields = "sc.name, count(*) num";
+        String[] tableNames = {"student su", "school sc", "teach_plan tp"};
+        String defaultWhere = "su.school_id = sc.id and su.teach_plan_id = tp.id";
+        String groupBy = "sc.name";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
+    }
+
+    /**
+     * 统计一个招生类型下的一个批次下的各个专业学生人数
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countForSpecByRtIdAndYearAndTerm(long rtId, int year, int term, Long userId)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        paramMaps.put("tp.year", year);
+        paramMaps.put("tp.term", term);
+        paramMaps.put("su.user_id", userId);
+        String fields = "sp.name, count(*) num";
+        String[] tableNames = {"student su", "spec sp", "teach_plan tp"};
+        String defaultWhere = "su.spec_id = sp.id and su.teach_plan_id = tp.id";
+        String groupBy = "sp.name";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
+    }
+
+    /**
      * 统计一个招生类型下的各个批次的在读学生人数
      * @param rtId
      * @return
