@@ -11,5 +11,5 @@
 <!-- 自定义 -->
 <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet" type="text/css" />
 <script src="${pageContext.request.contextPath}/js/ajaxUpload/ajaxfileupload.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/js/vaild.js"></script>
+<script src="${pageContext.request.contextPath}/js/vaildApp.js"></script>
 <script src="${pageContext.request.contextPath}/js/app.js"></script>

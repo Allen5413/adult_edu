@@ -453,11 +453,11 @@
       app.alert("请输入姓名！", 1);
       return false;
     }
-    if($("#idCard").val().trim() == ""){
-      app.alert("请输入身份证号！", 1);
+    if(!vaildApp.vailIdCardNo($("#idCard").val().trim())){
+      app.alert("请输入正确的身份证号！", 1);
       return false;
     }
-    if(isNaN($("#phone").val()) || 11 != $("#phone").val().length){
+    if(!vaildApp.vaildPhone($("#phone").val())){
       app.alert("请输入正确的手机号码！", 1);
       return false;
     }

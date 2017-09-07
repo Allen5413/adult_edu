@@ -1,11 +1,11 @@
-var vaildApp = new Vaildate();
-function Vaildate(){}
+var vaildApp = new VaildateApp();
+function VaildateApp(){}
 
 /**
  * 验证金额
  * @param money
  */
-Vaildate.prototype.vaildMoney = function(money){
+VaildateApp.prototype.vaildMoney = function(money){
     var exp = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
     if(exp.test(money) && money > 0){
         return true;
@@ -20,7 +20,7 @@ Vaildate.prototype.vaildMoney = function(money){
  * @min
  * @max
  */
-Vaildate.prototype.vaildInteger = function(number, min, max){
+VaildateApp.prototype.vaildInteger = function(number, min, max){
     var r = /^-?[0-9]\d*$/;
     if(r.test(number)){
         if("undefined" != typeof (min) && min > number){
@@ -41,7 +41,7 @@ Vaildate.prototype.vaildInteger = function(number, min, max){
  * @min
  * @max
  */
-Vaildate.prototype.vaildNumber = function(number, min, max){
+VaildateApp.prototype.vaildNumber = function(number, min, max){
     if(!isNaN(number) && "" != number){
         if("undefined" != typeof (min) && min > number){
             return false;
@@ -67,7 +67,7 @@ Vaildate.prototype.vaildNumber = function(number, min, max){
 
 
 //bankno为银行卡号 banknoInfo为显示提示信息的DIV或其他控件
-Vaildate.prototype.vaildLuhm = function(bankno){
+VaildateApp.prototype.vaildLuhm = function(bankno){
     debugger;
     var lastNum=bankno.substr(bankno.length-1,1);//取出最后一位（与luhm进行比较）
 
@@ -136,10 +136,23 @@ Vaildate.prototype.vaildLuhm = function(bankno){
  * @min
  * @max
  */
-Vaildate.prototype.vaildPhone = function(phone){
+VaildateApp.prototype.vaildPhone = function(phone){
     if(!isNaN(phone) && "" != phone && 11 == phone.length){
         return true;
     }else{
         return false;
+    }
+}
+
+/**
+ * 验证身份证号码
+ */
+VaildateApp.prototype.vailIdCardNo = function(num){
+    num = num.toUpperCase();
+    //身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X。
+    if (!(/(^\d{15}$)|(^\d{17}([0-9]|X)$)/.test(num))) {
+        return false;
+    }else{
+        return true;
     }
 }
