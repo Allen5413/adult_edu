@@ -43,13 +43,15 @@ public class FindSFDetailByStudentIdServiceImpl implements FindSFDetailByStudent
         StudentFee studentFee = studentFeeDao.findOne(Long.parseLong(id));
         FeeType feeType = feeTypeDao.findOne(studentFee.getFeeTypeId());
         Student student = studentDao.findOne(studentFee.getStudentId());
-        User user = userDao.findOne(student.getUserId());
         json.put("date", studentFee.getOperateTime());
         json.put("type", feeType.getName());
         json.put("feeStyle", studentFee.getFeeStyle());
         json.put("payFee", new BigDecimal(studentFee.getFee()).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_HALF_UP));
         json.put("fee", new BigDecimal(feeType.getFee()).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_HALF_UP));
-        json.put("userName", user.getName());
+        if(studentFee.getFeeStyle() == StudentFee.FEE_STYLE_FXS) {
+            User user = userDao.findOne(student.getUserId());
+            json.put("userName", user.getName());
+        }
         json.put("status", 1);
         return json;
     }
