@@ -49,7 +49,7 @@ public interface StudentDao extends CrudRepository<Student, Long> {
      * @return
      * @throws Exception
      */
-    @Query(nativeQuery = true, value = "select count(*) from student s, teach_plan where s.teach_plan_id = tp.id and s.recruit_type_id = ?1 and s.user_id = ?2 and tp.year = ?3 and tp.term = ?4")
+    @Query(nativeQuery = true, value = "select count(*) from student s, teach_plan tp where s.teach_plan_id = tp.id and s.recruit_type_id = ?1 and s.user_id = ?2 and tp.year = ?3 and tp.term = ?4")
     public BigInteger countNumByRtIdAndUserId(long rtId, long userId, int year, int term)throws Exception;
 
     /**

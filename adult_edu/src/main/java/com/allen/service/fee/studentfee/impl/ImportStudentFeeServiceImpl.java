@@ -53,6 +53,7 @@ public class ImportStudentFeeServiceImpl implements ImportStudentFeeService {
     public JSONObject importStudentFee(HttpServletRequest request, long schoolId) throws Exception {
         JSONObject returnJSON = new JSONObject();
         String msg = "";
+        String studentIds = "";
         List<Map<String, String>> studentFeeMapList = new ArrayList<Map<String, String>>();
         long centerId = UserUtil.getLoginUserForCenterId(request);
         MultipartRequest mulReu = (MultipartRequest)request;
@@ -76,6 +77,10 @@ public class ImportStudentFeeServiceImpl implements ImportStudentFeeService {
             if(StringUtil.isEmpty(msg)){
                 for (Map<String, String> map : studentFeeMapList) {
                     StudentFee studentFee = new StudentFee();
+                    String studentId = map.get("studentId");
+                    if(studentIds.indexOf(studentId) < 0){
+                        studentIds += studentId+",";
+                    }
                     studentFee.setStudentId(Long.parseLong(map.get("studentId")));
                     studentFee.setFeeTypeId(Long.parseLong(map.get("feeTypeId")));
                     studentFee.setFeeStyle(Integer.parseInt(map.get("feeStyle")));
@@ -84,7 +89,8 @@ public class ImportStudentFeeServiceImpl implements ImportStudentFeeService {
                         studentFee.setFxsFee(Long.parseLong(new BigDecimal(map.get("fxsFee")).multiply(new BigDecimal(100)).setScale(0, BigDecimal.ROUND_HALF_UP).toString()));
                     }
                     studentFee.setOperator(UserUtil.getLoginUserForName(request));
-                    addStudentFeeService.add(studentFee);
+                    addStudentFeeService.add(studentFee, 0);
+                    returnJSON.put("studentIds", StringUtil.isEmpty(studentIds)  ? "" : studentIds.substring(0, studentIds.length()-1));
                 }
                 returnJSON.put("state", 0);
             }else{
@@ -93,9 +99,6 @@ public class ImportStudentFeeServiceImpl implements ImportStudentFeeService {
         }
         return returnJSON;
     }
-
-
-
 
     protected String readXls(InputStream inputStream, boolean is2007, List<Map<String, String>> studentFeeMapList, String msg, long schoolId, long centerId)throws Exception{
         Workbook wb = null;

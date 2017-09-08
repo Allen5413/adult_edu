@@ -78,7 +78,7 @@ public class AddStudentFeeController extends BaseController {
                 studentFee.setFxsFee((long)(fxsMoney*100));
             }
             studentFee.setOperator(UserUtil.getLoginUserForName(request));
-            addStudentFeeService.add(studentFee);
+            addStudentFeeService.add(studentFee, 1);
         }
         jsonObject.put("state", 0);
         return jsonObject;

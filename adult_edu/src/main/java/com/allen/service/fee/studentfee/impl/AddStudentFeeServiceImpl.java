@@ -31,46 +31,53 @@ public class AddStudentFeeServiceImpl implements AddStudentFeeService {
     @Autowired
     private TeachPlanDao teachPlanDao;
 
+    /**
+     *
+     * @param studentFee
+     * @param isVaildCleanFee  是否验证学生费用已结清，如果是通过excel导入的费用，就不需要在这里验证。
+     * @throws Exception
+     */
     @Override
     @Transactional
-    public void add(StudentFee studentFee) throws Exception {
+    public void add(StudentFee studentFee, int isVaildCleanFee) throws Exception {
         Student student = studentDao.findOne(studentFee.getStudentId());
         if(null == student){
             throw new BusinessException("没有找到学生信息");
         }
-        TeachPlan teachPlan = teachPlanDao.findOne(student.getTeachPlanId());
-        if(null == teachPlan){
-            throw new BusinessException("没有找到该学生的教学计划");
-        }
-        List<FeeType> feeTypeList = feeTypeDao.findBySchoolIdAndTypeIdAndLevelIdAndYearAndTerm(student.getSchoolId(), student.getRecruitTypeId(),
-                student.getLevelId(), teachPlan.getYear(), teachPlan.getTerm());
-        if(null == feeTypeList || 1 > feeTypeList.size()){
-            throw new BusinessException("没有找到该学生的缴费类型");
-        }
+        studentFeeDao.save(studentFee);
+        if(1 == isVaildCleanFee) {
+            TeachPlan teachPlan = teachPlanDao.findOne(student.getTeachPlanId());
+            if (null == teachPlan) {
+                throw new BusinessException("没有找到该学生的教学计划");
+            }
+            List<FeeType> feeTypeList = feeTypeDao.findBySchoolIdAndTypeIdAndLevelIdAndYearAndTerm(student.getSchoolId(), student.getRecruitTypeId(),
+                    student.getLevelId(), teachPlan.getYear(), teachPlan.getTerm());
+            if (null == feeTypeList || 1 > feeTypeList.size()) {
+                throw new BusinessException("没有找到该学生的缴费类型");
+            }
 
-        List<StudentFee> studentFeeList = studentFeeDao.findByStudentId(student.getId());
-        boolean isFeeOver = true;
-        for(FeeType feeType : feeTypeList){
-            long fee = feeType.getFee();
-            long fee2 = 0;
-            if(null != studentFeeList && 0 < studentFeeList.size()) {
-                for (StudentFee studentFee2 : studentFeeList){
-                    if(feeType.getId() == studentFee2.getFeeTypeId()){
-                        fee2 += studentFee2.getFee();
-                        if(feeType.getId() == studentFee.getFeeTypeId()){
-                            fee2 += studentFee.getFee();
+            List<StudentFee> studentFeeList = studentFeeDao.findByStudentId(student.getId());
+            boolean isFeeOver = true;
+            for (FeeType feeType : feeTypeList) {
+                long fee = feeType.getFee();
+                long fee2 = 0;
+                if (null != studentFeeList && 0 < studentFeeList.size()) {
+                    for (StudentFee studentFee2 : studentFeeList) {
+                        if (feeType.getId() == studentFee2.getFeeTypeId()) {
+                            fee2 += studentFee2.getFee();
+                            if (feeType.getId() == studentFee.getFeeTypeId()) {
+                                fee2 += studentFee.getFee();
+                            }
                         }
                     }
                 }
+                if (fee2 < fee) {
+                    isFeeOver = false;
+                    break;
+                }
             }
-            if(fee2 < fee){
-                isFeeOver = false;
-                break;
-            }
+            student.setFeeState(isFeeOver ? Student.FEE_STATE_OVER : Student.FEE_STATE_ING);
+            studentDao.save(student);
         }
-
-        studentFeeDao.save(studentFee);
-        student.setFeeState(isFeeOver ? Student.FEE_STATE_OVER : Student.FEE_STATE_ING);
-        studentDao.save(student);
     }
 }

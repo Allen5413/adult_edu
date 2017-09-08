@@ -3,6 +3,7 @@ package com.allen.web.controller.fee.studentfee;
 import com.alibaba.fastjson.JSONObject;
 import com.allen.service.basic.school.FindSchoolByCenterIdService;
 import com.allen.service.fee.studentfee.ImportStudentFeeService;
+import com.allen.service.fee.studentfee.SetCleanFeeStudentService;
 import com.allen.util.StringUtil;
 import com.allen.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class ImportStudentFeeController {
     private FindSchoolByCenterIdService findSchoolByCenterIdService;
     @Autowired
     private ImportStudentFeeService importStudentFeeService;
+    @Autowired
+    private SetCleanFeeStudentService setCleanFeeStudentService;
 
     /**
      * @return
@@ -40,7 +43,10 @@ public class ImportStudentFeeController {
     @RequestMapping(value = "/importAdd")
     @ResponseBody
     public JSONObject importAdd(HttpServletRequest request, long schoolId)throws Exception{
+        //导入缴费信息导学生缴费表
         JSONObject jsonObject = importStudentFeeService.importStudentFee(request, schoolId);
+        //判断学生缴费后，是否已结清费用
+        setCleanFeeStudentService.set(jsonObject.get("studentIds").toString());
         return jsonObject;
     }
 }
