@@ -121,6 +121,41 @@ public class FindStudentDao extends BaseQueryDao {
     }
 
     /**
+     * 统计一个招生类型下的一个批次下的学生人数
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countByRtIdAndYearAndTerm(long rtId, int year, int term)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        paramMaps.put("tp.year", year);
+        paramMaps.put("tp.term", term);
+        String fields = "count(*) totalNum, ifnull((CASE WHEN su.user_id = -1 THEN count(*) END), 0) centerNum, ifnull((CASE WHEN su.user_id > -1 THEN count(*) END), 0) fxsNum ";
+        String[] tableNames = {"student su", "teach_plan tp"};
+        String defaultWhere = "su.teach_plan_id = tp.id";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, paramMaps, null);
+    }
+
+    /**
+     * 统计一个招生类型下的一个批次下的各个分销商学生人数
+     * @param rtId
+     * @return
+     * @throws Exception
+     */
+    public List<Map> countForFXSByRtIdAndYearAndTerm(long rtId, int year, int term)throws Exception{
+        Map<String, Object> paramMaps = new HashMap<String, Object>();
+        paramMaps.put("su.recruit_type_id", rtId);
+        paramMaps.put("tp.year", year);
+        paramMaps.put("tp.term", term);
+        String fields = "u.id, u.name, count(*) num";
+        String[] tableNames = {"student su", "user u", "teach_plan tp"};
+        String defaultWhere = "su.user_id = u.id and su.user_id > -1 and su.teach_plan_id = tp.id";
+        String groupBy = "u.id, u.name";
+        return super.findListBySqlToMap(tableNames, fields, defaultWhere, groupBy, paramMaps, null);
+    }
+
+    /**
      * 统计一个招生类型下的一个批次下的各个层次学生人数
      * @param rtId
      * @return
