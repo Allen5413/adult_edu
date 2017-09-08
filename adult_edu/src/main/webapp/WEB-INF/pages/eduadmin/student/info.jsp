@@ -120,9 +120,9 @@
             <c:if test="${!empty student.xxwUrl}">
               <img src="${student.xxwUrl}" style="width: 400px; height: 280px; " /><br/>
             </c:if>
-            <c:if test="${empty student.xxwUrl}">
-              <img src="${pageContext.request.contextPath}/upload/student/temp/${student.idCard}_xxw.png" style="width: 400px; height: 280px; " /><br/>
-            </c:if>
+            <%--<c:if test="${empty student.xxwUrl}">--%>
+              <%--<img src="${pageContext.request.contextPath}/upload/student/temp/${student.idCard}_xxw.png" style="width: 400px; height: 280px; " /><br/>--%>
+            <%--</c:if>--%>
           </td>
         </tr>
         <tr>
@@ -131,18 +131,18 @@
             <c:if test="${!empty student.zkzFrontUrl}">
               <img src="${student.zkzFrontUrl}" style="width: 400px; height: 280px; " /><br/>
             </c:if>
-            <c:if test="${empty student.zkzFrontUrl}">
-              <img src="${pageContext.request.contextPath}/upload/student/temp/${student.idCard}_zkzFront.png" style="width: 400px; height: 280px; " /><br/>
-            </c:if>
+            <%--<c:if test="${empty student.zkzFrontUrl}">--%>
+              <%--<img src="${pageContext.request.contextPath}/upload/student/temp/${student.idCard}_zkzFront.png" style="width: 400px; height: 280px; " /><br/>--%>
+            <%--</c:if>--%>
           </td>
           <td class="tag-b" >准考证背面照：</td>
           <td style="text-align: center">
             <c:if test="${!empty student.zkzBackUrl}">
               <img src="${student.zkzBackUrl}" style="width: 400px; height: 280px; " /><br/>
             </c:if>
-            <c:if test="${empty student.zkzBackUrl}">
-              <img src="${pageContext.request.contextPath}/upload/student/temp/${student.idCard}_zkzBack.png" style="width: 400px; height: 280px; " /><br/>
-            </c:if>
+            <%--<c:if test="${empty student.zkzBackUrl}">--%>
+              <%--<img src="${pageContext.request.contextPath}/upload/student/temp/${student.idCard}_zkzBack.png" style="width: 400px; height: 280px; " /><br/>--%>
+            <%--</c:if>--%>
           </td>
         </tr>
       </table>

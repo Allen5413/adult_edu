@@ -133,13 +133,13 @@ public class EditStudentServiceImpl implements EditStudentService {
                 changeContent += "通讯地址<span style='color:red'>"+student2.getAddress() + "</span>变更为<span style='color:red'>"+student.getAddress() + "</span>  ";
                 changeTableField += "address="+student.getAddress() +",";
             }
-            if(!student.getXxwUrl().equals(student2.getXxwUrl())){
+            if(!student.getXxwUrl().equals(student2.getXxwUrl()) && !StringUtil.isEmpty(student.getXxwUrl()) && !StringUtil.isEmpty(student2.getXxwUrl())){
                 changeTableField += "xxw_url='"+student.getXxwUrl() + "@#@xxw_url',";
             }
-            if(!student.getZkzFrontUrl().equals(student2.getZkzFrontUrl())){
+            if(!student.getZkzFrontUrl().equals(student2.getZkzFrontUrl()) && !StringUtil.isEmpty(student.getZkzFrontUrl()) && !StringUtil.isEmpty(student2.getZkzFrontUrl())){
                 changeTableField += "zkz_front_url='"+student.getZkzFrontUrl() + "@#@zkz_front_url',";
             }
-            if(!student.getZkzBackUrl().equals(student2.getZkzBackUrl())){
+            if(!student.getZkzBackUrl().equals(student2.getZkzBackUrl()) && !StringUtil.isEmpty(student.getZkzBackUrl()) && !StringUtil.isEmpty(student2.getZkzBackUrl())){
                 changeTableField += "zkz_back_url='"+student.getZkzBackUrl() + "@#@zkz_back_url',";
             }
 
@@ -149,6 +149,7 @@ public class EditStudentServiceImpl implements EditStudentService {
             dataChange.setState(DataChange.STATE_AUDIT_WAIT);
             dataChange.setType(DataChange.TYPE_EDIT);
             dataChange.setChangeTable("student");
+            dataChange.setStudentId(student2.getId());
             dataChange.setStudentName(student2.getName());
             dataChange.setChangeTableId(student.getId());
             dataChange.setChangeTableField(changeTableField);
