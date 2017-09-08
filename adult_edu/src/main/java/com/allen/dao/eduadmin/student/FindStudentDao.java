@@ -243,7 +243,7 @@ public class FindStudentDao extends BaseQueryDao {
         Map<String, Object> paramMaps = new HashMap<String, Object>();
         paramMaps.put("s.center_id", centerId);
         if(null != userId && -2 == userId){
-            paramMaps.put("s.user_id", new Object[]{userId, "!="});
+            paramMaps.put("s.user_id", new Object[]{-1, "!="});
         }else {
             paramMaps.put("s.user_id", userId);
         }
