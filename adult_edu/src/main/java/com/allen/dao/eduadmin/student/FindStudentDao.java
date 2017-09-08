@@ -247,7 +247,11 @@ public class FindStudentDao extends BaseQueryDao {
         }else {
             paramMaps.put("s.user_id", userId);
         }
-        String fields = "count(*) totalNum, ifnull((case when state = 0 then count(*) end), 0) zdNum, ifnull((case when state = 1 then count(*) end), 0) xxNum, ifnull((case when state = 3 then count(*) end), 0) byNum, ifnull((case when fee_state = 0 then count(*) end), 0) notPayNum, ifnull((case when state = 1 then count(*) end), 0) notCleanNum";
+        String fields = "count(*) totalNum, sum(CASE state WHEN 0 THEN 1 ELSE 0 END) zdNum, " +
+                "sum(CASE state WHEN 1 THEN 1 ELSE 0 END) xxNum, " +
+                "sum(CASE state WHEN 3 THEN 1 ELSE 0 END) byNum, " +
+                "sum(CASE fee_state WHEN 0 THEN 1 ELSE 0 END) notPayNum, " +
+                "sum(CASE fee_state WHEN 1 THEN 1 ELSE 0 END) notCleanNum";
         String[] tableNames = {"student s"};
         String defaultWhere = "1=1";
         return super.findListBySqlToMap(tableNames, fields, defaultWhere, paramMaps, null);
@@ -267,11 +271,11 @@ public class FindStudentDao extends BaseQueryDao {
         sortMaps.put("tp.year", false);
         sortMaps.put("tp.term", false);
         String fields = "tp.year,tp.term,count(*) zsNum," +
-                "ifnull((case when state = 0 then count(*) end), 0) zdNum," +
-                "ifnull((case when state = 1 then count(*) end), 0) xxNum," +
-                "ifnull((case when state = 2 then count(*) end), 0) txNum," +
-                "ifnull((case when state = 3 then count(*) end), 0) byNum," +
-                "ifnull((case when fee_state = 1 then count(*) end), 0) notCleanNum";
+                "sum(CASE state WHEN 0 THEN 1 ELSE 0 END) zdNum," +
+                "sum(CASE state WHEN 1 THEN 1 ELSE 0 END) xxNum," +
+                "sum(CASE state WHEN 2 THEN 1 ELSE 0 END) txNum," +
+                "sum(CASE state WHEN 3 THEN 1 ELSE 0 END) byNum," +
+                "sum(CASE fee_state WHEN 1 THEN 1 ELSE 0 END) notCleanNum";
         String[] tableNames = {"student s", "teach_plan tp"};
         String defaultWhere = "s.teach_plan_id = tp.id";
         String groupBy = "tp.year, tp.term";

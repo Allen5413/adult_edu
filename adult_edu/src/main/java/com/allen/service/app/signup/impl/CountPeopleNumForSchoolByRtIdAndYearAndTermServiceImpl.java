@@ -43,7 +43,7 @@ public class CountPeopleNumForSchoolByRtIdAndYearAndTermServiceImpl implements C
         }
         long rtId = Long.parseLong(recruitTypeId);
         //查询招生类型下一共招生人数
-        BigInteger totalNum = StringUtil.isEmpty(userId) ? studentDao.countNumByRtId(rtId) : studentDao.countNumByRtIdAndUserId(rtId, Long.parseLong(userId));
+        BigInteger totalNum = StringUtil.isEmpty(userId) ? studentDao.countNumByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term)) : studentDao.countNumByRtIdAndUserId(rtId, Long.parseLong(userId), Integer.parseInt(year), Integer.parseInt(term));
         //查询各层次招生人数统计
         List<Map> levelList = findStudentDao.countForLevelByRtIdAndYearAndTerm(rtId, Integer.parseInt(year), Integer.parseInt(term), StringUtil.isEmpty(userId) ? null : Long.parseLong(userId));
         //查询各高校招生人数统计

@@ -33,7 +33,7 @@
         </div>
         <div class="col">
           <div class="tit">
-            <p>费用未结清人数</p><p class="num">${numMap.notCleanNum}</p>
+            <p>费用未结清人数</p><p class="num">${numMap.notPayNum+numMap.notCleanNum}</p>
           </div>
         </div>
         <div class="col">
