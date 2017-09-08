@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="tit-top-fixed" class="pos-rev-cell">
-  <div class="title">数据变更查询</div>
+  <div class="title">数据变更管理</div>
   <ul class="search-view">
     <form id="pageForm" name="pageForm" action="${pageContext.request.contextPath}/pageDataChange/page.html">
       <input type="hidden" id="rows" name="rows" />

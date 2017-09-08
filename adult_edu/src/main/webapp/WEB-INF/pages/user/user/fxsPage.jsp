@@ -46,7 +46,6 @@
                 <td>${user.login_name}</td>
                 <td>
                   <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editUser/open.html?id=${user.id}&reqParams=${reqParams}');">编辑</a>
-                  <a class="btn-opr" href="#" onclick="del(${user.id});">删除</a>
                 </td>
               </tr>
             </c:forEach>
