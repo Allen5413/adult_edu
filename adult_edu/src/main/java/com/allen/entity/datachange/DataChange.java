@@ -27,7 +27,7 @@ public class DataChange {
     @GeneratedValue
     private long id;
     private long centerId;                          //中心id
-    private long studentId;                         //学号
+    private Long studentId;                         //学号
     private String studentName;                     //被更改的学生姓名
     private String changeContent;                   //更改内容
     private int state;                              //状态
@@ -144,11 +144,11 @@ public class DataChange {
         this.editReson = editReson;
     }
 
-    public long getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 }

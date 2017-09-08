@@ -64,11 +64,11 @@
       app.alert("请选择缴费方式！", 1);
       return false;
     }
-    if(!vaildApp.vaildMoney($("#money").val())){
+    if(!vaildApp.vaildFloat($("#money").val())){
       app.alert("请输入正确的费用金额！", 1);
       return false;
     }
-    if($("#feeStyle").val() == 1 && !vaildApp.vaildMoney($("#fxsMoney").val())){
+    if($("#feeStyle").val() == 1 && !vaildApp.vaildFloat($("#fxsMoney").val())){
       app.alert("请输入分销商实缴金额！", 1);
       return false;
     }

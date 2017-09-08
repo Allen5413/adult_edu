@@ -73,9 +73,9 @@ public class AddStudentFeeController extends BaseController {
                           @RequestParam(value = "fxsMoney")Long fxsMoney) throws Exception {
         JSONObject jsonObject = new JSONObject();
         if(null != studentFee) {
-            studentFee.setFee((long)money*100);
+            studentFee.setFee((long)(money*100));
             if(null != fxsMoney) {
-                studentFee.setFxsFee((long)fxsMoney*100);
+                studentFee.setFxsFee((long)(fxsMoney*100));
             }
             studentFee.setOperator(UserUtil.getLoginUserForName(request));
             addStudentFeeService.add(studentFee);

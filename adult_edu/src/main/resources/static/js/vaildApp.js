@@ -15,6 +15,19 @@ VaildateApp.prototype.vaildMoney = function(money){
 }
 
 /**
+ * 验证数字，小数点最多2位
+ * @param money
+ */
+VaildateApp.prototype.vaildFloat = function(number){
+    var exp = /^[+-]?\d*\.?\d{0,2}$/;
+    if(exp.test(number) && number != 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+/**
  * 验证整数数字
  * @param number
  * @min
