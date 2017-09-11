@@ -87,7 +87,7 @@ public class EditSUServiceImpl implements EditSUService {
         signUp.setSourceRemark(sourceRemark);
         signUp.setQq(request.getParameter("qq"));
         signUp.setEmail(request.getParameter("email"));
-        signUp.setStudyType(null == request.getParameter("studyType") ? null : Integer.parseInt(request.getParameter("studyType")));
+        signUp.setStudyType(StringUtil.isEmpty(request.getParameter("studyType")) ? null : Integer.parseInt(request.getParameter("studyType")));
         signUp.setBeforeEdu(StringUtil.getDecode(request, "beforeEdu"));
         signUp.setBeforeGraduationDate(StringUtil.getDecode(request, "beforeGraduationDate"));
         signUp.setBeforeSchool(StringUtil.getDecode(request, "beforeSchool"));
