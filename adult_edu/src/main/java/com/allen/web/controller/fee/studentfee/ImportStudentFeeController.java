@@ -45,8 +45,10 @@ public class ImportStudentFeeController {
     public JSONObject importAdd(HttpServletRequest request, long schoolId)throws Exception{
         //导入缴费信息导学生缴费表
         JSONObject jsonObject = importStudentFeeService.importStudentFee(request, schoolId);
-        //判断学生缴费后，是否已结清费用
-        setCleanFeeStudentService.set(jsonObject.get("studentIds").toString());
+        if(null != jsonObject.get("studentIds")) {
+            //判断学生缴费后，是否已结清费用
+            setCleanFeeStudentService.set(jsonObject.get("studentIds").toString());
+        }
         return jsonObject;
     }
 }

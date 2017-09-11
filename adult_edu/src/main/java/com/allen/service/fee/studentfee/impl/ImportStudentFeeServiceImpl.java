@@ -144,12 +144,16 @@ public class ImportStudentFeeServiceImpl implements ImportStudentFeeService {
                     msg += "第"+rowNum+"行：缴费金额格式错误<br />";
                 }
                 if("分销商".equals(feeStyleName)) {
-                    fxsFee = row.getCell((short)4).toString();
-                    if (StringUtil.isEmpty(fxsFee)) {
+                    if(null == row.getCell((short)4)){
                         msg += "第" + rowNum + "行：分销商实缴为空<br />";
-                    }
-                    if (!ZzUtil.isMoney(fxsFee)) {
-                        msg += "第" + rowNum + "行：分销商实缴金额格式错误<br />";
+                    }else {
+                        fxsFee = row.getCell((short) 4).toString();
+                        if (StringUtil.isEmpty(fxsFee)) {
+                            msg += "第" + rowNum + "行：分销商实缴为空<br />";
+                        }
+                        if (!ZzUtil.isMoney(fxsFee)) {
+                            msg += "第" + rowNum + "行：分销商实缴金额格式错误<br />";
+                        }
                     }
                 }
 
