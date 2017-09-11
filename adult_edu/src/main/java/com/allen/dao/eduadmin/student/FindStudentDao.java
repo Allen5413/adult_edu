@@ -247,11 +247,12 @@ public class FindStudentDao extends BaseQueryDao {
         }else {
             paramMaps.put("s.user_id", userId);
         }
-        String fields = "count(*) totalNum, sum(CASE state WHEN 0 THEN 1 ELSE 0 END) zdNum, " +
-                "sum(CASE state WHEN 1 THEN 1 ELSE 0 END) xxNum, " +
-                "sum(CASE state WHEN 3 THEN 1 ELSE 0 END) byNum, " +
-                "sum(CASE fee_state WHEN 0 THEN 1 ELSE 0 END) notPayNum, " +
-                "sum(CASE fee_state WHEN 1 THEN 1 ELSE 0 END) notCleanNum";
+        String fields = "count(*) totalNum, " +
+                "ifnull(sum(CASE state WHEN 0 THEN 1 ELSE 0 END),0) zdNum, " +
+                "ifnull(sum(CASE state WHEN 1 THEN 1 ELSE 0 END),0) xxNum, " +
+                "ifnull(sum(CASE state WHEN 3 THEN 1 ELSE 0 END),0) byNum, " +
+                "ifnull(sum(CASE fee_state WHEN 0 THEN 1 ELSE 0 END),0) notPayNum, " +
+                "ifnull(sum(CASE fee_state WHEN 1 THEN 1 ELSE 0 END),0) notCleanNum";
         String[] tableNames = {"student s"};
         String defaultWhere = "1=1";
         return super.findListBySqlToMap(tableNames, fields, defaultWhere, paramMaps, null);
