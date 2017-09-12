@@ -170,7 +170,7 @@
             <td class="tag-b">拒绝原因：</td>
             <td><textarea class="textarea-intro" id="refuseContent" rows="5" cols="50" >${dataChange.refuseContent}</textarea></td>
           </tr>
-          <c:if test="${dataChange.state == '0'}">
+          <c:if test="${dataChange.state == '0' && sessionScope.type eq '1'}">
             <tr>
               <td class="tag-b"></td>
               <td>

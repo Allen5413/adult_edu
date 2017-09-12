@@ -27,15 +27,17 @@
             <option value="2" <c:if test="${param.feeState eq '2'}">selected="selected" </c:if>>已通过</option>
           </select>
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="itg">更改人：</span>
-        <span class="inline-select">
-          <select name="createId">
-            <option value="">全部</option>
-            <c:forEach var="user" items="${userList}">
-              <option value="${user.id}" <c:if test="${param.createId == user.id}">selected="selected" </c:if> >${user.name}</option>
-            </c:forEach>
-          </select>
-        </span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <c:if test="${'0' eq isChaildUser}">
+          <span class="itg">更改人：</span>
+          <span class="inline-select">
+            <select name="createId">
+              <option value="">全部</option>
+              <c:forEach var="user" items="${userList}">
+                <option value="${user.id}" <c:if test="${param.createId == user.id}">selected="selected" </c:if> >${user.name}</option>
+              </c:forEach>
+            </select>
+          </span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </c:if>
         <span class="inline-input"><a id="searchBtn" class="btn-1" href="#" onclick="app.searchFormPage($('#pageForm'), $('#pageForm').attr('action'))">查 询</a></span>
       </li>
     </form>
@@ -55,6 +57,7 @@
             <th>联系方式</th>
             <th>更改时间</th>
             <th>学生姓名</th>
+            <th>学号</th>
             <th>更改内容</th>
             <th>审核状态</th>
             <th width="140">操作</th>

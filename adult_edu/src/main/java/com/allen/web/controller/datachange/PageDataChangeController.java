@@ -1,6 +1,7 @@
 package com.allen.web.controller.datachange;
 
 import com.allen.dao.PageInfo;
+import com.allen.entity.user.User;
 import com.allen.service.datachange.PageDataChangeService;
 import com.allen.service.user.user.FindUserByCenterIdService;
 import com.allen.util.UserUtil;
@@ -35,6 +36,9 @@ public class PageDataChangeController extends BaseController {
                        HttpServletRequest request) throws Exception {
         Map<String, String> params = new HashMap<String, String>();
         long centerId = UserUtil.getLoginUserForCenterId(request);
+        if(UserUtil.getLoginUserForType(request) == User.TYPE_CENTER_CHAILD){
+            createId = UserUtil.getLoginUserForLoginId(request)+"";
+        }
         params.put("centerId", centerId+"");
         params.put("studentName", studentName);
         params.put("state", state);
@@ -46,6 +50,7 @@ public class PageDataChangeController extends BaseController {
         request.setAttribute("pageInfo", pageInfo);
         request.setAttribute("userList", findUserByCenterIdService.find(centerId));
         request.setAttribute("reqParams", super.getParameters(request));
+        request.setAttribute("isChaildUser", UserUtil.getLoginUserForType(request) == User.TYPE_CENTER_CHAILD ? 1 : 0);
         return "/datachange/page";
     }
 }
