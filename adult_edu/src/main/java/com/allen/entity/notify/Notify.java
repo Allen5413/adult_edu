@@ -14,9 +14,9 @@ import java.util.Date;
 public class Notify {
 
     public final static int TYPE_STUDY = 0;     //学习信息
-    public final static int TYPE_SYSTEM = 1;    //系统信息
-    public final static int TYPE_EXAM = 2;      //考试信息
-    public final static int TYPE_FEE = 3;       //缴费信息
+    public final static int TYPE_SYSTEM = 1;    //系统消息
+    public final static int TYPE_EXAM = 2;      //考试通知
+    public final static int TYPE_FEE = 3;       //缴费提醒
     public final static int TYPE_EDIT = 4;      //更正
     public final static int TYPE_NORMAL = 5;    //普通
 

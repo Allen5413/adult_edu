@@ -12,19 +12,19 @@
         <table class="set-table-info">
           <tr>
             <td class="tag-b">标题：</td>
-            <td><input type="text" id="title" name="title" class="input-txt-220" /></td>
+            <td><input type="text" id="title" name="title" class="input-txt-220" value="${notify.title}" /></td>
           </tr>
           <tr>
             <td class="tag-b">消息类型：</td>
             <td>
               <select id="type" name="type">
                 <option value="">请选择</option>
-                <option value="0">学习信息</option>
-                <option value="1">系统消息</option>
-                <option value="2">考试通知</option>
-                <option value="3">缴费提醒</option>
-                <option value="4">更正</option>
-                <option value="5">普通</option>
+                <option value="0" <c:if test="${'0' eq notify.type}">selected="selected" </c:if> >学习信息</option>
+                <option value="1" <c:if test="${'1' eq notify.type}">selected="selected" </c:if>>系统消息</option>
+                <option value="2" <c:if test="${'2' eq notify.type}">selected="selected" </c:if>>考试通知</option>
+                <option value="3" <c:if test="${'3' eq notify.type}">selected="selected" </c:if>>缴费提醒</option>
+                <option value="4" <c:if test="${'4' eq notify.type}">selected="selected" </c:if>>更正</option>
+                <option value="5" <c:if test="${'5' eq notify.type}">selected="selected" </c:if>>普通</option>
               </select>
             </td>
           </tr>
@@ -33,58 +33,68 @@
             <td>
               <select id="sendObject" name="sendObject" onchange="selectobject(this)">
                 <option value="">全部</option>
-                <option value="0">学生</option>
-                <option value="1">分销商</option>
+                <option value="0" <c:if test="${'0' eq notify.sendObject}">selected="selected" </c:if>>学生</option>
+                <option value="1" <c:if test="${'1' eq notify.sendObject}">selected="selected" </c:if>>分销商</option>
               </select>
             </td>
           </tr>
-          <tr id="schoolTr" style="display: none;">
+          <tr id="schoolTr" style="<c:if test="${'1' eq notify.sendObject}">display: none;</c:if>">
             <td class="tag-b">高校：</td>
             <td>
               <select id="schoolId" name="schoolId" onchange="selectSchool(this)">
                 <option value="">全部</option>
                 <c:forEach var="school" items="${schoolList}">
-                  <option value="${school.id}">${school.name}</option>
+                  <option value="${school.id}" <c:if test="${school.id == notify.schoolId}">selected="selected"</c:if>>${school.name}</option>
                 </c:forEach>
               </select>
             </td>
           </tr>
-          <tr id="specTr" style="display: none;">
+          <tr id="specTr" style="<c:if test="${'1' eq notify.sendObject}">display: none;</c:if>">
             <td class="tag-b">专业：</td>
             <td>
               <select id="specId" name="specId" onchange="selectSpec(this)">
                 <option value="">全部</option>
+                <c:if test="${!empty specList}">
+                  <c:forEach var="spec" items="${specList}">
+                    <option value="${spec.id}" <c:if test="${spec.id eq notify.specId}">selected="selected"</c:if>>${spec.name}</option>
+                  </c:forEach>
+                </c:if>
               </select>
             </td>
           </tr>
-          <tr id="tpTr" style="display: none;">
+          <tr id="tpTr" style="<c:if test="${'1' eq notify.sendObject}">display: none;</c:if>">
             <td class="tag-b">批次：</td>
             <td>
               <select id="teachPlanId" name="teachPlanId">
                 <option value="">全部</option>
+                <c:if test="${!empty specList}">
+                  <c:forEach var="teachPlan" items="${teachPlanList}">
+                    <option value="${teachPlan.id}" <c:if test="${teachPlan.id eq notify.teachPlanId}">selected="selected"</c:if>>${teachPlan.year}年${'0' eq teachPlan.term ? '春季':'秋季'}</option>
+                  </c:forEach>
+                </c:if>
               </select>
             </td>
           </tr>
-          <tr id="feeStateTr" style="display: none;">
+          <tr id="feeStateTr" style="<c:if test="${'1' eq notify.sendObject}">display: none;</c:if>">
             <td class="tag-b">缴费状态：</td>
             <td>
               <select id="feeState" name="feeState">
                 <option value="">全部</option>
-                <option value="0">未缴费</option>
-                <option value="1">未缴完</option>
-                <option value="2">已缴清</option>
+                <option value="0" <c:if test="${'0' eq notify.feeState}">selected="selected"</c:if> >未缴费</option>
+                <option value="1" <c:if test="${'1' eq notify.feeState}">selected="selected"</c:if>>未缴完</option>
+                <option value="2" <c:if test="${'2' eq notify.feeState}">selected="selected"</c:if>>已缴清</option>
               </select>
             </td>
           </tr>
-          <tr id="studyStateTr" style="display: none;">
+          <tr id="studyStateTr" style="<c:if test="${'1' eq notify.sendObject}">display: none;</c:if>">
             <td class="tag-b">学籍状态：</td>
             <td>
               <select id="studyState" name="studyState">
                 <option value="">全部</option>
-                <option value="0">在籍</option>
-                <option value="1">休学</option>
-                <option value="2">退学</option>
-                <option value="3">毕业</option>
+                <option value="0" <c:if test="${'0' eq notify.studyState}">selected="selected"</c:if>>在籍</option>
+                <option value="1" <c:if test="${'1' eq notify.studyState}">selected="selected"</c:if>>休学</option>
+                <option value="2" <c:if test="${'2' eq notify.studyState}">selected="selected"</c:if>>退学</option>
+                <option value="3" <c:if test="${'3' eq notify.studyState}">selected="selected"</c:if>>毕业</option>
               </select>
             </td>
           </tr>
@@ -100,13 +110,18 @@
               <!-- 实例化编辑器 -->
               <script type="text/javascript">
                 var ue = UE.getEditor('contentUE');
+                //判断ueditor 编辑器是否创建成功
+                ue.addListener("ready", function () {
+                  // editor准备好之后才可以使用
+                  ue.setContent("${notify.content}", false);
+                });
               </script>
             </td>
           </tr>
           <tr>
             <td class="tag-b"></td>
             <td>
-              <a class="btn-com" href="#" onclick="add()">保存提交</a>
+              <a class="btn-com" href="#" onclick="againAdd()">保存提交</a>
             </td>
           </tr>
         </table>
@@ -152,6 +167,7 @@
 
   function selectSpec(obj){
     $("#teachPlanId option").remove();
+    alert($("#schoolId").val()+"   "+$(obj).val());
     if($(obj).val() != ""){
       $.ajax({
         url:"${pageContext.request.contextPath}/findTeachPlanBySchoolIdAndSpecId.json",
@@ -174,7 +190,7 @@
     }
   }
 
-  function add(){
+  function againAdd(){
     if($("#title").val() == ""){
       app.alert("请输入标题！", 1);
       return false;
@@ -188,7 +204,6 @@
     if(objVal == ""){
       sendObject = "所有学生和分销商";
     }else {
-      debugger;
       if (objVal == 0) {
         var school = $("#schoolId").find("option:selected").text();
         var spec = $("#specId").find("option:selected").text();
@@ -214,13 +229,13 @@
     $.ajax({
       cache: true,
       type: "POST",
-      url:"${pageContext.request.contextPath}/addNotify/add.json",
+      url:"${pageContext.request.contextPath}/againAddNotify/add.json",
       data:$("#form").serialize(),
       async: false,
       success: function(data) {
         if(data.state == 0){
           app.alert("提交成功！", 0);
-          app.clickResources("${pageContext.request.contextPath}/addNotify/open.html");
+          app.clickResources("${pageContext.request.contextPath}/pageNotify/open.html", ${reqParams});
         }else{
           app.msg(data.msg, 1);
         }

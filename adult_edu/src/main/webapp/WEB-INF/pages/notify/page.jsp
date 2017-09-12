@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="tit-top-fixed" class="pos-rev-cell">
-  <div class="title">待审核信息</div>
+  <div class="title">待审核通知信息</div>
   <ul class="search-view">
-    <form id="pageForm" name="pageForm" action="${pageContext.request.contextPath}/pageStudent/page.html">
+    <form id="pageForm" name="pageForm" action="${pageContext.request.contextPath}/pageNotify/page.html">
       <input type="hidden" id="rows" name="rows" />
       <input type="hidden" id="currentPage" name="page" value="${pageInfo.currentPage}"/>
       <input type="hidden" name="stateFlag" value="${param.stateFlag}" />
@@ -98,22 +98,25 @@
               <tr>
                 <td>${status.index+1}</td>
                 <td>${notify.title}</td>
-                <td>${notify.type}</td>
+                <td>
+                  <c:if test="${'0' eq notify.type}">学习信息</c:if>
+                  <c:if test="${'1' eq notify.type}">系统消息</c:if>
+                  <c:if test="${'2' eq notify.type}">考试通知</c:if>
+                  <c:if test="${'3' eq notify.type}">缴费提醒</c:if>
+                  <c:if test="${'4' eq notify.type}">更正</c:if>
+                  <c:if test="${'5' eq notify.type}">普通</c:if>
+                </td>
                 <td>${notify.objectRemark}</td>
                 <td>${notify.operator}</td>
                 <td>${notify.operate_time}</td>
                 <td>
                   <c:if test="${'0' eq notify.state}">待审核</c:if>
-                  <c:if test="${'1' eq notify.state}">已通过</c:if>
                   <c:if test="${'2' eq notify.state}">未通过</c:if>
                 </td>
                 <td>
-                  <c:if test="${'0' eq notify.state}">
-                    <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editStudent/open.html?id=${student.id}&reqParams=${reqParams}');">发送</a>
-                    <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editStudent/open.html?id=${student.id}&reqParams=${reqParams}');">拒绝</a>
-                  </c:if>
-                  <c:if test="${'1' eq notify.state}">
-                    <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editStudent/open.html?id=${student.id}&reqParams=${reqParams}');">删除</a>
+                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/auditNotify/open.html?id=${notify.id}&reqParams=${reqParams}')">查看</a>
+                  <c:if test="${'2' == notify.state}">
+                    <a class="btn-opr" href="#" onclick="del(${notify.id});">删除</a>
                   </c:if>
                 </td>
               </tr>
@@ -156,7 +159,7 @@
     $("#teachPlanId option").remove();
     if($(obj).val() != ""){
       $.ajax({
-        url:"${pageContext.request.contextPath}/findTeachPlanBySchoolIdAndSpecIdService.json",
+        url:"${pageContext.request.contextPath}/findTeachPlanBySchoolIdAndSpecId.json",
         method : 'POST',
         async:false,
         data:{"schoolId":$("#schoolId").val(), "specId":$(obj).val()},
@@ -174,5 +177,9 @@
         }
       });
     }
+  }
+
+  function del(id){
+    app.del("您确认要删除该条通知？", "${pageContext.request.contextPath}/delNotify/del.json", {"id":id}, "${pageContext.request.contextPath}/pageNotify/page.html", ${reqParams})
   }
 </script>

@@ -40,7 +40,7 @@ public class PageNotifyController extends BaseController {
                        @RequestParam(value = "stateFlag", required = false) String stateFlag) throws Exception {
         Map<String, String> params = new HashMap<String, String>();
         params.put("centerId", UserUtil.getLoginUserForCenterId(request)+"");
-        params.put("creatorId", UserUtil.getLoginUserForCenterId(request)+"");
+        params.put("creatorId", UserUtil.getLoginUserForLoginId(request)+"");
         params.put("loginUserType", UserUtil.getLoginUserForType(request)+"");
         params.put("operateDate", operateDate);
         params.put("type", type);

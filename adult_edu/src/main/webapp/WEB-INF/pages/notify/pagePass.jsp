@@ -1,14 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="tit-top-fixed" class="pos-rev-cell">
-  <div class="title">待审核信息</div>
+  <div class="title">已发送通知公告</div>
   <ul class="search-view">
-    <form id="pageForm" name="pageForm" action="${pageContext.request.contextPath}/pageStudent/page.html">
+    <form id="pageForm" name="pageForm" action="${pageContext.request.contextPath}/pageNotify/page.html">
       <input type="hidden" id="rows" name="rows" />
       <input type="hidden" id="currentPage" name="page" value="${pageInfo.currentPage}"/>
       <input type="hidden" name="stateFlag" value="${param.stateFlag}" />
       <li>
-        <span class="itg">编辑时间：</span>
+        <span class="itg">发布时间：</span>
         <span class="inline-select">
           <input type="text" name="operateDate" style="height: 24px;" onfocus="WdatePicker({firstDayOfWeek:1})" class="Wdate" value="${param.operateDate}" />
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -83,9 +83,8 @@
             <th>标题</th>
             <th>类型</th>
             <th>接收对象</th>
-            <th>编辑人</th>
-            <th>编辑时间</th>
-            <th>状态</th>
+            <th>发布人</th>
+            <th>发布时间</th>
             <th width="140">操作</th>
           </tr>
           <c:if test="${empty pageInfo.pageResults}">
@@ -98,13 +97,19 @@
               <tr>
                 <td>${status.index+1}</td>
                 <td>${notify.title}</td>
-                <td>${notify.type}</td>
+                <td>
+                  <c:if test="${'0' eq notify.type}">学习信息</c:if>
+                  <c:if test="${'1' eq notify.type}">系统消息</c:if>
+                  <c:if test="${'2' eq notify.type}">考试通知</c:if>
+                  <c:if test="${'3' eq notify.type}">缴费提醒</c:if>
+                  <c:if test="${'4' eq notify.type}">更正</c:if>
+                  <c:if test="${'5' eq notify.type}">普通</c:if>
+                </td>
                 <td>${notify.objectRemark}</td>
                 <td>${notify.operator}</td>
                 <td>${notify.operate_time}</td>
-                <td>${notify.state}</td>
                 <td>
-                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/editStudent/open.html?id=${student.id}&reqParams=${reqParams}');">编辑</a>
+                  <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/againAddNotify/open.html?id=${notify.id}&reqParams=${reqParams}');">编辑后再次发送</a>
                 </td>
               </tr>
             </c:forEach>
@@ -146,7 +151,7 @@
     $("#teachPlanId option").remove();
     if($(obj).val() != ""){
       $.ajax({
-        url:"${pageContext.request.contextPath}/findTeachPlanBySchoolIdAndSpecIdService.json",
+        url:"${pageContext.request.contextPath}/findTeachPlanBySchoolIdAndSpecId.json",
         method : 'POST',
         async:false,
         data:{"schoolId":$("#schoolId").val(), "specId":$(obj).val()},

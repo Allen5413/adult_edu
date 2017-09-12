@@ -16,7 +16,7 @@ public class FindTeachPlanBySchoolIdAndSpecIdController extends BaseController {
     @Autowired
     private FindTeachPlanBySchoolIdAndSpecIdService findTeachPlanBySchoolIdAndSpecIdService;
 
-    @RequestMapping(value = "findTeachPlanBySchoolIdAndSpecIdService")
+    @RequestMapping(value = "findTeachPlanBySchoolIdAndSpecId")
     public JSONObject find(long schoolId, long specId) throws Exception {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("state", 0);

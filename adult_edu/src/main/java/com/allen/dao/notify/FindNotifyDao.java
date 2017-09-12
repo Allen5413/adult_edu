@@ -37,13 +37,13 @@ public class FindNotifyDao extends BaseQueryDao {
         sql += "and n.center_id = ? ";
         paramsList.add(Long.parseLong(centerId));
         if(!StringUtil.isEmpty(loginUserType) && User.TYPE_CENTER_CHAILD == Integer.parseInt(loginUserType)){
-            sql += "and n.creator_id = ";
+            sql += "and n.cerator_id = ? ";
             paramsList.add(Long.parseLong(creatorId));
         }
         if(!StringUtil.isEmpty(operateDate)){
             sql += "and n.operate_time between ? and ? ";
-            paramsList.add(operateDate+"00:00:00");
-            paramsList.add(operateDate+"23:59:59");
+            paramsList.add(operateDate+" 00:00:00");
+            paramsList.add(operateDate+" 23:59:59");
         }
         if(!StringUtil.isEmpty(type)){
             sql += "and n.type = ? ";
