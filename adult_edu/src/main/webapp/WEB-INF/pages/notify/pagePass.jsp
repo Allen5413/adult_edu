@@ -107,7 +107,7 @@
                 </td>
                 <td>${notify.objectRemark}</td>
                 <td>${notify.operator}</td>
-                <td>${notify.operate_time}</td>
+                <td>${notify.operateTime}</td>
                 <td>
                   <a class="btn-opr" href="#" onclick="app.clickResources('${pageContext.request.contextPath}/againAddNotify/open.html?id=${notify.id}&reqParams=${reqParams}');">编辑后再次发送</a>
                 </td>

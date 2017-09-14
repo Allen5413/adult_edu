@@ -108,7 +108,7 @@
                 </td>
                 <td>${notify.objectRemark}</td>
                 <td>${notify.operator}</td>
-                <td>${notify.operate_time}</td>
+                <td>${notify.operateTime}</td>
                 <td>
                   <c:if test="${'0' eq notify.state}">待审核</c:if>
                   <c:if test="${'2' eq notify.state}">未通过</c:if>

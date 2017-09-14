@@ -199,6 +199,10 @@
       app.alert("请选择消息类型！", 1);
       return false;
     }
+    if($("#sendObject").val() == ""){
+      app.alert("请选择发送对象！", 1);
+      return false;
+    }
     var sendObject = "";
     var objVal = $("#sendObject").val();
     if(objVal == ""){

@@ -183,12 +183,15 @@
       app.alert("请选择消息类型！", 1);
       return false;
     }
+    if($("#sendObject").val() == ""){
+      app.alert("请选择发送对象！", 1);
+      return false;
+    }
     var sendObject = "";
     var objVal = $("#sendObject").val();
     if(objVal == ""){
       sendObject = "所有学生和分销商";
     }else {
-      debugger;
       if (objVal == 0) {
         var school = $("#schoolId").find("option:selected").text();
         var spec = $("#specId").find("option:selected").text();

@@ -10,6 +10,9 @@ import com.allen.service.app.feetype.CountFeeByRtIdService;
 import com.allen.service.app.index.AppIndexService;
 import com.allen.service.app.level.FindLByCenterIdService;
 import com.allen.service.app.level.FindLByRtIdAndScIdForTeachPlanService;
+import com.allen.service.app.notify.AddNService;
+import com.allen.service.app.notify.FindNByIdService;
+import com.allen.service.app.notify.ListNService;
 import com.allen.service.app.school.FindScAndSpByCenterIdService;
 import com.allen.service.app.school.FindScByCenterIdService;
 import com.allen.service.app.school.FindScByRtIdForTeachPlanService;
@@ -24,6 +27,7 @@ import com.allen.service.app.studentfee.CountFeeNumByRtIdAndYearAndTermService;
 import com.allen.service.app.studentfee.FindSFDetailByStudentIdService;
 import com.allen.service.app.studentfee.FindSFInfoByStudentIdService;
 import com.allen.service.app.teachplan.FindTPByRtIdAndScIdAndLevelIdAndSpIdForTeachPlanService;
+import com.allen.service.app.teachplan.FindTPByScIdAndSpIdService;
 import com.allen.service.app.uploadfile.AppUpLoadImgService;
 import com.allen.service.app.user.*;
 import com.allen.service.app.center.FindCByIdService;
@@ -117,6 +121,14 @@ public class AppEntryController extends BaseController {
     private FindScAndSpByCenterIdService findScAndSpByCenterIdService;
     @Autowired
     private EditSUService editSUService;
+    @Autowired
+    private FindNByIdService findNByIdService;
+    @Autowired
+    private AddNService addNService;
+    @Autowired
+    private ListNService listNService;
+    @Autowired
+    private FindTPByScIdAndSpIdService findTPByScIdAndSpIdService;
     @Autowired
     private ConfigProp configProp;
 
@@ -287,6 +299,22 @@ public class AppEntryController extends BaseController {
         if(38 == methodId){
             //编辑学生报名信息，这里只能学生自己编辑，所以不用提交到常校长那去审核
             jsonObject = editSUService.edit(request);
+        }
+        if(39 == methodId){
+            //查询通知列表
+            jsonObject = listNService.find(request);
+        }
+        if(40 == methodId){
+            //查询通知详情
+            jsonObject = findNByIdService.find(request);
+        }
+        if(41 == methodId){
+            //新增通知
+            jsonObject = addNService.find(request);
+        }
+        if(42 == methodId){
+            //查询一个高校下的一个专业下的所有批次集合
+            jsonObject = findTPByScIdAndSpIdService.find(request);
         }
         return jsonObject;
     }
