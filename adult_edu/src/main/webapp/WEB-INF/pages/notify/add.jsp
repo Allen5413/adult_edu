@@ -175,8 +175,8 @@
   }
 
   function add(){
-    if($("#title").val() == ""){
-      app.alert("请输入标题！", 1);
+    if($("#title").val() == "" || $("#title").val().length > 15){
+      app.alert("请输入15个字以内标题！", 1);
       return false;
     }
     if($("#type").val() == ""){
