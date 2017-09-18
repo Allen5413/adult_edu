@@ -28,17 +28,17 @@ public class ListNServiceImpl implements ListNService {
         Map<String, String> params = new HashMap<String, String>();
         String centerId = request.getParameter("centerId");
         String sendObject = request.getParameter("sendObject");
-        String studentId = request.getParameter("studentId");
+        String studentPhone = request.getParameter("studentPhone");
         if(StringUtil.isEmpty(centerId)){
             throw new BusinessException("没有传入学习中心id");
         }
-        if(!StringUtil.isEmpty(sendObject) && "0".equals(sendObject) && StringUtil.isEmpty(studentId)){
-            throw new BusinessException("没有传入学生id");
+        if(!StringUtil.isEmpty(sendObject) && "0".equals(sendObject) && StringUtil.isEmpty(studentPhone)){
+            throw new BusinessException("没有传入学生手机号码");
         }
         params.put("centerId", centerId);
         params.put("type", request.getParameter("type"));
         params.put("sendObject", sendObject);
-        params.put("studentId", studentId);
+        params.put("studentPhone", studentPhone);
         params.put("stateFlag", request.getParameter("state"));
         PageInfo pageInfo = new PageInfo();
         pageInfo.setCurrentPage(StringUtil.isEmpty(request.getParameter("pageNum")) ? 1 : Integer.parseInt(request.getParameter("pageNum")));

@@ -31,17 +31,17 @@ public class FindNotifyDao extends BaseQueryDao {
         String studyState = paramsMap.get("studyState");
         String stateFlag = paramsMap.get("stateFlag");
         String loginUserType = paramsMap.get("loginUserType");
-        String studentId = paramsMap.get("studentId");
+        String studentPhone = paramsMap.get("studentPhone");
         String fileds = "n.id, n.title, n.type, n.object_remark objectRemark, n.operator, n.operate_time operateTime, n.state";
         String sql = "from notify n ";
-        if(!StringUtil.isEmpty(studentId)){
+        if(!StringUtil.isEmpty(studentPhone)){
             sql += ", student s ";
         }
         sql += "where " + (Notify.STATE_PASS == Integer.parseInt(stateFlag) ? "n.state = " + Notify.STATE_PASS + " " : "n.state != " + Notify.STATE_PASS + " ");
         sql += "and n.center_id = ? ";
         paramsList.add(Long.parseLong(centerId));
-        if(!StringUtil.isEmpty(studentId)){
-            sql += "and s.id = ? ";
+        if(!StringUtil.isEmpty(studentPhone)){
+            sql += "and s.phone = ? ";
             sql += "and (case when n.school_id is null THEN 1=1 " +
                     "when n.school_id is not null and n.spec_id is null and n.teach_plan_id is null THEN n.school_id = s.school_id " +
                     "when n.school_id is not null and n.spec_id is not null and n.teach_plan_id is null THEN n.school_id = s.school_id and n.spec_id = s.spec_id " +
@@ -50,7 +50,7 @@ public class FindNotifyDao extends BaseQueryDao {
                     "WHEN n.fee_state is not null THEN n.fee_state = s.fee_state end) " +
                     "and (case WHEN n.study_state is null THEN 1=1 " +
                     "WHEN n.study_state is not null THEN n.study_state = s.state end) ";
-            paramsList.add(Long.parseLong(studentId));
+            paramsList.add(studentPhone);
         }
         if(!StringUtil.isEmpty(loginUserType) && User.TYPE_CENTER_CHAILD == Integer.parseInt(loginUserType)){
             sql += "and n.cerator_id = ? ";
