@@ -65,7 +65,7 @@
             <td>
               <select id="year" name="year">
                 <option value="2017" <c:if test="${param.year eq '2017'}">selected="selected"</c:if>>2017</option>
-                <option value="2017" <c:if test="${param.year eq '2018'}">selected="selected"</c:if>>2018</option>
+                <option value="2018" <c:if test="${param.year eq '2018'}">selected="selected"</c:if>>2018</option>
                 <option value="2019" <c:if test="${param.year eq '2019'}">selected="selected"</c:if>>2019</option>
                 <option value="2020" <c:if test="${param.year eq '2020'}">selected="selected"</c:if>>2020</option>
                 <option value="2021" <c:if test="${param.year eq '2021'}">selected="selected"</c:if>>2021</option>
