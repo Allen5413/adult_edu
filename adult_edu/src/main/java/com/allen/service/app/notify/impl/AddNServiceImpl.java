@@ -34,9 +34,9 @@ public class AddNServiceImpl implements AddNService {
         String teachPlanId = request.getParameter("teachPlanId");
         String teachPlanName = StringUtil.getDecode(request, "teachPlanName");
         String feeState = request.getParameter("feeState");
-        String feeStateName = request.getParameter("feeStateName");
+        String feeStateName = StringUtil.getDecode(request, "feeStateName");
         String studyState = request.getParameter("studyState");
-        String studyStateName = request.getParameter("studyStateName");
+        String studyStateName = StringUtil.getDecode(request, "studyStateName");
         String title = StringUtil.getDecode(request, "title");
         String content = StringUtil.getDecode(request, "content");
         String ceratorId = request.getParameter("ceratorId");
