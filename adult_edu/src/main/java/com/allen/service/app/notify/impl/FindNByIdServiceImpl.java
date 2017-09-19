@@ -31,6 +31,7 @@ public class FindNByIdServiceImpl implements FindNByIdService {
             json.put("id", notify.getId());
             json.put("title", notify.getTitle());
             json.put("type", notify.getType());
+            json.put("content", notify.getContent());
             json.put("operator", notify.getOperator());
             json.put("operateTime", notify.getOperateTime());
             json.put("objectRemark", notify.getObjectRemark());
